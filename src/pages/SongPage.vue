@@ -1,11 +1,11 @@
 <template>
     <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Song Quee</h1>
+        <h1 class="text-2xl font-bold mb-4">Song Queue</h1>
         <SongInput @song-added="fetchSongs" />
         <SongList :songs="songs" @delete-song="deleteSong" />
     </div>
 </template>
-  
+
 <script>
 import SongInput from '../components/SongInput.vue'
 import SongList from '../components/SongList.vue'
@@ -35,21 +35,30 @@ export default {
                 .from('songs')
                 .delete()
                 .eq('id', play_id)
-            if (!error) {
-                this.fetchSongs()
-            } else {
+            if (error) {
                 console.error('Error deleting song:', error)
             }
+        },
+        setupRealtime() {
+            supabase
+                .channel('realtime-songs')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'songs' }, payload => {
+                    console.log('Change received!', payload)
+                    this.fetchSongs()
+                })
+                .subscribe()
         }
     },
     mounted() {
         this.fetchSongs()
+        this.setupRealtime()
     },
 }
 </script>
-  
+
 <style scoped>
 .container {
     @apply max-w-4xl mx-auto p-4;
 }
 </style>
+g
