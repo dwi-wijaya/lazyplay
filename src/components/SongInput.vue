@@ -45,7 +45,7 @@ export default {
             if (regex.test(url)) {
                 // Replace and format URL
                 let videoId = this.extractVideoId(url)
-                return `https://www.youtube.com/embed/${videoId}?autoplay=1`
+                return `https://www.youtube.com/embed/${videoId}`
             }
             return null
         },
