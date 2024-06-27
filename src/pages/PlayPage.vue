@@ -39,7 +39,7 @@
         const { error } = await supabase
           .from('songs')
           .delete()
-          .eq('play_id', play_id);
+          .eq('id', play_id);
         if (!error) {
           this.fetchSongs();
         } else {
@@ -60,7 +60,7 @@
           await supabase
             .from('songs')
             .update({ stat: 1 })
-            .eq('play_id', this.currentSong.play_id);
+            .eq('id', this.currentSong.id);
           this.currentSong = null;
           this.fetchSongs();
           this.fetchNextSong();
