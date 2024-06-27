@@ -39,6 +39,7 @@ export default {
         },
         onPlayerStateChange(event) {
             if (event.data === 0) {
+                console.log('Video ended');
                 this.$emit('video-ended')
             }
         },
