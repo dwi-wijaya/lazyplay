@@ -2,7 +2,13 @@
     <div>
         <iframe ref="player" width="640" height="390" :src="videoUrlWithParams"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            frameborder="0"></iframe>
+            frameborder="0">
+        </iframe>
+        <div class="controls">
+            <button @click="playVideo">Play</button>
+            <button @click="pauseVideo">Pause</button>
+            <button @click="stopVideo">Stop</button>
+        </div>
     </div>
 </template>
   
@@ -14,32 +20,37 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {
+            player: null,
+        };
+    },
     computed: {
         videoUrlWithParams() {
-            return `${this.videoUrl}?autoplay=1&enablejsapi=1`
+            return `${this.videoUrl}?autoplay=1&enablejsapi=1`;
         },
     },
     mounted() {
-        this.loadYouTubeIframeAPI()
+        this.loadYouTubeIframeAPI();
     },
     watch: {
         videoUrl() {
-            this.reloadYouTubePlayer()
-        }
+            this.reloadYouTubePlayer();
+        },
     },
     methods: {
         loadYouTubeIframeAPI() {
             if (!window.YT) {
-                const tag = document.createElement('script')
-                tag.src = 'https://www.youtube.com/iframe_api'
-                const firstScriptTag = document.getElementsByTagName('script')[0]
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+                const tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
                 window.onYouTubeIframeAPIReady = () => {
-                    this.initYouTubePlayer()
-                }
+                    this.initYouTubePlayer();
+                };
             } else {
-                this.initYouTubePlayer()
+                this.initYouTubePlayer();
             }
         },
         initYouTubePlayer() {
@@ -48,33 +59,51 @@ export default {
                     onReady: this.onPlayerReady,
                     onStateChange: this.onPlayerStateChange,
                 },
-            })
+            });
         },
         reloadYouTubePlayer() {
             if (this.player) {
-                this.player.destroy()
+                this.player.destroy();
             }
-            this.initYouTubePlayer()
+            this.initYouTubePlayer();
         },
         onPlayerReady(event) {
-            console.log('Player ready')
+            console.log('Player ready');
         },
         onPlayerStateChange(event) {
             if (event.data === window.YT.PlayerState.ENDED) {
                 console.log('Video ended');
-                this.$emit('video-ended')
+                this.$emit('video-ended');
+            }
+        },
+        playVideo() {
+            if (this.player && this.player.playVideo) {
+                this.player.playVideo();
+            }
+        },
+        pauseVideo() {
+            if (this.player && this.player.pauseVideo) {
+                this.player.pauseVideo();
+            }
+        },
+        stopVideo() {
+            if (this.player && this.player.stopVideo) {
+                this.player.stopVideo();
             }
         },
     },
-}
+};
 </script>
   
 <style scoped>
 div {
-    @apply flex justify-center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-iframe {
-    @apply w-full max-w-xl;
+.controls {
+    display: flex;
+    justify-content: center;
 }
 </style>
