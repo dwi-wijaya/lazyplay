@@ -35,7 +35,7 @@ export default {
                 await supabase
                     .from('songs')
                     .update({ stat: 1 })
-                    .eq('play_id', this.currentSong.play_id)
+                    .eq('id', this.currentSong.id)
                 this.currentSong = null
                 this.fetchNextSong()
             }
