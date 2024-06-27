@@ -1,8 +1,8 @@
 <template>
     <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Song List</h1>
+        <h1 class="text-2xl font-bold mb-4">Song Quee</h1>
         <SongInput @song-added="fetchSongs" />
-        <SongList :songs="songs" />
+        <SongList :songs="songs" @delete-song="deleteSong" />
     </div>
 </template>
   
@@ -30,6 +30,17 @@ export default {
                 .order('created_at', { ascending: true })
             if (!error) this.songs = songs
         },
+        async deleteSong(play_id) {
+            const { error } = await supabase
+                .from('songs')
+                .delete()
+                .eq('id', play_id)
+            if (!error) {
+                this.fetchSongs()
+            } else {
+                console.error('Error deleting song:', error)
+            }
+        }
     },
     mounted() {
         this.fetchSongs()
@@ -42,4 +53,3 @@ export default {
     @apply max-w-4xl mx-auto p-4;
 }
 </style>
-  
