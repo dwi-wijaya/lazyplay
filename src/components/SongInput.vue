@@ -62,12 +62,14 @@ export default {
                             duration: videoDetails.duration,
                             thumbnail: videoDetails.thumbnail,
                             created_at: new Date(),
+                            artist: videoDetails.channelTitle,
+                            artistImage: videoDetails.channelImage
                         }
                     ])
 
                 if (!error) {
                     this.$emit('song-added')
-                    this.showInput = false  
+                    this.showInput = false
                     this.url = ''
                     this.note = ''
                     this.error = ''
@@ -86,29 +88,65 @@ export default {
                     throw new Error('Invalid YouTube URL')
                 }
 
-                const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${import.meta.env.VITE_GOOGLE_API_KEY}&part=snippet,contentDetails`
-
-                const response = await fetch(apiUrl)
-                if (!response.ok) {
+                const videoApiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${import.meta.env.VITE_GOOGLE_API_KEY}&part=snippet,contentDetails`
+                const videoResponse = await fetch(videoApiUrl)
+                if (!videoResponse.ok) {
                     throw new Error('Failed to fetch video details')
                 }
-                const data = await response.json()
+                const videoData = await videoResponse.json()
 
-                if (!data.items || data.items.length === 0) {
+                if (!videoData.items || videoData.items.length === 0) {
                     throw new Error('Video not found')
                 }
 
-                const video = data.items[0]
+                const video = videoData.items[0]
+                const channelId = video.snippet.channelId
+
+                const channelTitle = video.snippet.channelTitle
+
+                let artistName = ''
+
+                if (channelTitle.toLowerCase().includes('vevo')) {
+                    // Use video title to extract artist name
+                    const title = video.snippet.title
+                    const titleParts = title.split('-')
+                    if (titleParts.length > 1) {
+                        artistName = titleParts[0].trim()
+                    } else {
+                        artistName = video.snippet.channelTitle.trim()
+                    }
+                } else {
+                    artistName = video.snippet.channelTitle.trim()
+                }
+
+                // Get channel details
+                const channelApiUrl = `https://www.googleapis.com/youtube/v3/channels?id=${channelId}&key=${import.meta.env.VITE_GOOGLE_API_KEY}&part=snippet`
+                const channelResponse = await fetch(channelApiUrl)
+                if (!channelResponse.ok) {
+                    throw new Error('Failed to fetch channel details')
+                }
+                const channelData = await channelResponse.json()
+
+                if (!channelData.items || channelData.items.length === 0) {
+                    throw new Error('Channel not found')
+                }
+
+                const channel = channelData.items[0]
+
+
                 return {
                     title: video.snippet.title,
                     duration: video.contentDetails.duration,
-                    thumbnail: video.snippet.thumbnails.default.url
+                    thumbnail: video.snippet.thumbnails.default.url,
+                    channelTitle: artistName,
+                    channelImage: channel.snippet.thumbnails.default.url
                 }
             } catch (error) {
                 console.error('Error fetching video details:', error.message)
                 return null
             }
         },
+
 
         processYouTubeUrl(url) {
             const regex = /^(https?\:\/\/)?(www\.youtube\.com|music\.youtube\.com|youtu\.?be)\/.+$/
