@@ -5,9 +5,11 @@
             frameborder="0">
         </iframe>
         <div class="controls">
+            <button @click="$emit('prev-song')">Prev</button>
             <button @click="playVideo">Play</button>
             <button @click="pauseVideo">Pause</button>
             <button @click="stopVideo">Stop</button>
+            <button @click="$emit('skip-song')">Next</button>
         </div>
     </div>
 </template>
