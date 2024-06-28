@@ -26,7 +26,7 @@ export default {
             let { data: songs, error } = await supabase
                 .from('songs')
                 .select('*')
-                .eq('stat', 0)
+                .neq('status', 0)
                 .order('created_at', { ascending: true })
             if (!error) this.songs = songs
         },
