@@ -1,7 +1,7 @@
 <template>
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Popular Played Songs</h1>
-        
+
         <div class="mb-4">
             <label for="timeRange" class="mr-2">Select Time Range:</label>
             <select id="timeRange" v-model="selectedTimeRange" @change="fetchPopularSongs">
@@ -13,7 +13,8 @@
             </select>
         </div>
 
-        <SongCard :songs="songs" @delete-song="deleteSong" />
+        <SongCard :songs="topSong" @delete-song="deleteSong" />
+        <ArtisCard :artists="topArtist"/>
     </div>
 </template>
 
@@ -21,14 +22,17 @@
 
 import { supabase } from '../supabase'
 import SongCard from '../components/SongCard.vue';
+import ArtisCard from '../components/ArtisCard.vue';
 
 export default {
     components: {
-    SongCard
+    SongCard,
+    ArtisCard
 },
     data() {
         return {
-            songs: [],
+            topSong: [],
+            topArtist: [],
             selectedTimeRange: '1day', // Default time range
         }
     },
@@ -58,16 +62,23 @@ export default {
                     pastDate.setDate(now.getDate() - 1);
             }
 
-            let { data: songs, error } = await supabase
+            let { data: songs, errorSong } = await supabase
                 .from('popular_songs')
                 .select('*')
                 .gte('created_at', pastDate.toISOString())
-                .order('created_at', { ascending: true })
-
-            if (!error) {
-                this.songs = songs;
+                .limit(12)
+            let { data: artists, errorArtist } = await supabase
+                .from('popular_artist')
+                .select('*')
+                .gte('created_at', pastDate.toISOString())
+                .limit(6)
+                console.log(artists);
+                console.log(songs);
+            if (!errorArtist && !errorSong) {
+                this.topSong = songs;
+                this.topArtist = artists;
             } else {
-                console.error('Error fetching songs:', error);
+                console.error('Error fetching data:', error);
             }
         },
     },
