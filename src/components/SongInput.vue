@@ -45,7 +45,6 @@ export default {
                             duration: videoDetails.duration,
                             thumbnail: videoDetails.thumbnail,
                             created_at: new Date(),
-                            stat: 0 // Assuming default status
                         }
                     ])
 
