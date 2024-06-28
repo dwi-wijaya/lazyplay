@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-color: rgb(94, 92, 127);
+  --background-color: rgb(248, 247, 253);
+  --container-color: rgb(255, 255, 255);
+  --primary-color: rgb(255, 127, 101);
+  --primary-bg: #ff985c4d;
+  --title-color: rgb(53, 50, 82);
+  --text-color: rgb(94, 92, 127);
+  --text-secondary: rgb(133, 131, 165);
+  --stroke-color: #e7e7e7;
+}
+
+.dark {
+  --foreground-color: rgb(159, 159, 159);
+  --background-color: rgb(34, 40, 49);
+  --container-color: rgb(49, 54, 63);
+  --primary-color: rgb(255, 159, 140);
+  --title-color: rgb(228, 230, 235);
+  --text-color: rgb(163, 163, 163);
+  --text-secondary: rgb(121, 121, 121);
+  --stroke-color: rgb(62, 68, 78);
+
+}
+
+body {
+  color: var(--foreground-color);
+  background: var(--background-color);
+
+}
+
+html {
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  letter-spacing: .3px;
+  font-family: "Onest", sans-serif;
+}
+
+@layer utilities {
+
+  .base-transition {
+    @apply transition-all duration-300 ease-in-out
+  }
+
+  .card {
+    @apply px-4 py-3 rounded-xl bg-container border border-stroke base-transition
+  }
+
+  .btn {
+    @apply px-5 py-3 leading-4 rounded-md shadow-sm border border-[#febe82] dark:border-[#ff77134c] bg-[#ffbcaa61] dark:bg-[#f7b8a4] text-[#ff784f] dark:text-[#e04848] flex gap-2 items-center font-normal w-fit hover:border-primary base-transition
+  }
+
+  .hr {
+    @apply border-stroke my-5;
+  }
+
+  .form-input {
+    @apply absolute top-0 left-0 w-full h-full border border-stroke bg-background text-text rounded-xl p-6 z-[1];
+  }
+
+  .form-control {
+    @apply relative mb-6 h-16 w-full;
+  }
+
+  .badge {
+    @apply flex gap-2 whitespace-nowrap items-center py-2 px-3 border border-stroke rounded-md bg-container text-text
+  }
+}
