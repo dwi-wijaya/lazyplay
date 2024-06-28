@@ -71,6 +71,9 @@ export default {
         .on('postgres_changes', { event: '*', schema: 'public', table: 'songs' }, payload => {
           console.log('Change received!', payload)
           this.fetchSongs()
+          if (payload.new.status == -2 && this.songs.length == 0) {
+            this.fetchNextSong()
+          }
         })
         .subscribe()
     },
