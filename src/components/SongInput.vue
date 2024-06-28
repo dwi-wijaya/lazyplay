@@ -1,8 +1,17 @@
 <template>
     <div class="mb-4">
-        <input v-model="url" type="url" placeholder="YouTube URL" class="border p-2 mb-2 w-full" />
-        <input v-model="note" type="text" placeholder="Note" class="border p-2 mb-2 w-full" />
-        <button @click="addSong" class="bg-blue-500 text-white p-2 rounded">Add Song</button>
+        <form @submit.prevent="toggleInput">
+            <div v-if="showInput">
+                <input v-model="url" type="url" placeholder="YouTube URL" class="border p-2 mb-2 w-full" required />
+                <input v-model="note" type="text" placeholder="Note" class="border p-2 mb-2 w-full" />
+            </div>
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded">
+                Add Songs
+            </button>
+            <button v-if="showInput" @click="showInput = false" type="button" class="bg-blue-500 text-white p-2 rounded">
+                Close
+            </button>
+        </form>
         <p v-if="error" class="text-red-500">{{ error }}</p>
     </div>
 </template>
@@ -15,10 +24,18 @@ export default {
         return {
             url: '',
             note: '',
-            error: ''
+            error: '',
+            showInput: false
         }
     },
     methods: {
+        async toggleInput() {
+            if (this.showInput) {
+                await this.addSong()
+            } else {
+                this.showInput = true
+            }
+        },
         async addSong() {
             this.error = ''
 
@@ -50,8 +67,10 @@ export default {
 
                 if (!error) {
                     this.$emit('song-added')
+                    this.showInput = false  
                     this.url = ''
                     this.note = ''
+                    this.error = ''
                 } else {
                     this.error = 'Failed to add the song.'
                 }
