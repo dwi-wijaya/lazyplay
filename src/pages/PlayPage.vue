@@ -2,7 +2,7 @@
   <div class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4">Playing...</h1>
     <div v-if="currentSong">
-      <VideoPlayer :video-url="currentSong.url" @video-ended="handleVideoState" />
+      <VideoPlayer :video-url="currentSong.url" @video-state="handleVideoState" />
     </div>
     <hr>
     <SongList :songs="songs" @delete-song="deleteSong" />
@@ -57,10 +57,12 @@ export default {
       if (this.currentSong) {
         await supabase
           .from('songs')
-          .update({ staust: status })
+          .update({ status: status })
           .eq('id', this.currentSong.id);
-        this.currentSong = null;
-        this.fetchNextSong();
+        if (status == 0) {
+          this.currentSong = null;
+          this.fetchNextSong();
+        }
       }
     },
     setupRealtime() {

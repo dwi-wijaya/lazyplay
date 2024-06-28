@@ -71,8 +71,10 @@ export default {
             console.log('Player ready');
         },
         onPlayerStateChange(event) {
-            console.log('Video state changed');
-            this.$emit('video-ended', event.data);
+            if (event.data !== window.YT.PlayerState.BUFFERING) {
+                console.log('Video state changed');
+                this.$emit('video-state', event.data);
+            }
         },
         playVideo() {
             if (this.player && this.player.playVideo) {
