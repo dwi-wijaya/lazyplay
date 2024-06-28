@@ -111,7 +111,7 @@ export default {
         },
 
         processYouTubeUrl(url) {
-            const regex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/
+            const regex = /^(https?\:\/\/)?(www\.youtube\.com|music\.youtube\.com|youtu\.?be)\/.+$/
             if (regex.test(url)) {
                 let videoId = this.extractVideoId(url)
                 return `https://www.youtube.com/embed/${videoId}`
