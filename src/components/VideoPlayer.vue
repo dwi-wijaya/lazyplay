@@ -71,10 +71,8 @@ export default {
             console.log('Player ready');
         },
         onPlayerStateChange(event) {
-            if (event.data === window.YT.PlayerState.ENDED) {
-                console.log('Video ended');
-                this.$emit('video-ended');
-            }
+            console.log('Video state changed');
+            this.$emit('video-ended', event.data);
         },
         playVideo() {
             if (this.player && this.player.playVideo) {
