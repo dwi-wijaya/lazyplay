@@ -2,10 +2,9 @@
   <Container>
     <h1 class="text-2xl font-bold mb-4">Music Operator Dashboard</h1>
     <div v-if="currentSong">
-      <VideoPlayer :video-url="currentSong.url" @video-state="handleVideoState" @prev-song="setPrevSong"
-        @skip-song="setNexSong" />
+      <VideoPlayer :song="currentSong" :video-url="currentSong.url" @video-state="handleVideoState"
+        @prev-song="setPrevSong" @skip-song="setNexSong" />
     </div>
-    <hr class="my-4 border-neutral-300">
     <SongList :songs="songs" @delete-song="deleteSong" />
   </Container>
 </template>
@@ -33,7 +32,7 @@ export default {
       let { data: songs, error } = await supabase
         .from('songs')
         .select('*')
-        .neq('status', 0)
+        .eq('status', -2)
         .order('created_at', { ascending: true })
         .limit(5);
       if (!error) this.songs = songs;
