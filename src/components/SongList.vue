@@ -4,7 +4,7 @@
             <li v-for="song in songs" :key="song.play_id"
                 class="justify-between flex p-3 !m-0 group items-center hover:bg-background  border-b border-stroke">
                 <div class="flex gap-2 items-center">
-                    <img :src="song.artistImage" width="50" height="50" alt="" class="rounded-lg" srcset="">
+                    <img :src="song.artist_image" width="50" height="50" alt="" class="rounded-lg" srcset="">
                     <div class="flex flex-col">
                         <a :href="song.url" target="_blank" class="!text-neutral-600 font-semibold leading-5">
                             {{ song.title + " - " + parseState(song.status) }}

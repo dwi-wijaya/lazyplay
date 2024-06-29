@@ -74,7 +74,7 @@ export default {
                             thumbnail: videoDetails.thumbnail,
                             created_at: new Date(),
                             artist: videoDetails.channelTitle,
-                            artistImage: videoDetails.channelImage
+                            artist_image: videoDetails.channelImage
                         }
                     ])
 

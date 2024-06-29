@@ -16,7 +16,7 @@
         </div>
 
         <ArtisCard :artists="topArtist" />
-        <TopSong :songs="topSong"/>
+        <TopSong :songs="topSong" />
         <RecentTracks :songs="recentTracks" />
     </Container>
 </template>
@@ -71,14 +71,12 @@ export default {
             }
 
             let { data: songs, errorSong } = await supabase
-                .from('popular_song')
+                .from('popular_songs')
                 .select('*')
-                .gte('created_at', pastDate.toISOString())
                 .limit(10)
             let { data: artists, errorArtist } = await supabase
-                .from('popular_artist')
+                .from('popular_artists')
                 .select('*')
-                .gte('created_at', pastDate.toISOString())
                 .limit(10)
             let { data: recentTracks, erroRecentTrack } = await supabase
                 .from('songs')
