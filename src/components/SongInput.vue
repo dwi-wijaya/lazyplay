@@ -1,16 +1,22 @@
 <template>
     <div class="mb-4">
-        <form @submit.prevent="toggleInput">
-            <div v-if="showInput">
-                <input v-model="url" type="url" placeholder="YouTube URL" class="border p-2 mb-2 w-full" required />
-                <input v-model="note" type="text" placeholder="Note" class="border p-2 mb-2 w-full" />
+
+        <form @submit.prevent="toggleInput" :class="['flex justify-between gap-4', { 'flex-col': showInput }]">
+            <div class="flex justify-between flex-1">
+                <h1 class="text-2xl font-bold">Song Queue</h1>
+                <div class="flex gap-2 justify-end">
+                    <button v-if="showInput" @click="showInput = false" type="button" class="btn !py-2 !px-3">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                    <button type="submit" class="btn !py-2 !px-3">
+                        <i class="fad fa-music"></i>Add Songs
+                    </button>
+                </div>
             </div>
-            <button type="submit" class="bg-blue-500 text-white p-2 rounded">
-                Add Songs
-            </button>
-            <button v-if="showInput" @click="showInput = false" type="button" class="bg-blue-500 text-white p-2 rounded">
-                Close
-            </button>
+            <div v-if="showInput" class="grid col-2 gap-1">
+                <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL" class="form-input" required />
+                <input v-model="note" type="text" placeholder="Note" class="form-input" />
+            </div>
         </form>
         <p v-if="error" class="text-red-500">{{ error }}</p>
     </div>
@@ -34,6 +40,11 @@ export default {
                 await this.addSong()
             } else {
                 this.showInput = true
+                this.$nextTick(() => {
+                if (this.showInput) {
+                    this.$refs.urlInput.focus();
+                }
+            });
             }
         },
         async addSong() {
@@ -137,7 +148,7 @@ export default {
                 return {
                     title: video.snippet.title,
                     duration: video.contentDetails.duration,
-                    thumbnail: video.snippet.thumbnails.default.url,
+                    thumbnail: video.snippet.thumbnails.high.url,
                     channelTitle: artistName,
                     channelImage: channel.snippet.thumbnails.default.url
                 }
@@ -164,13 +175,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-input {
-    @apply border p-2 mb-2 w-full;
-}
-
-button {
-    @apply bg-blue-500 text-white p-2 rounded;
-}
-</style>

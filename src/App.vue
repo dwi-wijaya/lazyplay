@@ -1,15 +1,22 @@
 <template>
-  <div id="app" class="container mx-auto p-4">
-    <router-view></router-view>
+  <div>
+    <Sidebar />
+    <main class="group/main lg:ml-64  ml-0 min-h-[100vh]">
+      <Overlay />
+      <router-view />
+    </main>
   </div>
 </template>
 
 <script>
+import Overlay from './components/layout/Overlay.vue';
+import Sidebar from './components/layout/Sidebar.vue';
+
 export default {
-  name: 'App',
+  components: {
+    Sidebar,
+    Overlay
+  },
+
 };
 </script>
-
-<style>
-/* Tambahkan style kustom jika diperlukan */
-</style>

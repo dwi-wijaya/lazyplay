@@ -60,7 +60,7 @@ html {
   }
 
   .form-input {
-    @apply absolute top-0 left-0 w-full h-full border border-stroke bg-background text-text rounded-xl p-6 z-[1];
+    @apply border border-stroke bg-container text-text rounded-xl py-2 px-3 z-[1] focus:outline-slate-300;
   }
 
   .form-control {
@@ -69,5 +69,9 @@ html {
 
   .badge {
     @apply flex gap-2 whitespace-nowrap items-center py-2 px-3 border border-stroke rounded-md bg-container text-text
+  }
+
+  .toggle {
+    @apply top-5 rounded-lg fixed cursor-pointer h-10 w-fit px-3 bg-container text-text border border-stroke flex justify-center items-center z-10 transition-all duration-300 ease-in-out;
   }
 }

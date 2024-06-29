@@ -1,15 +1,15 @@
 <template>
     <div>
-        <iframe ref="player" width="640" height="390" :src="videoUrlWithParams"
+        <iframe class="rounded-xl w-full h-[30rem]" ref="player"  :src="videoUrlWithParams"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             frameborder="0">
         </iframe>
-        <div class="controls">
-            <button @click="$emit('prev-song')">Prev</button>
-            <button @click="playVideo">Play</button>
-            <button @click="pauseVideo">Pause</button>
-            <button @click="stopVideo">Stop</button>
-            <button @click="$emit('skip-song')">Next</button>
+        <div class="flex gap-2 my-4">
+            <button class="btn" @click="$emit('prev-song')"><i class="fad fa-backward"></i></button>
+            <button class="btn" @click="playVideo"><i class="fad fa-play"></i></button>
+            <button class="btn" @click="pauseVideo"><i class="fad fa-pause"></i></button>
+            <button class="btn" @click="stopVideo"><i class="fad fa-stop"></i></button>
+            <button class="btn" @click="$emit('skip-song')"><i class="fad fa-forward"></i></button>
         </div>
     </div>
 </template>
@@ -96,16 +96,3 @@ export default {
     },
 };
 </script>
-  
-<style scoped>
-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.controls {
-    display: flex;
-    justify-content: center;
-}
-</style>

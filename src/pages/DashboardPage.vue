@@ -1,33 +1,36 @@
 <template>
-    <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Popular Played Songs</h1>
+    <Container>
+        <div class="flex justify-between">
+            <h1 class="text-2xl font-bold mb-4">Popular Played Songs</h1>
 
-        <div class="mb-4">
-            <label for="timeRange" class="mr-2">Select Time Range:</label>
-            <select id="timeRange" v-model="selectedTimeRange" @change="fetchPopularSongs">
-                <option value="1day">1 Day</option>
-                <option value="1week">1 Week</option>
-                <option value="1month">1 Month</option>
-                <option value="3months">3 Months</option>
-                <option value="1year">1 Year</option>
-            </select>
+            <div class="mb-4">
+                <select id="timeRange" class="p-2 border rounded-md focus:outline-none" v-model="selectedTimeRange" @change="fetchPopularSongs">
+                    <option value="1day">1 Day</option>
+                    <option value="1week">1 Week</option>
+                    <option value="1month">1 Month</option>
+                    <option value="3months">3 Months</option>
+                    <option value="1year">1 Year</option>
+                </select>
+            </div>
         </div>
 
-        <SongCard :songs="topSong" @delete-song="deleteSong" />
-        <ArtisCard :artists="topArtist"/>
-    </div>
+        <ArtisCard :artists="topArtist" />
+        <TopSong :songs="topSong" @delete-song="deleteSong" />
+    </Container>
 </template>
 
 <script>
 
 import { supabase } from '../supabase'
-import SongCard from '../components/SongCard.vue';
 import ArtisCard from '../components/ArtisCard.vue';
+import Container from '../components/layout/Container.vue';
+import TopSong from '../components/TopSong.vue';
 
 export default {
     components: {
-    SongCard,
-    ArtisCard
+    ArtisCard,
+    Container,
+    TopSong
 },
     data() {
         return {
@@ -63,7 +66,7 @@ export default {
             }
 
             let { data: songs, errorSong } = await supabase
-                .from('popular_songs')
+                .from('popular_song')
                 .select('*')
                 .gte('created_at', pastDate.toISOString())
                 .limit(12)
@@ -71,9 +74,9 @@ export default {
                 .from('popular_artist')
                 .select('*')
                 .gte('created_at', pastDate.toISOString())
-                .limit(6)
-                console.log(artists);
-                console.log(songs);
+                .limit(8)
+            console.log(artists);
+            console.log(songs);
             if (!errorArtist && !errorSong) {
                 this.topSong = songs;
                 this.topArtist = artists;

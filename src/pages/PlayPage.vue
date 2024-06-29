@@ -1,24 +1,26 @@
 <template>
-  <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Playing...</h1>
+  <Container>
+    <h1 class="text-2xl font-bold mb-4">Music Operator Dashboard</h1>
     <div v-if="currentSong">
       <VideoPlayer :video-url="currentSong.url" @video-state="handleVideoState" @prev-song="setPrevSong"
         @skip-song="setNexSong" />
     </div>
-    <hr>
+    <hr class="my-4 border-neutral-300">
     <SongList :songs="songs" @delete-song="deleteSong" />
-  </div>
+  </Container>
 </template>
     
 <script>
 import VideoPlayer from '../components/VideoPlayer.vue';
 import SongList from '../components/SongList.vue';
 import { supabase } from '../supabase';
+import Container from '../components/layout/Container.vue';
 
 export default {
   components: {
     VideoPlayer,
     SongList,
+    Container
   },
   data() {
     return {
@@ -109,9 +111,5 @@ export default {
 };
 </script>
     
-<style scoped>
-.container {
-  @apply max-w-4xl mx-auto p-4;
-}
-</style>
+
   

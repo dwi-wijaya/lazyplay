@@ -1,21 +1,26 @@
 <template>
-    <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Song Queue</h1>
-        <SongInput @song-added="fetchSongs" />
-        <SongList :songs="songs" @delete-song="deleteSong" />
-    </div>
+    <Container>
+        <div class="">
+            <SongInput @song-added="fetchSongs" />
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4">
+                <SongCard :songs="songs" @delete-song="deleteSong" />
+            </div>
+        </div>
+    </Container>
 </template>
 
 <script>
+import SongCard from '../components/SongCard.vue'
 import SongInput from '../components/SongInput.vue'
-import SongList from '../components/SongList.vue'
+import Container from '../components/layout/Container.vue'
 import { supabase } from '../supabase'
 
 export default {
     components: {
-        SongInput,
-        SongList,
-    },
+    SongInput,
+    Container,
+    SongCard
+},
     data() {
         return {
             songs: [],
