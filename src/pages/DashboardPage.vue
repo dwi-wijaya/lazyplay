@@ -4,7 +4,8 @@
             <h1 class="text-2xl font-bold mb-4">Popular Played Songs</h1>
 
             <div class="mb-4">
-                <select id="timeRange" class="p-2 border rounded-md focus:outline-none" v-model="selectedTimeRange" @change="fetchPopularSongs">
+                <select id="timeRange" class="p-2 border rounded-md focus:outline-none" v-model="selectedTimeRange"
+                    @change="fetchPopularSongs">
                     <option value="1day">1 Day</option>
                     <option value="1week">1 Week</option>
                     <option value="1month">1 Month</option>
@@ -15,7 +16,8 @@
         </div>
 
         <ArtisCard :artists="topArtist" />
-        <TopSong :songs="topSong" @delete-song="deleteSong" />
+        <TopSong :songs="topSong"/>
+        <RecentTracks :songs="recentTracks" />
     </Container>
 </template>
 
@@ -25,17 +27,20 @@ import { supabase } from '../supabase'
 import ArtisCard from '../components/ArtisCard.vue';
 import Container from '../components/layout/Container.vue';
 import TopSong from '../components/TopSong.vue';
+import RecentTracks from '../components/RecentTracks.vue';
 
 export default {
     components: {
-    ArtisCard,
-    Container,
-    TopSong
-},
+        ArtisCard,
+        Container,
+        TopSong,
+        RecentTracks
+    },
     data() {
         return {
             topSong: [],
             topArtist: [],
+            recentTracks: [],
             selectedTimeRange: '1day', // Default time range
         }
     },
@@ -69,17 +74,23 @@ export default {
                 .from('popular_song')
                 .select('*')
                 .gte('created_at', pastDate.toISOString())
-                .limit(12)
+                .limit(10)
             let { data: artists, errorArtist } = await supabase
                 .from('popular_artist')
                 .select('*')
                 .gte('created_at', pastDate.toISOString())
-                .limit(8)
-            console.log(artists);
-            console.log(songs);
-            if (!errorArtist && !errorSong) {
+                .limit(10)
+            let { data: recentTracks, erroRecentTrack } = await supabase
+                .from('songs')
+                .select('*')
+                .eq('status', 0)
+                .order('created_at', { ascending: false })
+                .limit(10)
+
+            if (!errorArtist && !errorSong && !erroRecentTrack) {
                 this.topSong = songs;
                 this.topArtist = artists;
+                this.recentTracks = recentTracks
             } else {
                 console.error('Error fetching data:', error);
             }
