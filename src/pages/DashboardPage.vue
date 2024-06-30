@@ -136,7 +136,7 @@ export default {
             let { data: currentSong, erroCurrentSong } = await supabase
                 .from('songs')
                 .select('*')
-                .in('status', [-1, 1, 2])
+                .in('status', [-1, 1, 2, 5])
                 .limit(1)
             if (!erroCurrentSong) {
                 this.currentSong = currentSong[0]
@@ -154,7 +154,7 @@ export default {
                         this.fetchPlayingSong()
                     }else if (payload.new.status == -2) {
                         this.fetchUpcomingSongs()
-                    } else if ([-1, 1, 2].includes(payload.new.status)) {
+                    } else if ([-1, 1, 2, 5].includes(payload.new.status)) {
                         this.fetchPlayingSong()
                     }
                 })

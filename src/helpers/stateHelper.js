@@ -20,7 +20,7 @@ export const stateIcon = (state) => {
         '1': 'fal fa-waveform-lines',
         '2': 'fal fa-circle-pause',
         '3': 'fas fa-spinner-third fa-spin',
-        '5': 'Cued',
+        '5': 'fal fa-spinner-third fa-spin',
     }
     return statusIcon.hasOwnProperty(state) ? statusIcon[state] : '-'
 
