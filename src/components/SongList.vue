@@ -1,15 +1,15 @@
 <template>
-    <section class="list-disc flex flex-col bg-container border border-stroke rounded-lg p-3">
+    <section class="list-disc flex flex-col bg-container border border-stroke rounded-lg">
         <ul class=" rounded-md">
             <li v-for="song in songs" :key="song.play_id"
                 class="justify-between flex p-3 !m-0 group items-center hover:bg-background  border-b border-stroke last:border-b-0">
                 <div class="flex gap-2 items-center">
                     <img :src="song.artist_image" width="50" height="50" alt="" class="rounded-lg" srcset="">
                     <div class="flex flex-col">
-                        <a :href="song.url" target="_blank" class="!text-neutral-600 font-semibold leading-5">
+                        <a :href="song.url" target="_blank" class="!text-text leading-5">
                             {{ song.title + " - " + parseState(song.status) }}
                         </a>
-                        <p>{{ song.artist }}</p>
+                        <p class="text-subtext"><i class="fad fa-user-music mr-2"></i>{{ song.artist }}</p>
                     </div>
                 </div>
                 <div class="flex mr-4">

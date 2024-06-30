@@ -43,7 +43,7 @@
                             Recusandae, quasi animi. Id magni, asperiores, voluptatem rerum in nulla mollitia, ea
                             necessitatibus porro quaerat eveniet neque vitae iure debitis nobis. Modi.</span>
                     </div>
-                    <hr class="border-t border-neutral-500 my-4">
+                    <hr class="border-t border-neutral-500  my-4">
                     <div class="flex justify-between items-center text-neutral-400">
                         <div class="flex gap-2 items-center">
                             <i class="fal fa-user-circle text-sm"></i>
@@ -60,9 +60,6 @@
                         </div>
                     </div>
                 </div>
-
-                <i class='bx bx-time' size={14} />
-
             </div>
         </div>
     </div>

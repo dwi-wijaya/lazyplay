@@ -15,21 +15,21 @@
             </div>
             <div class="flex justify-between items-end">
                 <div class="">
-                    <p class="line-clamp-1 mt-3 font-semibold">{{ currentSong ? currentSong.title : '-' }}</p>
-                    <p class="text-sm text-neutral-400">
+                    <p class="text-text line-clamp-1 mt-3 font-semibold">{{ currentSong ? currentSong.title : '-' }}</p>
+                    <p class="text-subtext text-sm text-neutral-400">
                         <i class="fad fa-user-music mr-2"></i>
                         {{ currentSong ? currentSong.artist : '-' }}
                     </p>
                 </div>
                 <i class="fad fa-list-music"></i>
             </div>
-            <hr class="my-4">
+            <hr class="my-4 border border-stroke">
             <ul class="flex flex-col gap-3">
                 <li class="flex gap-2 px-0" v-for="(song, index) in upcomingSongs" :key="song.id">
                     <img :src="song.artist_image" alt="" srcset="" class="rounded-lg object-cover !w-12">
                     <div class="flex flex-col">
-                        <p class="line-clamp-1 ">{{ song.title }}</p>
-                        <p class="text-sm text-neutral-400 line-clamp-1"><i class="fad fa-user-music mr-2"></i>{{
+                        <p class="text-text line-clamp-1 ">{{ song.title }}</p>
+                        <p class="text-subtext text-sm text-neutral-400 line-clamp-1"><i class="fad fa-user-music mr-2"></i>{{
                             song.artist }}
                         </p>
                     </div>

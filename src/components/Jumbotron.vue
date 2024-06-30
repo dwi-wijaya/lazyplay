@@ -1,5 +1,5 @@
 <template>
-    <div class="jumbotron relative mt-8 pt-48 md:pt-12 p-6 rounded-xl mb-6 border border-stroke bg-[#76110c] ">
+    <div class="jumbotron relative mt-8 pt-48 md:pt-12 p-6 rounded-xl mb-6 border border-rose-700 bg-[#76110c] ">
         <img src="/logo.png" class="absolute -top-6 left-6 w-14" alt="" srcset="">
         <div class="flex justify-between">
             <div class="w-full md:w-1/2">

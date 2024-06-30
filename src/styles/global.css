@@ -5,14 +5,14 @@
 
 :root {
   --foreground-color: rgb(94, 92, 127);
-  --background-color: rgb(248, 247, 253);
+  --background-color: rgb(253 247 247);
   --container-color: rgb(255, 255, 255);
-  --primary-color: rgb(255, 127, 101);
+  --primary-color: rgb(255 101 101);
   --primary-bg: #ff985c4d;
   --title-color: rgb(53, 50, 82);
   --text-color: rgb(94, 92, 127);
   --text-secondary: rgb(133, 131, 165);
-  --stroke-color: #e7e7e7;
+  --stroke-color: #ffe5e5;
 }
 
 .dark {
@@ -52,7 +52,7 @@ html {
   }
 
   .btn {
-    @apply px-5 py-3 leading-4 rounded-md shadow-sm border border-[#febe82] dark:border-[#ff77134c] bg-[#ffbcaa61] dark:bg-[#f7b8a4] text-[#ff784f] dark:text-[#e04848] flex gap-2 items-center font-normal w-fit hover:border-primary base-transition
+    @apply px-5 py-3 leading-4 rounded-md shadow-sm border border-[#ff13134c] dark:border-[#ff77134c] bg-[#ffc1c1] dark:bg-[#f7b8a4] text-[#d21f1f] dark:text-[#e04848] flex gap-2 items-center font-normal w-fit hover:border-primary base-transition
   }
 
   .hr {
