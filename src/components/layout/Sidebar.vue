@@ -7,14 +7,15 @@
                 </router-link>
                 <div class="flex gap-2 flex-col">
                     <theme-toggle />
-                    <signout/>
+                    <signout />
                 </div>
             </div>
             <nav class="nav">
                 <div class="nav__menu p-6 bg-background rounded-l-none rounded-2xl">
                     <ul class="flex flex-col items-center gap-y-6">
                         <li v-for="item in menuItems" :key="item.label" class="nav__item w-full group">
-                            <router-link :to="item.href" class="flex items-center justify-between w-full transition-300">
+                            <router-link :to="item.href"
+                                :class="['flex items-center justify-between w-full transition-300', isActiveRoute(item.href) ? 'text-primary' : '']">
                                 <span class="flex items-center gap-3">
                                     <i
                                         :class="[item.iconClass, 'min-w-5 flex justify-center items-center group-hover:-rotate-[8deg] duration-300 transition-all']"></i>
@@ -78,6 +79,9 @@ export default {
         document.body.style.overflow = '';
     },
     methods: {
+        isActiveRoute(href) {
+            return this.$route.path === href;
+        },
         handleClickOutside(event) {
             if (this.sidebarElement && !this.sidebarElement.contains(event.target)) {
                 this.toggle = false;
