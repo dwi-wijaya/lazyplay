@@ -48,8 +48,8 @@ export default {
             sidebarElement: null,
             toggle: false,
             menuItems: [
-                { label: 'Browse', href: '/dashboard', iconClass: 'fad fa-home' },
-                { label: 'Queue', href: '/', iconClass: 'fad fa-album-collection-circle-plus' },
+                { label: 'Dashboard', href: '/', iconClass: 'fad fa-home' },
+                { label: 'Queue', href: '/queue', iconClass: 'fad fa-album-collection-circle-plus' },
                 { label: 'Player', href: '/play', iconClass: 'fad fa-circle-play' },
                 // Add more menu items as needed
             ],
@@ -103,9 +103,3 @@ export default {
     },
 };
 </script>
-  
-<style scoped>
-.sidebar {
-    @apply max-h-[100svh] scrollbar-hide overflow-x-auto fixed -left-64 lg:left-0 top-0 bg-container border border-stroke pl-0 p-6 w-64 min-h-screen flex flex-col gap-8 justify-between text-center z-10 shadow-sm;
-}
-</style>

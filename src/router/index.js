@@ -4,9 +4,9 @@ import PlayPage from '../pages/PlayPage.vue'
 import DashboardPage from '../pages/DashboardPage.vue'
 
 const routes = [
-  { path: '/', component: SongPage },
+  { path: '/', component: DashboardPage },
+  { path: '/queue', component: SongPage },
   { path: '/play', component: PlayPage },
-  { path: '/dashboard', component: DashboardPage },
 ]
 
 const router = createRouter({

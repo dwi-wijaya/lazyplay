@@ -74,4 +74,7 @@ html {
   .toggle {
     @apply top-5 rounded-lg fixed cursor-pointer h-10 w-fit px-3 bg-container text-text border border-stroke flex justify-center items-center z-10 transition-all duration-300 ease-in-out;
   }
+  .sidebar{
+    @apply max-h-[100svh] scrollbar-hide overflow-x-auto fixed -left-64 lg:left-0 top-0 bg-container border border-stroke pl-0 p-6 w-64 min-h-screen flex flex-col gap-8 justify-between base-transition text-center z-10 shadow-sm
+  }
 }
