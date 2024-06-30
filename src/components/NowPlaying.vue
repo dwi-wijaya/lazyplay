@@ -1,8 +1,8 @@
 <template>
     <div class="w-full sm:max-w-64 min-h-[40vh] pb-6">
-        <div class="bg-container rounded-2xl p-4 lg:p-6 border border-stroke h-full">
+        <div class="bg-container rounded-2xl p-4 lg:p-5 border border-stroke h-full">
 
-            <p class="mb-3 text-text">
+            <p class="mb-2 text-text">
                 <i :class="['text-sm mr-2', stateIcon(currentSong.status)]"></i>
                 {{ parseState(currentSong.status) }}
             </p>
@@ -15,15 +15,17 @@
             </div>
             <div class="flex justify-between items-end">
                 <div class="">
-                    <p class="text-text line-clamp-1 mt-3 font-semibold">{{ currentSong ? currentSong.title : '-' }}</p>
+                    <p class="text-text line-clamp-1 mt-2 font-semibold">{{ currentSong ? currentSong.title : '-' }}</p>
                     <p class="text-subtext text-sm text-neutral-400">
-                        <i class="fad fa-user-music mr-2"></i>
-                        {{ currentSong ? currentSong.artist : '-' }}
+                        <i class="fad fa-user-music mr-2"></i>{{ currentSong ? currentSong.artist : '-' }}
                     </p>
                 </div>
-                <i class="fad fa-list-music"></i>
+                
             </div>
-            <hr class="my-4 border border-stroke">
+            <div class="flex gap-2 mt-1 mb-4 items-center">
+                <p class="text-subtext text-sm"><i class="fad fa-list-music mr-2"></i> Queue</p>
+                <hr class="flex-1 border border-stroke">
+            </div>
             <ul class="flex flex-col gap-3">
                 <li class="flex gap-2 px-0" v-for="(song, index) in upcomingSongs" :key="song.id">
                     <img :src="song.artist_image" alt="" srcset="" class="rounded-lg object-cover !w-12">
