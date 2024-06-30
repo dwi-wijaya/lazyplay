@@ -4,47 +4,51 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             frameborder="0">
         </iframe>
-        <div class="flex justify-between gap-2 mt-5 bg-container ">
+        <div class="flex justify-between gap-2 mt-5 bg-container">
             <div class="flex gap-2">
-                <img :src="song.artist_image" alt="" srcset="" class="w-12 h-12 rounded-md object-cover">
+                <img :src="song.artist_image" alt="" class="w-12 h-12 rounded-md object-cover">
                 <div class="flex flex-col">
-                    <p class="line-clamp-1 font-semibold">
-                        {{ song.title }}
-
-                    </p>
-                    <p class=" text-sm text-text  line-clamp-1">
+                    <p class="line-clamp-1 font-semibold">{{ song.title }}</p>
+                    <p class="text-sm text-text line-clamp-1">
                         <i class="text-subtext fad fa-user-music mr-1"></i>
                         {{ song.artist }}
                     </p>
                 </div>
-
             </div>
             <div class="flex gap-2 items-center mr-1">
-                <button class="btn !px-3 !py-2 h-fit ">
+                <button class="btn !px-3 !py-2 h-fit">
                     <i class="fad fa-timer"></i>{{ parseDuration(song.duration) }}
                 </button>
-                <button class="btn !px-3 !py-2 h-fit" @click="$emit('prev-song')"><i class="fad fa-backward"></i></button>
-                <button class="btn !px-3 !py-2 h-fit" @click="playVideo"><i class="fad fa-play"></i></button>
-                <button class="btn !px-3 !py-2 h-fit" @click="pauseVideo"><i class="fad fa-pause"></i></button>
-                <button class="btn !px-3 !py-2 h-fit" @click="stopVideo"><i class="fad fa-stop"></i></button>
-                <button class="btn !px-3 !py-2 h-fit" @click="$emit('skip-song')"><i class="fad fa-forward"></i></button>
+                <button class="btn !px-3 !py-2 h-fit" @click="$emit('prev-song')">
+                    <i class="fad fa-backward"></i>
+                </button>
+                <button class="btn !px-3 !py-2 h-fit" @click="togglePlayPause">
+                    <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+                </button>
+                <button class="btn !px-3 !py-2 h-fit" @click="stopVideo">
+                    <i class="fas fa-stop"></i>
+                </button>
+                <button class="btn !px-3 !py-2 h-fit" @click="$emit('skip-song')">
+                    <i class="fad fa-forward"></i>
+                </button>
             </div>
         </div>
     </div>
 </template>
-
+  
 <script>
 import { parseDuration } from '../helpers/durationHelper';
 
 export default {
     props: {
         song: {
-            type: String,
+            type: Object,
             required: true,
         },
     },
     data() {
         return {
+            isPlaying: false,
             player: null,
         };
     },
@@ -98,6 +102,19 @@ export default {
             if (event.data !== window.YT.PlayerState.BUFFERING) {
                 console.log('Video state changed');
                 this.$emit('video-state', event.data);
+
+                if (event.data === window.YT.PlayerState.PLAYING) {
+                    this.isPlaying = true;
+                } else if (event.data === window.YT.PlayerState.PAUSED || event.data === window.YT.PlayerState.ENDED) {
+                    this.isPlaying = false;
+                }
+            }
+        },
+        togglePlayPause() {
+            if (this.isPlaying) {
+                this.pauseVideo();
+            } else {
+                this.playVideo();
             }
         },
         playVideo() {
