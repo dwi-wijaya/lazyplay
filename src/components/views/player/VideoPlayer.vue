@@ -37,7 +37,7 @@
 </template>
   
 <script>
-import { parseDuration } from '../helpers/durationHelper';
+import { parseDuration } from '@helpers/durationHelper';
 
 export default {
     props: {

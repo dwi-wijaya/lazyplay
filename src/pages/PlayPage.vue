@@ -10,10 +10,10 @@
 </template>
     
 <script>
-import VideoPlayer from '../components/VideoPlayer.vue';
-import SongList from '../components/SongList.vue';
-import { supabase } from '../supabase';
-import Container from '../components/layout/Container.vue';
+import VideoPlayer from '@components/views/player/VideoPlayer.vue';
+import SongList from '@components/views/player/SongList.vue';
+import Container from '@components/layout/Container.vue';
+import { supabase } from '@services/supabase';
 
 export default {
   components: {

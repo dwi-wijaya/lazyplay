@@ -7,6 +7,7 @@
                 </router-link>
                 <div class="flex gap-2 flex-col">
                     <theme-toggle />
+                    <signout/>
                 </div>
             </div>
             <nav class="nav">
@@ -40,7 +41,8 @@
 // Import CollabsToggle if needed
 import { ref, onMounted, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import ThemeToggle from '../ThemeToggle.vue';
+import ThemeToggle from './ThemeToggle.vue';
+import Signout from '../Signout.vue';
 export default {
     // components: { ThemeToggle },
     data() {
@@ -49,8 +51,11 @@ export default {
             toggle: false,
             menuItems: [
                 { label: 'Dashboard', href: '/', iconClass: 'fad fa-home' },
-                { label: 'Queue', href: '/queue', iconClass: 'fad fa-album-collection-circle-plus' },
+                { label: 'Queue', href: '/queue', iconClass: 'fad fa-list-music' },
                 { label: 'Player', href: '/play', iconClass: 'fad fa-circle-play' },
+                { label: 'Recent', href: '/recent', iconClass: 'fad fa-clock-rotate-left' },
+                { label: 'Account', href: '/log', iconClass: 'fad fa-user' },
+                { label: 'Users', href: '/user', iconClass: 'fad fa-users' },
                 // Add more menu items as needed
             ],
         };
@@ -100,6 +105,6 @@ export default {
             this.toggle = !this.toggle;
         },
     },
-    components: { ThemeToggle }
+    components: { ThemeToggle, Signout }
 };
 </script>

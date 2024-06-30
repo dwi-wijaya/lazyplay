@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import { parseDuration } from '../helpers/durationHelper';
-import { parseState } from '../helpers/stateHelper';
+import { parseDuration } from '@helpers/durationHelper';
+import { parseState } from '@helpers/stateHelper';
 
 export default {
     props: {

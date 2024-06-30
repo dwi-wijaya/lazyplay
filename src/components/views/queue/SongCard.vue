@@ -66,8 +66,8 @@
 </template>
   
 <script>
-import { parseState, stateIcon } from '../helpers/stateHelper';
-import { parseDuration } from '../helpers/durationHelper';
+import { parseState, stateIcon } from '../../../helpers/stateHelper';
+import { parseDuration } from '../../../helpers/durationHelper';
 import dateFormat from "dateformat";
 
 export default {

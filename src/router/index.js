@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SongPage from '../pages/SongPage.vue'
-import PlayPage from '../pages/PlayPage.vue'
-import DashboardPage from '../pages/DashboardPage.vue'
+import DashboardPage from '@pages/DashboardPage.vue'
+import QueuePage from '@pages/QueuePage.vue'
+import PlayPage from '@pages/PlayPage.vue'
 
 const routes = [
   { path: '/', component: DashboardPage },
-  { path: '/queue', component: SongPage },
+  { path: '/queue', component: QueuePage },
   { path: '/play', component: PlayPage },
 ]
 

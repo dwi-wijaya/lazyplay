@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import SongCard from '../components/SongCard.vue'
-import SongInput from '../components/SongInput.vue'
-import Container from '../components/layout/Container.vue'
-import { supabase } from '../supabase'
+import SongCard from '@components/views/queue/SongCard.vue'
+import SongInput from '@components/views/queue/SongInput.vue'
+import Container from '@components/layout/Container.vue'
+import { supabase } from '@services/supabase'
 
 export default {
     components: {

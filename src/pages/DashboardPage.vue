@@ -30,14 +30,14 @@
 
 <script>
 
-import { supabase } from '../supabase'
-import ArtisCard from '../components/ArtisCard.vue';
-import Container from '../components/layout/Container.vue';
-import TopSong from '../components/TopSong.vue';
-import RecentTracks from '../components/RecentTracks.vue';
-import { parseState, stateIcon } from '../helpers/stateHelper';
-import Jumbotron from '../components/Jumbotron.vue';
-import NowPlaying from '../components/NowPlaying.vue';
+import ArtisCard from '@components/views/dashboard/ArtisCard.vue';
+import Container from '@components/layout/Container.vue';
+import TopSong from '@components/views/dashboard/TopSong.vue';
+import RecentTracks from '@components/views/dashboard/RecentTracks.vue';
+import Jumbotron from '@components/views/dashboard/Jumbotron.vue';
+import NowPlaying from '@components/views/dashboard/NowPlaying.vue';
+import { supabase } from '@services/supabase'
+import { parseState, stateIcon } from '@helpers/stateHelper';
 
 export default {
     components: {
@@ -152,7 +152,7 @@ export default {
                     if (payload.new.status == 0) {
                         this.fetchDasboardSongs()
                         this.fetchPlayingSong()
-                    }else if (payload.new.status == -2) {
+                    } else if (payload.new.status == -2) {
                         this.fetchUpcomingSongs()
                     } else if ([-1, 1, 2, 5].includes(payload.new.status)) {
                         this.fetchPlayingSong()

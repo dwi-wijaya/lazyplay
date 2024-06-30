@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { parseState, stateIcon } from '../helpers/stateHelper';
+import { parseState, stateIcon } from '@helpers/stateHelper';
 
 
 export default {
