@@ -1,5 +1,6 @@
 export const parseState = (state) => {
     const status = {
+        '-3': 'No Activity',
         '-2': 'Queue',
         '-1': 'Waiting',
         '0': 'Ended',
@@ -12,6 +13,7 @@ export const parseState = (state) => {
 }
 export const stateIcon = (state) => {
     const statusIcon = {
+        '-3': 'fal fa-circle-xmark',
         '-2': 'fal fa-hourglass-start',
         '-1': 'fal fa-spinner-third fa-spin',
         '0': 'fal fa-circle-stop',

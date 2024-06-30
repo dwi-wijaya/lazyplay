@@ -2,7 +2,7 @@
     <section class="list-disc flex flex-col bg-container border border-stroke rounded-lg p-3">
         <ul class=" rounded-md">
             <li v-for="song in songs" :key="song.play_id"
-                class="justify-between flex p-3 !m-0 group items-center hover:bg-background  border-b border-stroke">
+                class="justify-between flex p-3 !m-0 group items-center hover:bg-background  border-b border-stroke last:border-b-0">
                 <div class="flex gap-2 items-center">
                     <img :src="song.artist_image" width="50" height="50" alt="" class="rounded-lg" srcset="">
                     <div class="flex flex-col">

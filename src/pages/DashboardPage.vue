@@ -1,23 +1,30 @@
 <template>
-    <Container>
-        <div class="flex justify-between">
-            <h1 class="text-2xl font-bold mb-4">Popular Played Songs</h1>
+    <Container class="!mb-0 !h-[calc(100vh-20rem)]">
+        <div class="flex flex-col sm:flex-row gap-6">
+            <div class="h-[calc(100vh-5rem)] overflow-x-auto scrollbar-hide pb-6 flex-1">
+                <Jumbotron />
 
-            <div class="mb-4">
-                <select id="timeRange" class="p-2 border rounded-md focus:outline-none" v-model="selectedTimeRange"
-                    @change="fetchPopularSongs">
-                    <option value="1day">1 Day</option>
-                    <option value="1week">1 Week</option>
-                    <option value="1month">1 Month</option>
-                    <option value="3months">3 Months</option>
-                    <option value="1year">1 Year</option>
-                </select>
+                <div class="flex justify-between">
+                    <!-- <h1 class="text-2xl font-bold mb-4">Popular Played Songs</h1>
+
+                    <div class="mb-4">
+                        <select id="timeRange" class="p-2 border rounded-md focus:outline-none" v-model="selectedTimeRange"
+                            @change="fetchDasboardSongs">
+                            <option value="1day">1 Day</option>
+                            <option value="1week">1 Week</option>
+                            <option value="1month">1 Month</option>
+                            <option value="3months">3 Months</option>
+                            <option value="1year">1 Year</option>
+                        </select>
+                    </div> -->
+                </div>
+
+                <ArtisCard :artists="topArtist" />
+                <TopSong :songs="topSong" />
+                <RecentTracks :songs="recentTracks" />
             </div>
+            <now-playing :currentSong="currentSong" :upcomingSongs="upcomingSongs" />
         </div>
-
-        <ArtisCard :artists="topArtist" />
-        <TopSong :songs="topSong" />
-        <RecentTracks :songs="recentTracks" />
     </Container>
 </template>
 
@@ -28,24 +35,37 @@ import ArtisCard from '../components/ArtisCard.vue';
 import Container from '../components/layout/Container.vue';
 import TopSong from '../components/TopSong.vue';
 import RecentTracks from '../components/RecentTracks.vue';
+import { parseState, stateIcon } from '../helpers/stateHelper';
+import Jumbotron from '../components/Jumbotron.vue';
+import NowPlaying from '../components/NowPlaying.vue';
 
 export default {
     components: {
         ArtisCard,
         Container,
         TopSong,
-        RecentTracks
+        RecentTracks,
+        Jumbotron,
+        NowPlaying
     },
     data() {
         return {
             topSong: [],
             topArtist: [],
             recentTracks: [],
-            selectedTimeRange: '1day', // Default time range
+            currentSong: {
+                title: 'Empty',
+                artist: '-',
+                status: -3
+            },
+            upcomingSongs: [],
+            selectedTimeRange: '1day',
         }
     },
     methods: {
-        async fetchPopularSongs() {
+        parseState,
+        stateIcon,
+        async fetchDasboardSongs() {
             let now = new Date();
             let pastDate = new Date();
 
@@ -73,35 +93,79 @@ export default {
             let { data: songs, errorSong } = await supabase
                 .from('popular_songs')
                 .select('*')
-                .limit(10)
+                .limit(5)
             let { data: artists, errorArtist } = await supabase
                 .from('popular_artists')
                 .select('*')
-                .limit(10)
+                .limit(6)
             let { data: recentTracks, erroRecentTrack } = await supabase
                 .from('songs')
                 .select('*')
                 .eq('status', 0)
                 .order('created_at', { ascending: false })
-                .limit(10)
-
-            if (!errorArtist && !errorSong && !erroRecentTrack) {
+                .limit(5)
+            let { data: upcomingSongs, erroUpcomingSong } = await supabase
+                .from('songs')
+                .select('*')
+                .eq('status', -2)
+                .order('created_at', { ascending: true })
+                .limit(6)
+            if (!errorArtist && !errorSong && !erroRecentTrack && !erroUpcomingSong) {
                 this.topSong = songs;
                 this.topArtist = artists;
                 this.recentTracks = recentTracks
+                this.upcomingSongs = upcomingSongs
             } else {
                 console.error('Error fetching data:', error);
             }
         },
+        async fetchUpcomingSongs() {
+            let { data: upcomingSongs, erroUpcomingSong } = await supabase
+                .from('songs')
+                .select('*')
+                .eq('status', -2)
+                .order('created_at', { ascending: true })
+                .limit(6)
+            if (!erroUpcomingSong) {
+                this.upcomingSongs = upcomingSongs
+            } else {
+                console.error('Error fetching upcoming song data:', error);
+            }
+        },
+        async fetchPlayingSong() {
+            let { data: currentSong, erroCurrentSong } = await supabase
+                .from('songs')
+                .select('*')
+                .in('status', [-1, 1, 2])
+                .limit(1)
+            if (!erroCurrentSong) {
+                this.currentSong = currentSong[0]
+            } else {
+                console.error('Error fetching current song data:', error);
+            }
+        },
+        setupRealtime() {
+            supabase
+                .channel('realtime-songs')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'songs' }, payload => {
+                    console.log('Change received!', payload)
+                    if (payload.new.status == 0) {
+                        this.fetchDasboardSongs()
+                        this.fetchPlayingSong()
+                    }else if (payload.new.status == -2) {
+                        this.fetchUpcomingSongs()
+                    } else if ([-1, 1, 2].includes(payload.new.status)) {
+                        this.fetchPlayingSong()
+                    }
+                })
+                .subscribe()
+        }
     },
     mounted() {
-        this.fetchPopularSongs()
+        this.fetchPlayingSong();
+        this.fetchDasboardSongs();
+        this.setupRealtime();
     },
 }
 </script>
 
-<style scoped>
-.container {
-    @apply max-w-4xl mx-auto p-4;
-}
-</style>

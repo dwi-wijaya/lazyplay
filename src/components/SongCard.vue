@@ -2,7 +2,7 @@
     <div class='group relative flex flex-col min-h-56 w-full' v-for="(song, index) in songs" :key="song.id">
         <div class='duration-500 relative h-full rounded-xl overflow-hidden'>
             <img :src="song.thumbnail" :alt="song.title"
-                class='object-none w-full h-full transform transition-transform duration-300 group-hover:scale-105 group-hover:blur-sm' />
+                class='object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.15] group-hover:blur-sm scale-[1.1]' />
             <div class="flex gap-2 top-3 right-3 absolute">
                 <div v-if="index != 0"
                     class='z-10 !border-none shadow-slate-50 badge !text-base   bg-secondary flex items-center gap-1'>
@@ -18,7 +18,6 @@
                         {{ index }}
                     </template>
                 </div>
-
             </div>
             <div
                 class='absolute inset-0 bg-gradient-to-b from-black/40 to-black opacity-90 transition-opacity duration-300'>
