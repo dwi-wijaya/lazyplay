@@ -44,9 +44,10 @@ export default {
         .eq('id', this.currentSong.id);
       await supabase
         .from('songs')
-        .update({ status: -2 })
-        .eq('id', this.currentSong.id - 1)
-        .order('created_at', { ascending: true }).limit(1);
+        .update({ status: -1 })
+        .eq('status', 0)
+        .order('created_at', { ascending: false })
+        .limit(1);
       this.currentSong = null;
       this.fetchNextSong();
     },
