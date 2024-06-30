@@ -5,7 +5,7 @@
             <div class="flex justify-between flex-1">
                 <h1 class="text-2xl font-bold">Song Queue</h1>
                 <div class="flex gap-2 justify-end">
-                    <button v-if="showInput" @click="showInput = false" type="button" class="btn">
+                    <button v-if="showInput" @click="showInput = false" type="button" class="btn !px-3">
                         <i class="fas fa-xmark"></i>
                     </button>
                     <button type="submit" class="btn">
@@ -13,7 +13,7 @@
                     </button>
                 </div>
             </div>
-            <div v-if="showInput" class="grid col-2 gap-1">
+            <div v-if="showInput" class="grid col-2 gap-2">
                 <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL" class="form-input" required />
                 <input v-model="note" type="text" placeholder="Note" class="form-input" />
             </div>
