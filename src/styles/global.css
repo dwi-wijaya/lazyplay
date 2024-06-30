@@ -7,7 +7,7 @@
   --foreground-color: rgb(94, 92, 127);
   --background-color: rgb(253 247 247);
   --container-color: rgb(255, 255, 255);
-  --primary-color: rgb(255 101 101);
+  --primary-color: rgb(239 68 68);
   --primary-bg: #ff985c4d;
   --title-color: rgb(53, 50, 82);
   --text-color: rgb(94, 92, 127);
@@ -18,8 +18,8 @@
 .dark {
   --foreground-color: rgb(159, 159, 159);
   --background-color: rgb(34, 40, 49);
-  --container-color: rgb(49, 54, 63);
-  --primary-color: rgb(255, 159, 140);
+  --container-color: rgb(42 48 58);
+  --primary-color: rgb(255, 140, 140);
   --title-color: rgb(228, 230, 235);
   --text-color: rgb(163, 163, 163);
   --text-secondary: rgb(121, 121, 121);
@@ -52,7 +52,7 @@ html {
   }
 
   .btn {
-    @apply px-5 py-3 leading-4 rounded-md shadow-sm border border-[#ff13134c] dark:border-[#ff77134c] bg-[#ffc1c1] dark:bg-[#f7b8a4] text-[#d21f1f] dark:text-[#e04848] flex gap-2 items-center font-normal w-fit hover:border-primary base-transition
+    @apply px-5 py-3 leading-4 rounded-md shadow-sm border bg-red-500 dark:bg-red-200 dark:text-red-600 text-red-50 flex gap-2 items-center font-normal w-fit hover:border-primary base-transition
   }
 
   .hr {

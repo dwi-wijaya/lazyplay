@@ -5,10 +5,10 @@
             <div class="flex justify-between flex-1">
                 <h1 class="text-2xl font-bold">Song Queue</h1>
                 <div class="flex gap-2 justify-end">
-                    <button v-if="showInput" @click="showInput = false" type="button" class="btn !py-2 !px-3">
+                    <button v-if="showInput" @click="showInput = false" type="button" class="btn">
                         <i class="fas fa-xmark"></i>
                     </button>
-                    <button type="submit" class="btn !py-2 !px-3">
+                    <button type="submit" class="btn">
                         <i class="fad fa-music"></i>Add Songs
                     </button>
                 </div>

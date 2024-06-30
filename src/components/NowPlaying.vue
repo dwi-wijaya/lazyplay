@@ -2,7 +2,7 @@
     <div class="w-full sm:max-w-64 min-h-[40vh] pb-6">
         <div class="bg-container rounded-2xl p-4 lg:p-6 border border-stroke h-full">
 
-            <p class="mb-3">
+            <p class="mb-3 text-text">
                 <i :class="['text-sm mr-2', stateIcon(currentSong.status)]"></i>
                 {{ parseState(currentSong.status) }}
             </p>
