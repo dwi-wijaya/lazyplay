@@ -2,14 +2,12 @@
     <div class='group relative flex flex-col min-h-56 w-full' v-for="(song, index) in songs" :key="song.id">
         <div class='duration-500 relative h-full rounded-xl overflow-hidden'>
             <img :src="song.thumbnail" :alt="song.title"
-                class='object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.15] group-hover:blur-sm scale-[1.1]' />
+                class='object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.275] group-hover:blur-sm scale-[1.4]' />
             <div class="flex gap-2 top-3 right-3 absolute">
-                <div v-if="index != 0"
-                    class='z-10 !border-none shadow-slate-50 badge !text-base   bg-secondary flex items-center gap-1'>
-                    <button @click="$emit('delete-song', song.id)" class="text-neutral-500 hover:text-red-500 text-sm"><i
-                            class="fad fa-trash"></i>
-                    </button>
-                </div>
+                <button v-if="index != 0" @click="$emit('delete-song', song.id)"
+                    class='z-10 !border-none shadow-slate-50 badge !text-base bg-secondary flex items-center gap-1 text-neutral-500 hover:text-primary'>
+                    <i class="fad fa-trash"></i>
+                </button>
                 <div class='z-10 !border-none shadow-slate-50 badge   bg-secondary flex items-center gap-1 text-sm'>
                     <template v-if="index == 0">
                         <i class="fad fa-spinner-third fa-spin text-primary"></i>
@@ -20,7 +18,7 @@
                 </div>
             </div>
             <div
-                class='absolute inset-0 bg-gradient-to-b from-black/40 to-black opacity-90 transition-opacity duration-300'>
+                class='absolute inset-0 bg-gradient-to-b from-black/30 to-black opacity-90 transition-opacity duration-300'>
             </div>
         </div>
 
@@ -28,9 +26,8 @@
 
             <div class='flex flex-col justify-end'>
                 <div class='flex flex-col space-y-3 text-neutral-300'>
-
                     <h3
-                        class='line-clamp-1 leading-5 !mt-1 font-medium text-neutral-100 group-hover:underline group-hover:underline-offset-4 '>
+                        class='line-clamp-1 leading-5 !mt-1 font-medium text-neutral-200 group-hover:underline group-hover:underline-offset-4 '>
                         {{ song.title }}
                     </h3>
                     <div class='flex gap-1 items-center text-neutral-400 !mt-2'>
