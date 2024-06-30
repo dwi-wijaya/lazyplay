@@ -1,7 +1,7 @@
 <template>
   <div>
     <Sidebar />
-    <main class="group/main lg:ml-64  ml-0 min-h-[100vh]">
+    <main class="group/main lg:ml-64 p-6 pt-20 ml-0 min-h-[100vh]">
       <Overlay />
       <router-view />
     </main>
