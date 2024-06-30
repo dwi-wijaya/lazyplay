@@ -60,7 +60,7 @@ html {
   }
 
   .form-input {
-    @apply border border-stroke bg-container text-text rounded-xl py-2 px-3 z-[1] focus:outline-slate-300;
+    @apply border border-stroke bg-container text-text rounded-xl py-2 px-3 z-[1] focus-visible:!outline-none;
   }
 
   .form-control {
