@@ -3,11 +3,10 @@
         <div class="flex flex-col gap-8">
             <div class="ml-6 flex flex-col gap-8">
                 <router-link to="/" class="w-fit mt-2">
-                    <img src="/logo.png" width="35" alt="Logo" />
+                    <img src="/logo.png" width="56" alt="Logo" />
                 </router-link>
                 <div class="flex gap-2 flex-col">
                     <theme-toggle />
-                    <!-- Add CollabsToggle here if needed -->
                 </div>
             </div>
             <nav class="nav">
