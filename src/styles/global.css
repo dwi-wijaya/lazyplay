@@ -52,7 +52,7 @@ html {
   }
 
   .btn {
-    @apply px-5 py-3 leading-4 rounded-md shadow-sm border bg-red-500 dark:bg-red-200 dark:text-red-600 text-red-50 flex gap-2 items-center font-normal w-fit hover:border-primary base-transition
+    @apply px-5 py-3 leading-4 rounded-md shadow-sm border bg-red-500 dark:bg-red-200 hover:bg-red-600 dark:hover:bg-red-200 dark:text-red-600 text-red-50 flex gap-2 items-center font-normal w-fit border-primary base-transition
   }
 
   .hr {
@@ -66,7 +66,9 @@ html {
   .form-control {
     @apply relative mb-6 h-16 w-full;
   }
-
+  .form-group{
+    @apply flex flex-col
+  }
   .badge {
     @apply flex gap-2 whitespace-nowrap items-center py-2 px-3 border border-stroke rounded-md bg-container text-text
   }

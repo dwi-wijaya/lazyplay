@@ -25,6 +25,4 @@ import { useDark, useToggle } from "@vueuse/core";
 
 const isDark = useDark();
 const toggleTheme = useToggle(isDark);
-console.log(isDark);
 </script>
-  
