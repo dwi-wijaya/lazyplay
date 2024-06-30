@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <iframe class="rounded-xl w-full h-[30rem]" ref="player" :src="videoUrlWithParams"
+    <div class="p-5 rounded-xl border border-stroke bg-container">
+        <iframe class="border border-stroke rounded-xl w-full h-[30rem]" ref="player" :src="videoUrlWithParams"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             frameborder="0">
         </iframe>
-        <div class="flex justify-between gap-2 my-4 p-3 bg-container border border-stroke rounded-lg">
+        <div class="flex justify-between gap-2 mt-5 bg-container ">
             <div class="flex gap-2">
                 <img :src="song.artist_image" alt="" srcset="" class="w-12 h-12 rounded-md object-cover">
                 <div class="flex flex-col">
