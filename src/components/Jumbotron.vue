@@ -1,5 +1,5 @@
 <template>
-    <div class="jumbotron relative mt-8 pt-48 md:pt-12 p-6 rounded-xl mb-6 border border-stroke bg-container ">
+    <div class="jumbotron relative mt-8 pt-52 md:pt-12 p-6 rounded-xl mb-6 border border-stroke bg-container ">
         <img src="/logo.png" class="absolute -top-6 left-6 w-14" alt="" srcset="">
         <div class="flex justify-between">
             <div class="w-full md:w-1/2">
@@ -8,14 +8,13 @@
                     Listen to music together and request your favorite song. <br>
                     Perfect for creating a fun atmosphere.
                 </p>
-                <router-link to="queue" class="btn mt-5 whitespace-nowrap ">
+                <router-link to="queue" class="btn mt-5 whitespace-nowrap !px-3">
                     <i class="fad fa-list-music"></i>
                     Request a song !
                 </router-link>
             </div>
             <div>
-
-                <img src="/lazy.svg" class="w-64 absolute -top-16 -right-1 xl:right-1" alt="" srcset="">
+                <img src="/lazy.svg" class="w-[275px] absolute -top-16 -right-1 xl:right-1" alt="" srcset="">
             </div>
 
         </div>
