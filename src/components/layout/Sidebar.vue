@@ -6,7 +6,7 @@
                     <img src="/logo.png" width="35" alt="Logo" />
                 </router-link>
                 <div class="flex gap-2 flex-col">
-                    <!-- <ThemeToggle /> -->
+                    <theme-toggle />
                     <!-- Add CollabsToggle here if needed -->
                 </div>
             </div>
@@ -41,6 +41,7 @@
 // Import CollabsToggle if needed
 import { ref, onMounted, reactive } from 'vue';
 import { useRouter } from 'vue-router';
+import ThemeToggle from '../ThemeToggle.vue';
 export default {
     // components: { ThemeToggle },
     data() {
@@ -96,10 +97,10 @@ export default {
         isActiveRoute(route) {
             return this.$router.currentRoute.value.path === route;
         },
-
         toggleSidebar() {
             this.toggle = !this.toggle;
         },
     },
+    components: { ThemeToggle }
 };
 </script>
