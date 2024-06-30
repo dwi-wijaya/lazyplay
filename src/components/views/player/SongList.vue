@@ -9,7 +9,7 @@
                         <a :href="song.url" target="_blank" class="!text-text leading-5">
                             {{ song.title + " - " + parseState(song.status) }}
                         </a>
-                        <p class="text-subtext"><i class="fad fa-user-music mr-2"></i>{{ song.artist }}</p>
+                        <p class="text-subtext text-sm"><i class="fad fa-user-music mr-2"></i>{{ song.artist }}</p>
                     </div>
                 </div>
                 <div class="flex">
