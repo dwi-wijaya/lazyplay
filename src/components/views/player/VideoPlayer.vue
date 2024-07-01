@@ -5,7 +5,7 @@
             frameborder="0">
         </iframe>
         <div class="flex justify-between gap-3 mt-5 flex-col sm:flex-row">
-            <div class="flex gap-2 ">
+            <div class="flex gap-2">
                 <img :src="song.artist_image" alt="" class="w-12 h-12 rounded-md object-cover">
                 <div class="flex flex-col">
                     <p class="line-clamp-1 font-semibold">{{ song.title }}</p>
@@ -37,7 +37,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { parseDuration } from '@helpers/durationHelper';
 
@@ -61,11 +61,10 @@ export default {
     },
     mounted() {
         this.loadYouTubeIframeAPI();
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
     },
-    watch: {
-        videoUrl() {
-            this.reloadYouTubePlayer();
-        },
+    beforeDestroy() {
+        this.cleanup();
     },
     methods: {
         parseDuration,
@@ -133,6 +132,17 @@ export default {
             if (this.player && this.player.stopVideo) {
                 this.player.stopVideo();
             }
+        },
+        handleBeforeUnload(event) {
+            this.stopVideoAndUpdateStatus();
+        },
+        stopVideoAndUpdateStatus() {
+            this.stopVideo();
+            this.$emit('video-state', window.YT.PlayerState.ENDED);
+        },
+        cleanup() {
+            this.stopVideoAndUpdateStatus();
+            window.removeEventListener('beforeunload', this.handleBeforeUnload);
         },
     },
 };

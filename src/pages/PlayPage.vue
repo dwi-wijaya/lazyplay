@@ -16,6 +16,13 @@ import Container from '@components/layout/Container.vue';
 import { supabase } from '@services/supabase';
 
 export default {
+  async beforeRouteLeave(to, from, next) {
+    await supabase
+      .from('songs')
+      .update({ status: -1 })
+      .eq('id', this.currentSong.id);
+    next();
+  },
   components: {
     VideoPlayer,
     SongList,
