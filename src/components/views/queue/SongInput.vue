@@ -19,7 +19,7 @@
                     <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL"
                         class="form-input flex-1 !rounded-r-none" required />
                     <button type="button"
-                        class="w-10 bg-container py-2 px-3 rounded-r-md border border-stroke flex items-center"
+                        class="w-10 bg-container py-2 px-3 rounded-r-md border border-stroke flex items-center hover:text-primary base-transition"
                         @click="handleButtonClick">
                         <i :class="buttonIcon"></i>
                     </button>
