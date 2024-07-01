@@ -40,6 +40,7 @@
 import { supabase } from '@services/supabase'
 import { getVideoDetails, extractVideoID } from '@services/youtube'
 import { parseISO8601Duration } from '@helpers/durationHelper'
+import { useUserStore } from '@stores/user';
 
 export default {
     data() {
@@ -113,6 +114,8 @@ export default {
                     this.error = 'Video duration exceeds 6 minutes.';
                     return;
                 }
+                const userStore = useUserStore();
+                await userStore.fetchUser();
 
                 const { data, error } = await supabase
                     .from('songs')
@@ -125,7 +128,9 @@ export default {
                             thumbnail: videoDetails.thumbnail,
                             created_at: new Date(),
                             artist: videoDetails.channelTitle,
-                            artist_image: videoDetails.channelImage
+                            artist_image: videoDetails.channelImage,
+                            created_by: userStore.user.id,
+                            created_name: userStore.user.user_metadata.full_name,
                         }
                     ])
 

@@ -32,7 +32,7 @@
                     </h3>
                     <div class='flex gap-1 items-center text-neutral-400 !mt-2'>
                         <i class='fal fa-calendar text-xs' />
-                        <span class='text-xs ml-0.5'>{{ useDateFormat(song.created_at, 'D MMM, YYYY - HH:mm') }}</span>
+                        <span class='text-xs ml-0.5'>{{ useDateFormat(song.created_at, 'DD MMM, YYYY - HH:mm') }}</span>
                     </div>
                     <div class='flex gap-1 items-center text-neutral-400 !mt-1'>
                         <i class='fal fa-note text-xs' />
@@ -42,7 +42,7 @@
                     <div class="flex justify-between items-center text-neutral-400">
                         <div class="flex gap-2 items-center">
                             <i class="fal fa-user-circle text-sm"></i>
-                            <small>Dwi Wijaya</small>
+                            <small>{{ song.created_name }}</small>
                         </div>
                         <div class="flex gap-2 items-center">
                             <div class="flex gap-2 items-center">
