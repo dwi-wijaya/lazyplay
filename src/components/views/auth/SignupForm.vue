@@ -22,9 +22,6 @@
                 required>
         </div>
         <div class="mt-2">
-            <div>
-                <input v-model="isOperator" type="checkbox"> As Operator
-            </div>
             <div class="flex justify-between">
                 <div>
                     <input v-model="rememberMe" type="checkbox"> Remember Me
@@ -51,26 +48,28 @@ const firstName = ref('');
 const lastName = ref('');
 const email = ref('');
 const password = ref('');
-const isOperator = ref(false);
 const rememberMe = ref(false);
 
 const signUp = async () => {
-    const { user, error } = await supabase.auth.signup({
+    const { data, error } = await supabase.auth.signUp({
         email: email.value,
         password: password.value,
-    }, {
-        data: {
-            first_name: firstName.value,
-            last_name: lastName.value,
-            is_operator: isOperator.value,
+        options: {
+            data: {
+                first_name: firstName.value,
+                last_name: lastName.value,
+                full_name: `${firstName.value} ${lastName.value}`
+            }
+
         }
-    });
+    })
 
     if (error) {
         alert(error.message);
     } else {
-        alert('Check your email for verification link');
+        alert('Sign-up successful!');
         router.push('/signin');
     }
 };
+
 </script>

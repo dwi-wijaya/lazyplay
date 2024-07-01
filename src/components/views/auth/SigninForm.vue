@@ -2,16 +2,16 @@
     <form @submit.prevent="signIn" class="flex flex-col gap-3">
         <div class="form-group">
             <label for="email" class="font-medium text-text text-base">Email Address</label>
-            <input v-model="email" type="email" class="form-input !border-neutral-300 !rounded-md" id="email" required>
+            <input v-model="email" type="email" class="form-input  !rounded-md" id="email" required>
         </div>
         <div class="form-group">
             <label for="password" class="font-medium text-text text-base">Password</label>
-            <input v-model="password" type="password" class="form-input !border-neutral-300 !rounded-md" id="password"
+            <input v-model="password" type="password" class="form-input  !rounded-md" id="password"
                 required>
         </div>
         <div class="flex justify-between mt-2">
             <div>
-                <input v-model="rememberMe" type="checkbox"> Remember Me
+                <input v-model="rememberMe" type="checkbox" class="accent-primary"> Remember Me
             </div>
             <router-link to="/forgot-password" class="font-semibold underline underline-offset-2">
                 Forgot Password
