@@ -4,8 +4,8 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             frameborder="0">
         </iframe>
-        <div class="flex justify-between gap-2 mt-5 bg-container">
-            <div class="flex gap-2">
+        <div class="flex justify-between gap-3 mt-5 flex-col sm:flex-row">
+            <div class="flex gap-2 ">
                 <img :src="song.artist_image" alt="" class="w-12 h-12 rounded-md object-cover">
                 <div class="flex flex-col">
                     <p class="line-clamp-1 font-semibold">{{ song.title }}</p>
@@ -15,22 +15,24 @@
                     </p>
                 </div>
             </div>
-            <div class="flex gap-2 items-center mr-1">
+            <div class="flex gap-2 border-t pt-3 sm:border-t-0 sm:pt-0 items-center mr-1 justify-between sm:justify-start">
                 <button class="btn !px-3 !py-2 h-fit">
                     <i class="fad fa-timer"></i>{{ parseDuration(song.duration) }}
                 </button>
-                <button class="btn !px-3 !py-2 h-fit" @click="$emit('prev-song')">
-                    <i class="fad fa-backward"></i>
-                </button>
-                <button class="btn !px-3 !py-2 h-fit" @click="togglePlayPause">
-                    <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
-                </button>
-                <button class="btn !px-3 !py-2 h-fit" @click="stopVideo">
-                    <i class="fas fa-stop"></i>
-                </button>
-                <button class="btn !px-3 !py-2 h-fit" @click="$emit('skip-song')">
-                    <i class="fad fa-forward"></i>
-                </button>
+                <div class="flex gap-2">
+                    <button class="btn !px-3 !py-2 h-fit" @click="$emit('prev-song')">
+                        <i class="fad fa-backward"></i>
+                    </button>
+                    <button class="btn !px-3 !py-2 h-fit" @click="togglePlayPause">
+                        <i :class="isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+                    </button>
+                    <button class="btn !px-3 !py-2 h-fit" @click="stopVideo">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                    <button class="btn !px-3 !py-2 h-fit" @click="$emit('skip-song')">
+                        <i class="fad fa-forward"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

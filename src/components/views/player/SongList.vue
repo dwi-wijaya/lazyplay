@@ -2,14 +2,14 @@
     <section class="list-disc flex flex-col bg-container border border-stroke rounded-lg p-2 mt-8">
         <ul class=" rounded-md">
             <li v-for="song in songs" :key="song.play_id"
-                class="justify-between flex p-3 !m-0 rounded-xl group items-center hover:bg-background  border-b border-stroke last:border-b-0">
+                class="justify-between flex p-3 !m-0 rounded-xl group items-center hover:bg-background gap-2 border-b border-stroke last:border-b-0">
                 <div class="flex gap-2 items-center">
                     <img :src="song.artist_image" width="50" height="50" alt="" class="rounded-lg" srcset="">
                     <div class="flex flex-col">
-                        <a :href="song.url" target="_blank" class="!text-text leading-5">
+                        <a :href="song.url" target="_blank" class="line-clamp-1 !text-text leading-5">
                             {{ song.title + " - " + parseState(song.status) }}
                         </a>
-                        <p class="text-subtext text-sm"><i class="fad fa-user-music mr-2"></i>{{ song.artist }}</p>
+                        <p class="line-clamp-1 text-subtext text-sm"><i class="fad fa-user-music mr-2"></i>{{ song.artist }}</p>
                     </div>
                 </div>
                 <div class="flex">

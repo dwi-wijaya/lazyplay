@@ -1,5 +1,5 @@
 <template>
-    <h3 class="text-text text-lg mt-0 flex gap-2 font-semibold items-center"><i class="text-primary fad fa-fire"></i>Top Pick</h3>
+    <h3 class="text-text text-lg mt-6 flex gap-2 font-semibold items-center"><i class="text-primary fad fa-fire"></i>Top Pick</h3>
     <p class="text-subtext mb-4 text-sm">The most requested song track by users</p>
 
     <section class="flex flex-col bg-container border border-stroke rounded-lg p-3">
