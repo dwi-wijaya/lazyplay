@@ -4,18 +4,32 @@
         <form @submit.prevent="toggleInput" :class="['flex justify-between gap-4', { 'flex-col': showInput }]">
             <div class="flex justify-between flex-1">
                 <h1 class="text-2xl font-bold">Song Queue</h1>
-                <div class="flex gap-2 justify-end">
-                    <button v-if="showInput" @click="showInput = false" type="button" class="btn !px-3">
+                <div class="flex gap-1 justify-end">
+                    <button v-if="showInput" @click="showInput = false" type="button" class="btn !py-2 !px-2">
                         <i class="fas fa-xmark"></i>
                     </button>
-                    <button type="submit" class="btn">
+                    <button type="submit" class="btn !py-2 !px-3">
                         <i class="fad fa-music"></i>Add Songs
                     </button>
                 </div>
             </div>
             <div v-if="showInput" class="grid col-2 gap-2">
-                <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL" class="form-input" required />
-                <input v-model="note" type="text" placeholder="Note" class="form-input" />
+
+                <div class="flex">
+                    <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL"
+                        class="form-input flex-1 !rounded-r-none" required />
+                    <button type="button"
+                        class="w-10 bg-container py-2 px-3 rounded-r-md border border-stroke flex items-center"
+                        @click="handleButtonClick">
+                        <i :class="buttonIcon"></i>
+                    </button>
+                </div>
+                <div class="flex">
+                    <input v-model="note" type="text" placeholder="Note" class="form-input flex-1 !rounded-r-none" />
+                    <div class="w-10 bg-container py-2 px-3 rounded-r-md border border-stroke flex items-center">
+                        <i class="fad fa-note"></i>
+                    </div>
+                </div>
             </div>
         </form>
         <p v-if="error" class="text-red-500">{{ error }}</p>
@@ -24,6 +38,7 @@
 
 <script>
 import { supabase } from '@services/supabase'
+import { useClipboard } from '@vueuse/core';
 
 export default {
     data() {
@@ -31,20 +46,43 @@ export default {
             url: '',
             note: '',
             error: '',
-            showInput: false
+            showInput: false,
+        }
+    },
+    computed: {
+        buttonIcon() {
+            return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
         }
     },
     methods: {
+        handleButtonClick() {
+            if (this.url !== '') {
+                this.clearUrl();
+            } else {
+                this.pasteFromClipboard();
+            }
+        },
+        async pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                this.url = text;
+            } catch (error) {
+                console.error('Failed to paste from clipboard:', error);
+            }
+        },
+        clearUrl() {
+            this.url = '';
+        },
         async toggleInput() {
             if (this.showInput) {
                 await this.addSong()
             } else {
                 this.showInput = true
                 this.$nextTick(() => {
-                if (this.showInput) {
-                    this.$refs.urlInput.focus();
-                }
-            });
+                    if (this.showInput) {
+                        this.$refs.urlInput.focus();
+                    }
+                });
             }
         },
         async addSong() {
