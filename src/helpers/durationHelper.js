@@ -12,3 +12,10 @@ export function parseDuration(duration) {
     
     return hoursString + minutesString + secondsString;
 }
+export const parseISO8601Duration = (isoDuration) => {
+    const match = isoDuration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    const hours = (parseInt(match[1]) || 0) * 3600;
+    const minutes = (parseInt(match[2]) || 0) * 60;
+    const seconds = parseInt(match[3]) || 0;
+    return hours + minutes + seconds;
+}

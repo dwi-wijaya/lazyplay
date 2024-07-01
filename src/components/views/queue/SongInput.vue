@@ -39,7 +39,7 @@
 <script>
 import { supabase } from '@services/supabase'
 import { getVideoDetails, extractVideoID } from '@services/youtube'
-import { useClipboard } from '@vueuse/core';
+import { parseISO8601Duration } from '@helpers/durationHelper'
 
 export default {
     data() {
@@ -58,6 +58,7 @@ export default {
     methods: {
         getVideoDetails,
         extractVideoID,
+        parseISO8601Duration,
         handleButtonClick() {
             if (this.url !== '') {
                 this.clearUrl();
@@ -103,6 +104,14 @@ export default {
                 if (!videoDetails) {
                     this.error = 'Failed to fetch video details.'
                     return
+                }
+
+                const videoDurationInSeconds = parseISO8601Duration(videoDetails.duration);
+                const maxDurationInSeconds = 6 * 60; // 6 minutes
+
+                if (videoDurationInSeconds > maxDurationInSeconds) {
+                    this.error = 'Video duration exceeds 6 minutes.';
+                    return;
                 }
 
                 const { data, error } = await supabase
