@@ -52,13 +52,13 @@ const rememberMe = ref(false);
 
 const signUp = async () => {
     const { data, error } = await supabase.auth.signUp({
-        email: email.value,
+        email: email.value.trim(),
         password: password.value,
         options: {
             data: {
                 first_name: firstName.value,
                 last_name: lastName.value,
-                full_name: `${firstName.value} ${lastName.value}`
+                full_name: `${firstName.value.trim()} ${lastName.value.trim()}`
             }
 
         }
