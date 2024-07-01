@@ -1,7 +1,6 @@
 <template>
-    <div class="w-full sm:max-w-64 min-h-[40vh] pb-6">
+    <div class="w-full sm:max-w-64 md:max-w-72 xl:max-w-80 min-h-[40vh] pb-6">
         <div class="bg-container rounded-2xl p-4 lg:p-5 border border-stroke h-full">
-
             <p class="mb-2 text-text">
                 <i :class="['text-sm mr-2', stateIcon(currentSong.status)]"></i>
                 {{ parseState(currentSong.status) }}
