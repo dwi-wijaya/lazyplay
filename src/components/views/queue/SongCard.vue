@@ -32,7 +32,7 @@
                     </h3>
                     <div class='flex gap-1 items-center text-neutral-400 !mt-2'>
                         <i class='fal fa-calendar text-xs' />
-                        <span class='text-xs ml-0.5'>{{ dateFormat(song.created_at, 'mmmm dd, yyyy - HH:MM') }}</span>
+                        <span class='text-xs ml-0.5'>{{ useDateFormat(song.created_at, 'D MMM, YYYY - HH:mm') }}</span>
                     </div>
                     <div class='flex gap-1 items-center text-neutral-400 !mt-1'>
                         <i class='fal fa-note text-xs' />
@@ -63,7 +63,7 @@
 <script>
 import { parseState, stateIcon } from '../../../helpers/stateHelper';
 import { parseDuration } from '../../../helpers/durationHelper';
-import dateFormat from "dateformat";
+import { useDateFormat, useNow } from '@vueuse/core'
 
 export default {
     props: {
@@ -75,7 +75,7 @@ export default {
         parseState,
         stateIcon,
         parseDuration,
-        dateFormat
+        useDateFormat,
     }
 }
 </script>
