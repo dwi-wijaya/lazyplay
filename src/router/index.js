@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { supabase } from '@services/supabase'; // Pastikan ini mengarah ke konfigurasi Supabase Anda
-
+import { useUserStore } from '@stores/user';
 import DashboardPage from '@pages/DashboardPage.vue';
 import QueuePage from '@pages/QueuePage.vue';
 import PlayPage from '@pages/PlayPage.vue';
@@ -20,13 +19,14 @@ const router = createRouter({
   routes,
 });
 
-
 router.beforeEach(async (to, from, next) => {
-  const user = await supabase.auth.getSession()
 
-  if (to.matched.some(record => record.meta.requiresAuth) && !user.data.session) {
+  const userStore = useUserStore();
+  await userStore.fetchUser(); 
+
+  if (to.matched.some(record => record.meta.requiresAuth) && !userStore.user) {
     next('/signin');
-  } else if (to.matched.some(record => record.meta.requiresGuest) && user.data.session) {
+  } else if (to.matched.some(record => record.meta.requiresGuest) && userStore.user) {
     next('/');
   } else {
     next();
