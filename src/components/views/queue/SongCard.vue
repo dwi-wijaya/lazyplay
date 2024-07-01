@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class='absolute flex flex-col justify-end p-5 space-y-4 h-full'>
+        <div class='absolute flex flex-col justify-end p-5 space-y-4 h-full w-full'>
 
             <div class='flex flex-col justify-end'>
                 <div class='flex flex-col space-y-3 text-neutral-300'>
@@ -36,9 +36,7 @@
                     </div>
                     <div class='flex gap-1 items-center text-neutral-400 !mt-1'>
                         <i class='fal fa-note text-xs' />
-                        <span class='text-xs ml-0.5 line-clamp-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Recusandae, quasi animi. Id magni, asperiores, voluptatem rerum in nulla mollitia, ea
-                            necessitatibus porro quaerat eveniet neque vitae iure debitis nobis. Modi.</span>
+                        <span class='text-xs ml-0.5 line-clamp-1'>{{ song.note ? song.note : '-' }}</span>
                     </div>
                     <hr class="border-t border-neutral-500  my-4">
                     <div class="flex justify-between items-center text-neutral-400">
