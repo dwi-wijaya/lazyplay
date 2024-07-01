@@ -16,7 +16,7 @@
             <div class="flex justify-between items-end">
                 <div class="">
                     <p class="text-text line-clamp-1 mt-2 font-semibold">{{ currentSong ? currentSong.title : '-' }}</p>
-                    <p class="text-subtext text-sm text-neutral-400">
+                    <p class="text-subtext text-sm text-neutral-400 line-clamp-1">
                         <i class="fad fa-user-music mr-2"></i>{{ currentSong ? currentSong.artist : '-' }}
                     </p>
                 </div>
