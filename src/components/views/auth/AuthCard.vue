@@ -7,17 +7,20 @@
                 <p class="text-subtext">Please enter your details to sign-in.</p>
             </div>
             <div class="flex gap-2 justify-center mt-4">
-                <button class="card hover:!bg-neutral-100 flex justify-center items-center w-28" @click="signInWithProvider('github')">
-                    <img class="w-6" src="@assets/logos/github.svg" alt="GitHub">
+                <button class="card group hover:!bg-neutral-100 !bg-neutral-50 flex justify-center items-center w-28"
+                    @click="signInWithProvider('github')">
+                    <img class="w-6 group-hover:-rotate-12 duration-300 transition-all" src="@assets/logos/github.svg" alt="GitHub">
                 </button>
-                <button class="card hover:!bg-neutral-100 flex justify-center items-center w-28" @click="signInWithProvider('google')">
-                    <img class="w-6" src="@assets/logos/google.svg" alt="Google">
+                <button class="card group group/card hover:!bg-neutral-100 flex !bg-neutral-50 justify-center items-center w-28"
+                    @click="signInWithProvider('google')">
+                    <img class="w-6 group-hover:-rotate-12 duration-300 transition-all" src="@assets/logos/google.svg" alt="Google">
                 </button>
-                <button class="card hover:!bg-neutral-100 flex justify-center items-center w-28" @click="signInWithProvider('twitter')">
-                    <img class="w-6" src="@assets/logos/twitter.svg" alt="Twitter">
+                <button class="card group group/card hover:!bg-neutral-100 flex !bg-neutral-50 justify-center items-center w-28"
+                    @click="signInWithProvider('twitter')">
+                    <img class="w-6 group-hover:-rotate-12 duration-300 transition-all" src="@assets/logos/twitter.svg" alt="Twitter">
                 </button>
             </div>
-            <div class="divider flex items-center gap-4 my-4">
+            <div class="divider flex items-center gap-4 my-5">
                 <hr class="border border-stroke flex-1">
                 OR
                 <hr class="border border-stroke flex-1">
