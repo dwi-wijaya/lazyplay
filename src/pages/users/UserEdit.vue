@@ -27,7 +27,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { adminSupabase } from '@services/supabase.js'; // sesuaikan path sesuai struktur proyek Anda
-import BackButton from '../../components/partial/BackButton.vue';
+import BackButton from '@components/partial/BackButton.vue';
 
 const route = useRoute();
 const router = useRouter();

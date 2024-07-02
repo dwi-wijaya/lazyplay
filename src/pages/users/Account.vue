@@ -1,7 +1,9 @@
 <template>
     <div>
-        <BackButton :to="'/users'" />
-        <h1>User Details</h1>
+        <BackButton :to="'/'" />
+        <div class="flex justify-between">
+            <h1>User Details</h1> <router-link to="/account-edit" class="btn !px-3 !py-2">Update Account</router-link>
+        </div>
         <div class="mt-4">
             <p><strong>Full Name:</strong> {{ user?.user_metadata.full_name || user?.name }}</p>
             <p><strong>Email:</strong> {{ user?.email }}</p>
@@ -14,21 +16,17 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { adminSupabase } from '@services/supabase.js'; // sesuaikan path sesuai struktur proyek Anda
 import { useDateFormat } from '@vueuse/core';
 import BackButton from '@components/partial/BackButton.vue';
+import { useUserStore } from '@stores/user';
 
 const route = useRoute();
 const user = ref(null);
 
 const fetchUser = async () => {
-    const userId = route.params.id;
-    const { data, error } = await adminSupabase.auth.admin.getUserById(userId);
-    if (error) {
-        console.error('Error fetching user:', error);
-    } else {
-        user.value = data.user;
-    }
+    const userStore = useUserStore();
+    await userStore.fetchUser();
+    user.value = userStore.user;
 };
 
 onMounted(async () => {

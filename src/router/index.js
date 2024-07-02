@@ -10,6 +10,8 @@ import UserList from '@pages/users/UserPage.vue';
 import UserCreate from '@pages/users/UserCreate.vue';
 import UserView from '@pages/users/UserView.vue';
 import UserEdit from '@pages/users/UserEdit.vue';
+import Account from '@pages/users/Account.vue';
+import AccountEdit from '@pages/users/AccountEdit.vue';
 
 const routes = [
   { path: '/', component: DashboardPage, meta: { requiresAuth: true } },
@@ -19,6 +21,8 @@ const routes = [
   { path: '/signup', component: Signup, meta: { requiresGuest: true } },
   { path: '/recent', component: RecentPage, meta: { requiresAuth: true } },
   { path: '/users', component: UserList, meta: { requiresAuth: true } },
+  { path: '/account', component: Account, meta: { requiresAuth: true } },
+  { path: '/account-edit', component: AccountEdit, meta: { requiresAuth: true } },
   { path: '/users/create', component: UserCreate, meta: { requiresAuth: true } },
   { path: '/users/view/:id', component: UserView, meta: { requiresAuth: true } },
   { path: '/users/edit/:id', component: UserEdit, meta: { requiresAuth: true } },
