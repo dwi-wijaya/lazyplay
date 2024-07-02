@@ -5,14 +5,14 @@
 
 :root {
   --foreground-color: rgb(94, 92, 127);
-  --background-color: rgb(253 247 247);
+  --background-color: rgb(247 249 253);
   --container-color: rgb(255, 255, 255);
   --primary-color: rgb(239 68 68);
   --primary-bg: #ff985c4d;
   --title-color: rgb(53, 50, 82);
   --text-color: rgb(94, 92, 127);
   --text-secondary: rgb(133, 131, 165);
-  --stroke-color: #ffe5e5;
+  --stroke-color: #e5ebff;
 }
 
 .dark {
@@ -52,7 +52,7 @@ html {
   }
 
   .btn {
-    @apply px-5 py-3 leading-4 rounded-md shadow-sm border bg-red-500 dark:bg-red-200 hover:bg-red-600 dark:hover:bg-red-200 dark:text-red-600 text-red-50 flex gap-2 items-center font-normal w-fit border-primary base-transition
+    @apply px-5 py-3 leading-4 rounded-md shadow-sm  bg-red-500 dark:bg-red-200 hover:bg-red-600 dark:hover:bg-red-200 dark:text-red-600 text-red-50 flex gap-2 items-center font-normal w-fit border-primary base-transition
   }
 
   .act-btn {

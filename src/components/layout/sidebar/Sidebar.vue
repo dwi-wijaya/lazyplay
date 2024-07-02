@@ -8,11 +8,11 @@
             </div>
             <div class="ml-6 mt-8 text-left">
                 <h1 class="text-2xl text-text font-medium mb-1">Lazyplay</h1>
+                <p class="text-sm flex items-center gap-2"><i class="text-primary fad fa-mug-hot"></i> <span class="mt-[.125rem]">{{ greetingMessage }}</span>
+                </p>
                 <h3 class="text-sm flex items-center gap-2"><i class="text-primary fad fa-fire"></i>
                     Welcome, {{ firstName }}
                 </h3>
-                <p class="text-sm flex items-center gap-2"><i class="text-primary fad fa-mug-hot"></i> {{ greetingMessage }}
-                </p>
             </div>
             <nav class="nav">
                 <div class="nav__menu p-6 bg-background rounded-l-none rounded-2xl border border-stroke border-l-0">
