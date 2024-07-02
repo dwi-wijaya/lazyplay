@@ -16,7 +16,7 @@
                     <ul class="flex flex-col items-center gap-y-6">
                         <li v-for="item in menuItems" :key="item.label" class="nav__item w-full group">
                             <router-link :to="item.href"
-                                :class="['flex items-center justify-between w-full transition-300', isActiveRoute(item.href) ? 'text-primary' : '']">
+                                :class="['flex items-center justify-between w-full transition-300 hover:text-primary', isActiveRoute(item.href) ? 'text-primary' : '']">
                                 <span class="flex items-center gap-3">
                                     <i
                                         :class="[item.iconClass, 'min-w-5 flex justify-center items-center group-hover:-rotate-[8deg] duration-300 transition-all']"></i>
