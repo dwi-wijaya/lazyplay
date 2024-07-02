@@ -38,6 +38,10 @@
             <ProfileLink />
             <Signout />
         </div>
+        
+        <div @click="toggleSidebar" class="toggle lg:-left-64 left-5 sidebar__toggle" :class="{ '!left-[17rem]': toggle }">
+            <i class="fa-duotone fa-bars text-primary"></i>
+        </div>
     </aside>
 </template>
   
