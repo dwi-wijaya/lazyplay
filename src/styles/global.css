@@ -139,4 +139,7 @@ td.gridjs-td {
 .dark .gridjs-pagination .gridjs-pages button{
   border: 1px solid #4e5259 !important;
 }
+.dark .gridjs-pagination .gridjs-pages button.gridjs-currentPage{
+  background-color: #323946 !important;
+}
 /* end: CUSTOM GRIDJS */
