@@ -13,7 +13,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { supabase } from '@services/supabase'; // Sesuaikan dengan struktur proyek Anda
 import Overlay from './components/layout/Overlay.vue';
-import Sidebar from './components/layout/Sidebar.vue';
+import Sidebar from './components/layout/sidebar/Sidebar.vue';
 
 const user = ref(null);
 

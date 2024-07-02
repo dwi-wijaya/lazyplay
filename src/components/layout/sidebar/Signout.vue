@@ -1,7 +1,7 @@
 <template>
     <button @click="signOut"
-        class="flex gap-3 items-center bg-background border border-stroke px-5 py-3 rounded-2xl justify-center">
-        Signout <i class="text-primary fal fa-arrow-right-from-bracket mt-1"></i>
+        class="flex gap-3 items-center bg-background border border-stroke px-5 py-3 rounded-2xl text-base">
+        <i class="text-primary fad fa-arrow-left-from-bracket"></i> Sign-out 
     </button>
 </template>
 

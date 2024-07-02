@@ -19,7 +19,7 @@
         </label>
     </div>
 </template>
-  
+
 <script setup>
 import { useDark, useToggle } from "@vueuse/core";
 

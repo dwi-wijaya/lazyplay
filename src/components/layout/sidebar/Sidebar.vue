@@ -5,9 +5,10 @@
                 <router-link to="/" class="w-fit mt-2">
                     <img src="/logo.png" width="56" alt="Logo" />
                 </router-link>
-                <div class="flex gap-2 flex-col">
-                    <theme-toggle />
-                    <signout />
+                <div class="flex gap-2 flex-col mt-6">
+                    <ThemeToggle />
+                    <ProfileLink/>
+                    <Signout />
                 </div>
             </div>
             <nav class="nav">
@@ -28,6 +29,7 @@
                 </div>
             </nav>
         </div>
+
         <div class="nav__footer text-left pl-6">
             <span class="text-subtext text-sm transform rotate-180">&copy; {{ new Date().getFullYear() }} Dwi Wijaya</span>
         </div>
@@ -43,7 +45,9 @@
 import { ref, onMounted, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import ThemeToggle from './ThemeToggle.vue';
-import Signout from '../Signout.vue';
+import Signout from './Signout.vue';
+import ProfileLink from './ProfileLink.vue';
+
 export default {
     // components: { ThemeToggle },
     data() {
@@ -55,7 +59,6 @@ export default {
                 { label: 'Queue', href: '/queue', iconClass: 'fad fa-list-music' },
                 { label: 'Player', href: '/play', iconClass: 'fad fa-circle-play' },
                 { label: 'Recent', href: '/recent', iconClass: 'fad fa-clock-rotate-left' },
-                { label: 'Account', href: '/log', iconClass: 'fad fa-user' },
                 { label: 'Users', href: '/user', iconClass: 'fad fa-users' },
                 // Add more menu items as needed
             ],
@@ -109,6 +112,6 @@ export default {
             this.toggle = !this.toggle;
         },
     },
-    components: { ThemeToggle, Signout }
+    components: { ThemeToggle, Signout,ProfileLink }
 };
 </script>
