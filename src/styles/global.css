@@ -64,7 +64,7 @@ html {
   }
 
   .form-input {
-    @apply border border-stroke bg-container text-text rounded-xl py-2 px-3 z-[1] focus-visible:!outline-none;
+    @apply border border-stroke bg-neutral-50 dark:bg-[#323946] text-text rounded-md py-2 px-3 z-[1] focus-visible:!outline-none;
   }
 
   .form-control {
