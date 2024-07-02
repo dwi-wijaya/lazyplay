@@ -5,7 +5,7 @@
                 <router-link to="/" class="w-fit mt-2">
                     <img src="/logo.png" width="56" alt="Logo" />
                 </router-link>
-                <div class="flex gap-2 flex-col mt-6">
+                <div class="flex gap-3 flex-col mt-6">
                     <ThemeToggle />
                     <ProfileLink/>
                     <Signout />
@@ -58,7 +58,7 @@ export default {
                 { label: 'Dashboard', href: '/', iconClass: 'fad fa-home' },
                 { label: 'Queue', href: '/queue', iconClass: 'fad fa-list-music' },
                 { label: 'Player', href: '/play', iconClass: 'fad fa-circle-play' },
-                { label: 'Recent', href: '/recent', iconClass: 'fad fa-clock-rotate-left' },
+                { label: 'Recents', href: '/recent', iconClass: 'fad fa-clock-rotate-left' },
                 { label: 'Users', href: '/user', iconClass: 'fad fa-users' },
                 // Add more menu items as needed
             ],
