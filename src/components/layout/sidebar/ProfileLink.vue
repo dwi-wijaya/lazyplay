@@ -15,7 +15,6 @@ const user = ref('');
 onMounted(async () => {
     await userStore.fetchUser();
     user.value = userStore.user.user_metadata.full_name;
-    console.log(user.value);
 });
 </script>
   
