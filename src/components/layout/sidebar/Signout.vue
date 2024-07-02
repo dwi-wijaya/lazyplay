@@ -1,7 +1,7 @@
 <template>
     <button @click="signOut"
         class="group flex gap-3 items-center bg-background border border-stroke px-5 py-3 rounded-2xl text-base hover:text-primary">
-        <i class="fad fa-arrow-left-from-bracket group-hover:-rotate-[8deg] base-transition"></i> Sign-out 
+        <i class="fad fa-arrow-left-from-bracket group-hover:-rotate-[8deg] duration-300 transition-all"></i> Sign-out 
     </button>
 </template>
 

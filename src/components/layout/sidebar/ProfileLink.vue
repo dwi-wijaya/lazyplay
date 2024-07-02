@@ -1,7 +1,7 @@
 <template>
     <router-link to="/profile"
-        class="group flex gap-3 items-center bg-background border border-stroke px-5 py-3 rounded-2xl text-base hover:text-primary base-transition">
-        <i class="fad fa-user-headset group-hover:-rotate-[8deg] base-transition"></i> {{ user }}
+        class="group flex gap-3 items-center bg-background border border-stroke px-5 py-3 rounded-2xl text-base hover:text-primary">
+        <i class="fad fa-user-headset group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i> {{ user }}
     </router-link>
 </template>
 
