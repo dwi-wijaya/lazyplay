@@ -3,13 +3,16 @@
         <div id="gridjs-table"></div>
     </div>
 </template>
-
+  
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Grid, h } from 'gridjs';
-import { adminSupabase } from '@services/supabase.js';
-import { useDateFormat } from '@vueuse/core'
+import { adminSupabase } from '@/services/supabase.js'; // sesuaikan path sesuai struktur proyek Anda
+import { useDateFormat } from '@vueuse/core';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+const gridInstance = ref(null);
 
 const loadUsers = async () => {
     const { data, error } = await adminSupabase.auth.admin.listUsers();
@@ -37,35 +40,43 @@ const loadUsers = async () => {
         ])
     ]);
 
-    new Grid({
-        columns: ['No', 'Full Name', 'Email', 'Last Sign In At', 'Actions'],
-        data: usersData,
-        // search: true,
-        fixedHeader: true,
-        pagination: {
-            enabled: true,
-            limit: 10
-        },className: {
-    td: 'my-custom-td-class',
-    table: 'bg-red-100'
-  }
-        
-    }).render(document.getElementById('gridjs-table'));
+    // Clear the container before rendering the Grid
+    const container = document.getElementById('gridjs-table');
+    container.innerHTML = '';
+
+    // Initialize Grid.js or update it
+    if (gridInstance.value) {
+        gridInstance.value.updateConfig({ data: usersData }).forceRender();
+    } else {
+        gridInstance.value = new Grid({
+            columns: ['No', 'Full Name', 'Email', 'Last Sign In At', 'Actions'],
+            data: usersData,
+            search: true,
+            fixedHeader: true,
+            pagination: {
+                enabled: true,
+                limit: 10
+            }
+        }).render(container);
+    }
 };
 
 const viewUser = (id) => {
-    // Logic for viewing a user
-    console.log('Viewing user:', id);
+    router.push({ path: `/users/view/${id}` });
 };
 
-const deleteUser = (id) => {
-    // Logic for deleting a user
-    console.log('Deleting user:', id);
+const deleteUser = async (id) => {
+    const { error } = await adminSupabase.auth.admin.deleteUser(id);
+    if (error) {
+        console.error('Error deleting user:', error);
+    } else {
+        console.log('User deleted:', id);
+        await loadUsers(); // Refresh the user list after deletion
+    }
 };
 
 const updateUser = (id) => {
-    // Logic for updating a user
-    console.log('Updating user:', id);
+    router.push({ path: `/users/edit/${id}` });
 };
 
 onMounted(async () => {

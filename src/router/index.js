@@ -5,8 +5,11 @@ import QueuePage from '@pages/QueuePage.vue';
 import PlayPage from '@pages/PlayPage.vue';
 import Signin from '@pages/auth/Signin.vue';
 import Signup from '@pages/auth/Signup.vue';
-import UserList from '@pages/users/UserPage.vue';
 import RecentPage from '@pages/RecentPage.vue';
+import UserList from '@pages/users/UserPage.vue';
+import UserCreate from '@pages/users/UserCreate.vue';
+import UserView from '@pages/users/UserView.vue';
+import UserEdit from '@pages/users/UserEdit.vue';
 
 const routes = [
   { path: '/', component: DashboardPage, meta: { requiresAuth: true } },
@@ -14,8 +17,11 @@ const routes = [
   { path: '/play', component: PlayPage, meta: { requiresAuth: true } },
   { path: '/signin', component: Signin, meta: { requiresGuest: true } },
   { path: '/signup', component: Signup, meta: { requiresGuest: true } },
-  { path: '/users', component: UserList, meta: { requiresAuth: true } },
   { path: '/recent', component: RecentPage, meta: { requiresAuth: true } },
+  { path: '/users', component: UserList, meta: { requiresAuth: true } },
+  { path: '/users/create', component: UserCreate, meta: { requiresAuth: true } },
+  { path: '/users/view/:id', component: UserView, meta: { requiresAuth: true } },
+  { path: '/users/edit/:id', component: UserEdit, meta: { requiresAuth: true } },
 ];
 
 const router = createRouter({
@@ -26,7 +32,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
 
   const userStore = useUserStore();
-  await userStore.fetchUser(); 
+  await userStore.fetchUser();
 
   if (to.matched.some(record => record.meta.requiresAuth) && !userStore.user) {
     next('/signin');

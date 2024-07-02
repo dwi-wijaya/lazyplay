@@ -2,7 +2,7 @@
 <Container>
     <div class="flex items-center justify-between  mb-6">
         <h1 class="text-2xl font-bold">User Page</h1>
-        <button class="btn !px-3 !py-2"><i class="fad fa-user-plus "></i>Add User</button>
+        <router-link to="users/create" class="btn !px-3 !py-2"><i class="fad fa-user-plus "></i>Add User</router-link>
     </div>
     <UserList/>
 </Container>
