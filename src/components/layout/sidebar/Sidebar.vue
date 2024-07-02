@@ -6,7 +6,7 @@
                     <img src="/logo.png" width="56" alt="Logo" />
                 </router-link>
             </div>
-            <div class="ml-6 mt-8 text-left">
+            <div class="ml-6 mt-5 text-left">
                 <h1 class="text-2xl text-text font-medium mb-1">Lazyplay</h1>
                 <p class="text-sm flex items-center gap-2"><i class="text-primary fad fa-mug-hot"></i> <span class="mt-[.125rem]">{{ greetingMessage }}</span>
                 </p>
@@ -33,7 +33,7 @@
             </nav>
         </div>
 
-        <div class="flex gap-3 flex-col mt-6 ml-6">
+        <div class="flex gap-3 flex-col ml-6">
             <ThemeToggle />
             <ProfileLink />
             <Signout />
