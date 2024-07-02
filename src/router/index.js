@@ -5,6 +5,7 @@ import QueuePage from '@pages/QueuePage.vue';
 import PlayPage from '@pages/PlayPage.vue';
 import Signin from '@pages/auth/Signin.vue';
 import Signup from '@pages/auth/Signup.vue';
+import UserList from '@pages/users/UserPage.vue';
 
 const routes = [
   { path: '/', component: DashboardPage, meta: { requiresAuth: true } },
@@ -12,6 +13,7 @@ const routes = [
   { path: '/play', component: PlayPage, meta: { requiresAuth: true } },
   { path: '/signin', component: Signin, meta: { requiresGuest: true } },
   { path: '/signup', component: Signup, meta: { requiresGuest: true } },
+  { path: '/users', component: UserList, meta: { requiresAuth: true } },
 ];
 
 const router = createRouter({

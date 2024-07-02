@@ -5,6 +5,8 @@ import './styles/global.css';
 import './styles/css/fa.min.css';
 import { MotionPlugin } from '@vueuse/motion';
 import { createPinia } from 'pinia';
+import { Grid } from "gridjs";
+import "gridjs/dist/theme/mermaid.css";
 
 const app = createApp(App);
 const pinia = createPinia();

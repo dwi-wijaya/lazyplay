@@ -13,6 +13,7 @@
     "@vueuse/core": "^10.11.0",
     "@vueuse/motion": "^2.2.3",
     "dateformat": "^5.0.3",
+    "gridjs": "^6.2.0",
     "pinia": "^2.1.7",
     "tailwind-scrollbar-hide": "^1.1.7",
     "vue": "^3.4.29",

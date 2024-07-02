@@ -59,7 +59,7 @@ export default {
                 { label: 'Queue', href: '/queue', iconClass: 'fad fa-list-music' },
                 { label: 'Player', href: '/play', iconClass: 'fad fa-circle-play' },
                 { label: 'Recents', href: '/recent', iconClass: 'fad fa-clock-rotate-left' },
-                { label: 'Users', href: '/user', iconClass: 'fad fa-users' },
+                { label: 'Users', href: '/users', iconClass: 'fad fa-users' },
                 // Add more menu items as needed
             ],
         };
