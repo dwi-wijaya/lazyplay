@@ -104,25 +104,28 @@ input.gridjs-input:focus {
 }
 
 .gridjs-wrapper{
-  box-shadow: none !important;
-  border-color: var(--stroke-color) !important;
+  border-color: #61666f !important;
   border-top-width: 0 !important;
   -ms-overflow-style: none;
-    scrollbar-width: none;
+  scrollbar-width: none;
 }
 th.gridjs-th{
-  border: 1px solid var(--stroke-color) !important;
   color: var(--text-color) !important;
-  background-color: var(--container-color) !important;
+}
+.dark th.gridjs-th{
+  background-color: #494d58;
+  border: 1px solid #61666f !important; 
+  border-bottom: 0 !important;
 }
 td.gridjs-td {
-  border: 1px solid var(--stroke-color) !important;
   color: var(--text-color) !important;
   background-color: var(--container-color) !important;
 }
+.dark td.gridjs-td {
+  border: 1px solid #4e5259 !important;
+  border-top: 0 !important;
+}
 .gridjs-footer{
-  box-shadow: none !important;
-  border-color: var(--stroke-color) !important;
   border: 1px solid var(--stroke-color) !important;
   background-color: var(--container-color) !important;
 }
@@ -131,7 +134,9 @@ td.gridjs-td {
 }
 .gridjs-pagination .gridjs-pages button{
   color: var(--text-color) !important;
-  border-color: var(--stroke-color) !important;
   background-color: var(--container-color) !important;
+}
+.dark .gridjs-pagination .gridjs-pages button{
+  border: 1px solid #4e5259 !important;
 }
 /* end: CUSTOM GRIDJS */
