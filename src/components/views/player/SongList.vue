@@ -42,17 +42,3 @@ export default {
     }
 }
 </script>
-  
-<style scoped>
-li {
-    @apply mb-2;
-}
-
-a {
-    @apply text-blue-500;
-}
-
-button {
-    @apply text-red-500;
-}
-</style>
