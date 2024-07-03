@@ -9,8 +9,9 @@
                     alt="Avatar Preview" class="object-cover min-w-24 min-h-24 max-w-24 max-h-24" />
 
                 <div v-if="userMetadata.avatar_url || avatarPreview"
-                    class="w-full h-full absolute top-0 bg-black/90 transition-all hidden group-hover:flex items-center justify-center">
+                    class="flex gap-1 absolute top-0 left-0 w-full h-full bg-black opacity-0 transition-opacity duration-300 justify-center items-center text-white group-hover:opacity-85 ">
                     <i class="fal fa-upload text-2xl"></i></div>
+                    
                 <!-- Placeholder untuk avatar default jika belum ada -->
                 <div v-else class="flex items-center justify-center min-w-24 min-h-24 bg-background ">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"

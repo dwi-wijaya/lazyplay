@@ -12,7 +12,7 @@
                         <img :src="song.thumbnail" alt=""
                             class="w-20 min-w-20 h-11 rounded-lg object-cover" srcset="">
                         <div
-                            class="hidden absolute rounded-lg text-white w-full base-transition gap-2 top-0 left-0 h-full bg-black opacity-75  group-hover/song:flex justify-center items-center">
+                            class="absolute rounded-lg text-white w-full base-transition gap-2 top-0 left-0 h-full bg-black opacity-0 transition-opacity duration-300 flex  group-hover/song:opacity-85 justify-center items-center">
                             <i class="fad fa-fire text-primary"></i> {{ song.count_song}}
                         </div>
                     </div>
