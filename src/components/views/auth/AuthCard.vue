@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center items-center min-h-screen">
-        <div class="card !rounded-3xl gap-4 !p-7 w-[35rem]">
+        <div class="sm:card bg-none p-5 border-none sm:w-[35rem] w-[23.5rem] !rounded-3xl gap-4 sm:!p-7">
             <div class="header text-center">
                 <img src="@assets/logos/logo.png" class="w-16 block mx-auto" alt="logo">
                 <h3 class="text-text text-2xl font-bold mt-4">Welcome Back</h3>
