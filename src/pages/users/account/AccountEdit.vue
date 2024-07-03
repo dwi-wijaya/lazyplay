@@ -6,7 +6,7 @@
                 <label for="full_name">Full Name:</label>
                 <input class="form-input" id="full_name" v-model="userMetadata.full_name" type="text" required>
             </div>
-            <div class="form-group">
+            <div class="form-group" v-if="!userMetadata.iss">
                 <label for="email">Email:</label>
                 <input class="form-input" id="email" v-model="user.email" type="email" required>
             </div>
@@ -28,7 +28,6 @@ const route = useRoute();
 const router = useRouter();
 const user = ref({});
 const userMetadata = ref({});
-const confirmPassword = ref('');
 const errorMessage = ref('');
 import { useUserStore } from '@stores/user';
 
