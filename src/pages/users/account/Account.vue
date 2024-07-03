@@ -26,7 +26,7 @@
                         class="rounded-2xl  w-32 h-32 object-cover" />
                     <div v-else
                         class="font-medium text-lg p-12 rounded-2xl border w-fit h-full text-center bg-white flex items-center justify-center">
-                        <i class="fad fa-user-headset"></i>
+                        <i class="fad fa-user-headset text-3xl"></i>
                     </div>
                     <div class="grid grid-cols-1  gap-2 ">
                         <div>
