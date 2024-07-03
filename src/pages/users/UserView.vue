@@ -5,7 +5,7 @@
         <div class="mt-4">
             <p><strong>Full Name:</strong> {{ user?.user_metadata.full_name || user?.name }}</p>
             <p><strong>Email:</strong> {{ user?.email }}</p>
-            <p><strong>Role:</strong> {{ user?.user_metadata.role }}</p>
+            <p><strong>Role:</strong> {{ user?.user_metadata.role || 'public' }}</p>
             <p><strong>Last Sign In At:</strong> {{ formattedLastSignInAt }}</p>
         </div>
     </div>

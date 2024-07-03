@@ -72,7 +72,7 @@ html {
   }
 
   .form-group {
-    @apply flex flex-col
+    @apply flex flex-col gap-1
   }
 
   .badge {
