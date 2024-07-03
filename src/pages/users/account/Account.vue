@@ -23,7 +23,7 @@
                 <hr class="border-stroke my-4">
                 <div class="flex gap-4 flex-col">
                     <img v-if="user?.user_metadata.avatar_url" :src="user?.user_metadata.avatar_url"
-                        class="img rounded-2xl h-full w-[7.5rem]" />
+                        class="rounded-2xl  w-32 h-32 object-cover" />
                     <div v-else
                         class="font-medium text-lg p-12 rounded-2xl border w-fit h-full text-center bg-white flex items-center justify-center">
                         <i class="fad fa-user-headset"></i>

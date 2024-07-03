@@ -3,18 +3,18 @@
     <div class="card !p-5">
         <form @submit.prevent="updateUser" class="flex flex-col gap-3">
             <div
-                class='group relative min-w-24 min-h-24 max-w-24 max-h-24 overflow-hidden border border-stroke rounded-2xl bg-background outline-subtext outline-offset-4 outline-dotted mb-2 ml-2 outline-2 base-transition'>
+                class='group relative min-w-28 min-h-28 max-w-28 max-h-28 overflow-hidden border border-stroke rounded-2xl bg-background outline-subtext outline-offset-4 outline-dotted mb-2 ml-2 outline-2 base-transition'>
                 <!-- Preview avatar jika sudah ada -->
                 <img v-if="userMetadata.avatar_url || avatarPreview" :src="avatarPreview || userMetadata.avatar_url"
-                    alt="Avatar Preview" class="object-cover min-w-24 min-h-24 max-w-24 max-h-24" />
+                    alt="Avatar Preview" class="object-cover min-w-28 min-h-28 aspect-square" />
 
                 <div v-if="userMetadata.avatar_url || avatarPreview"
                     class="flex gap-1 absolute top-0 left-0 w-full h-full bg-black opacity-0 transition-opacity duration-300 justify-center items-center text-white group-hover:opacity-85 ">
                     <i class="fal fa-upload text-2xl"></i></div>
                     
                 <!-- Placeholder untuk avatar default jika belum ada -->
-                <div v-else class="flex items-center justify-center min-w-24 min-h-24 bg-background ">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
+                <div v-else class="flex items-center justify-center min-w-28 min-h-28 bg-background ">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 28 28"
                         stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
