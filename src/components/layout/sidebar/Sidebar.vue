@@ -105,7 +105,7 @@ export default {
         async userStore() {
             const userStore = useUserStore();
             await userStore.fetchUser();
-            this.firstName = userStore.user.user_metadata.full_name;
+            this.firstName = userStore.user?.user_metadata.full_name;
         },
         updateTime() {
             const now = new Date();

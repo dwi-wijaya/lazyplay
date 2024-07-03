@@ -24,6 +24,6 @@ const isActiveRoute = computed(() => {
 
 onMounted(async () => {
     await userStore.fetchUser();
-    user.value = userStore.user.user_metadata.full_name;
+    user.value = userStore.user?.user_metadata.full_name;
 });
 </script>
