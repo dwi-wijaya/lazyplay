@@ -19,6 +19,7 @@
                     </div> -->
                 </div>
 
+                <topUser :users="topUser" />
                 <ArtisCard :artists="topArtist" />
                 <TopSong :songs="topSong" />
                 <RecentTracks :songs="recentTracks" />
@@ -33,6 +34,7 @@
 import ArtisCard from '@components/views/dashboard/ArtisCard.vue';
 import Container from '@components/layout/Container.vue';
 import TopSong from '@components/views/dashboard/TopSong.vue';
+import TopUser from '@components/views/dashboard/TopUser.vue';
 import RecentTracks from '@components/views/dashboard/RecentTracks.vue';
 import Jumbotron from '@components/views/dashboard/Jumbotron.vue';
 import NowPlaying from '@components/views/dashboard/NowPlaying.vue';
@@ -44,6 +46,7 @@ export default {
         ArtisCard,
         Container,
         TopSong,
+        TopUser,
         RecentTracks,
         Jumbotron,
         NowPlaying
@@ -51,6 +54,7 @@ export default {
     data() {
         return {
             topSong: [],
+            topUser: [],
             topArtist: [],
             recentTracks: [],
             currentSong: {
@@ -98,6 +102,10 @@ export default {
                 .from('popular_artists')
                 .select('*')
                 .limit(6)
+            let { data: users, errorUser } = await supabase
+                .from('top_users')
+                .select('*')
+                .limit(6)
             let { data: recentTracks, erroRecentTrack } = await supabase
                 .from('songs')
                 .select('*')
@@ -113,6 +121,7 @@ export default {
             if (!errorArtist && !errorSong && !erroRecentTrack && !erroUpcomingSong) {
                 this.topSong = songs;
                 this.topArtist = artists;
+                this.topUser = users
                 this.recentTracks = recentTracks
                 this.upcomingSongs = upcomingSongs
             } else {
