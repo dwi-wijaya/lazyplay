@@ -64,7 +64,7 @@ const updateUser = async () => {
         if (avatarFile.value) {
             const { data, error } = await supabase.storage
                 .from('avatars')
-                .update(`${user.value.id}.png`, avatarFile.value, {
+                .upload(`${user.value.id}.png`, avatarFile.value, {
                     cacheControl: '3600',
                     upsert: true
                 });
