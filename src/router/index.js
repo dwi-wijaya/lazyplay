@@ -17,17 +17,17 @@ import ChangePassword from '@pages/users/account/ChangePassword.vue';
 const routes = [
   { path: '/', component: DashboardPage, meta: { requiresAuth: true } },
   { path: '/queue', component: QueuePage, meta: { requiresAuth: true } },
-  { path: '/play', component: PlayPage, meta: { requiresAuth: true } },
+  { path: '/play', component: PlayPage, meta: { requiresOperator: true } },
   { path: '/signin', component: Signin, meta: { requiresGuest: true } },
   { path: '/signup', component: Signup, meta: { requiresGuest: true } },
   { path: '/recent', component: RecentPage, meta: { requiresAuth: true } },
-  { path: '/users', component: UserList, meta: { requiresAuth: true } },
   { path: '/account', component: Account, meta: { requiresAuth: true } },
   { path: '/account-edit', component: AccountEdit, meta: { requiresAuth: true } },
   { path: '/change-password', component: ChangePassword, meta: { requiresAuth: true } },
-  { path: '/users/create', component: UserCreate, meta: { requiresAuth: true } },
-  { path: '/users/view/:id', component: UserView, meta: { requiresAuth: true } },
-  { path: '/users/edit/:id', component: UserEdit, meta: { requiresAuth: true } },
+  { path: '/users', component: UserList, meta: { requiresAdmin: true } },
+  { path: '/users/create', component: UserCreate, meta: { requiresAdmin: true } },
+  { path: '/users/view/:id', component: UserView, meta: { requiresAdmin: true } },
+  { path: '/users/edit/:id', component: UserEdit, meta: { requiresAdmin: true } },
 ];
 
 const router = createRouter({
@@ -44,6 +44,23 @@ router.beforeEach(async (to, from, next) => {
     next('/signin');
   } else if (to.matched.some(record => record.meta.requiresGuest) && userStore.user) {
     next('/');
+  } else {
+    next();
+  }
+});
+
+
+router.beforeResolve(async (to, from, next) => {
+  const userStore = useUserStore();
+  await userStore.fetchUser();
+
+  if (to.meta.requiresOperator && !['admin', 'operator'].includes(userStore.user?.user_metadata.role)) {
+    next({ path: '/' });
+    next();
+  }
+
+  if (to.meta.requiresAdmin && userStore.user?.user_metadata.role !== 'admin') {
+    next({ path: '/' });
   } else {
     next();
   }

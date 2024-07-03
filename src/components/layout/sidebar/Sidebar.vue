@@ -8,7 +8,8 @@
             </div>
             <div class="ml-6 mt-5 text-left">
                 <h1 class="text-2xl text-text font-medium mb-1">Lazyplay</h1>
-                <p class="text-sm flex items-center gap-2"><i class="text-primary fad fa-mug-hot"></i> <span class="mt-[.125rem]">{{ greetingMessage }}</span>
+                <p class="text-sm flex items-center gap-2"><i class="text-primary fad fa-mug-hot"></i> <span
+                        class="mt-[.125rem]">{{ greetingMessage }}</span>
                 </p>
                 <h3 class="text-sm flex items-center gap-2"><i class="text-primary fad fa-fire"></i>
                     Welcome, {{ firstName }}
@@ -17,7 +18,7 @@
             <nav class="nav">
                 <div class="nav__menu p-6 bg-background rounded-l-none rounded-2xl border border-stroke border-l-0">
                     <ul class="flex flex-col items-center gap-y-6">
-                        <li v-for="item in menuItems" :key="item.label" class="nav__item w-full group">
+                        <li v-for="item in filteredMenuItems" :key="item.label" class="nav__item w-full group">
                             <router-link :to="item.href"
                                 :class="['flex items-center justify-between w-full transition-300 hover:text-primary', isActiveRoute(item.href) ? 'text-primary' : '']">
                                 <span class="flex items-center gap-3">
@@ -38,7 +39,7 @@
             <ProfileLink />
             <Signout />
         </div>
-        
+
         <div @click="toggleSidebar" class="toggle lg:-left-64 left-5 sidebar__toggle" :class="{ '!left-[17rem]': toggle }">
             <i class="fa-duotone fa-bars text-primary"></i>
         </div>
@@ -64,12 +65,13 @@ export default {
             currentTime: '',
             greetingMessage: '',
             firstName: '',
+            userRole: '',
             menuItems: [
-                { label: 'Dashboard', href: '/', iconClass: 'fad fa-home' },
-                { label: 'Queue', href: '/queue', iconClass: 'fad fa-list-music' },
-                { label: 'Player', href: '/play', iconClass: 'fad fa-circle-play' },
-                { label: 'Recents', href: '/recent', iconClass: 'fad fa-clock-rotate-left' },
-                { label: 'Users', href: '/users', iconClass: 'fad fa-users' },
+                { label: 'Dashboard', href: '/', iconClass: 'fad fa-home', accessSible: ['admin', 'public', 'operator'] },
+                { label: 'Queue', href: '/queue', iconClass: 'fad fa-list-music', accessSible: ['admin', 'public', 'operator'] },
+                { label: 'Player', href: '/play', iconClass: 'fad fa-circle-play', accessSible: ['admin', 'operator'] },
+                { label: 'Recents', href: '/recent', iconClass: 'fad fa-clock-rotate-left', accessSible: ['admin', 'operator', 'public',] },
+                { label: 'Users', href: '/users', iconClass: 'fad fa-users', accessSible: ['admin'] },
                 // Add more menu items as needed
             ],
         };
@@ -79,6 +81,11 @@ export default {
             this.handleBodyScroll(newValue);
             this.toggleSidebarClass(newValue);
         },
+    },
+    computed: {
+        filteredMenuItems() {
+            return this.menuItems.filter(item => item.accessSible.includes(this.userRole));
+        }
     },
     mounted() {
         this.userStore()
@@ -106,6 +113,7 @@ export default {
             const userStore = useUserStore();
             await userStore.fetchUser();
             this.firstName = userStore.user?.user_metadata.full_name;
+            this.userRole = userStore.user?.user_metadata.role || 'public';
         },
         updateTime() {
             const now = new Date();
