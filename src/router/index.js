@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useUserStore } from '@stores/user';
 import DashboardPage from '@pages/DashboardPage.vue';
+import Voice from '@pages/Voice.vue';
 import QueuePage from '@pages/QueuePage.vue';
 import PlayPage from '@pages/PlayPage.vue';
 import Signin from '@pages/auth/Signin.vue';
@@ -17,6 +18,7 @@ import ChangePassword from '@pages/users/account/ChangePassword.vue';
 const routes = [
   { path: '/', component: DashboardPage, meta: { requiresAuth: true } },
   { path: '/queue', component: QueuePage, meta: { requiresAuth: true } },
+  { path: '/voice', component: Voice},
   { path: '/play', component: PlayPage, meta: { requiresOperator: true } },
   { path: '/signin', component: Signin, meta: { requiresGuest: true } },
   { path: '/signup', component: Signup, meta: { requiresGuest: true } },
