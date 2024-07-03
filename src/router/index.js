@@ -10,8 +10,9 @@ import UserList from '@pages/users/UserPage.vue';
 import UserCreate from '@pages/users/UserCreate.vue';
 import UserView from '@pages/users/UserView.vue';
 import UserEdit from '@pages/users/UserEdit.vue';
-import Account from '@pages/users/Account.vue';
-import AccountEdit from '@pages/users/AccountEdit.vue';
+import Account from '@pages/users/account/Account.vue';
+import AccountEdit from '@pages/users/account/AccountEdit.vue';
+import ChangePassword from '@pages/users/account/ChangePassword.vue';
 
 const routes = [
   { path: '/', component: DashboardPage, meta: { requiresAuth: true } },
@@ -23,6 +24,7 @@ const routes = [
   { path: '/users', component: UserList, meta: { requiresAuth: true } },
   { path: '/account', component: Account, meta: { requiresAuth: true } },
   { path: '/account-edit', component: AccountEdit, meta: { requiresAuth: true } },
+  { path: '/change-password', component: ChangePassword, meta: { requiresAuth: true } },
   { path: '/users/create', component: UserCreate, meta: { requiresAuth: true } },
   { path: '/users/view/:id', component: UserView, meta: { requiresAuth: true } },
   { path: '/users/edit/:id', component: UserEdit, meta: { requiresAuth: true } },

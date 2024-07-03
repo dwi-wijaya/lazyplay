@@ -2,7 +2,11 @@
     <div>
         <BackButton :to="'/'" />
         <div class="flex justify-between">
-            <h1>User Details</h1> <router-link to="/account-edit" class="btn !px-3 !py-2">Update Account</router-link>
+            <h1 class="font-medium text-lg">User Details</h1>
+            <div class="flex gap-2">
+                <router-link title="change password" to="/change-password" class="btn !px-3 !py-2"><i class="fad fa-lock"></i><span class="hidden sm:block">Change Password</span></router-link>
+                <router-link title="update account" to="/account-edit" class="btn !px-3 !py-2"><i class="fad fa-pen"></i><span class="hidden sm:block">Update Account</span></router-link>
+            </div>
         </div>
         <div class="mt-4">
             <p><strong>Full Name:</strong> {{ user?.user_metadata.full_name || user?.name }}</p>

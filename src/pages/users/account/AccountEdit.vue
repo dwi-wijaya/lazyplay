@@ -1,7 +1,7 @@
 <template>
     <BackButton :to="'/account'" />
     <div class="card !p-5">
-        <form @submit.prevent="updateUser">
+        <form @submit.prevent="updateUser" class="flex flex-col gap-3">
             <div class="form-group">
                 <label for="full_name">Full Name:</label>
                 <input class="form-input" id="full_name" v-model="userMetadata.full_name" type="text" required>
@@ -9,15 +9,6 @@
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input class="form-input" id="email" v-model="user.email" type="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input minlength="6" class="form-input" id="password" v-model="user.password" type="password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm_password">Confirm Password:</label>
-                <input minlength="6" class="form-input" id="confirm_password" v-model="confirmPassword" type="password"
-                    required>
             </div>
             <p v-if="errorMessage" class="text-primary mt-2">{{ errorMessage }}</p>
             <div class="flex justify-end">
@@ -49,15 +40,9 @@ const fetchUser = async () => {
 };
 
 const updateUser = async () => {
-    if (user.value.password !== confirmPassword.value) {
-        errorMessage.value = 'Passwords do not match';
-        return;
-    }
-
     const { error } = await supabase.auth.updateUser({
         email: user.value.email,
-        password: user.value.password,
-        user_metadata: {
+        data: {
             full_name: userMetadata.value.full_name,
         }
     });
