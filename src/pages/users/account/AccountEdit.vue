@@ -2,6 +2,26 @@
     <BackButton :to="'/account'" />
     <div class="card !p-5">
         <form @submit.prevent="updateUser" class="flex flex-col gap-3">
+            <div
+                class='group relative min-w-24 min-h-24 max-w-24 max-h-24 overflow-hidden border border-stroke rounded-2xl bg-background outline-subtext outline-offset-4 outline-dotted mb-2 ml-2 outline-2 base-transition'>
+                <!-- Preview avatar jika sudah ada -->
+                <img v-if="userMetadata.avatar_url || avatarPreview" :src="avatarPreview || userMetadata.avatar_url"
+                    alt="Avatar Preview" class="object-cover min-w-24 min-h-24 max-w-24 max-h-24" />
+
+                <div v-if="userMetadata.avatar_url || avatarPreview"
+                    class="w-full h-full absolute top-0 bg-black/90 transition-all hidden group-hover:flex items-center justify-center">
+                    <i class="fal fa-upload text-2xl"></i></div>
+                <!-- Placeholder untuk avatar default jika belum ada -->
+                <div v-else class="flex items-center justify-center min-w-24 min-h-24 bg-background ">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                </div>
+                <!-- Input untuk memilih file avatar baru -->
+                <input type="file" accept="image/*" name='avatar' @change="handleImageChange"
+                    class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
+            </div>
             <div class="form-group">
                 <label for="full_name">Full Name:</label>
                 <input class="form-input" id="full_name" v-model="userMetadata.full_name" type="text" required>
@@ -17,50 +37,87 @@
         </form>
     </div>
 </template>
-  
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { supabase } from '@services/supabase.js'; // sesuaikan path sesuai struktur proyek Anda
+import { useRouter } from 'vue-router';
+import { supabase } from '@services/supabase.js'; // Sesuaikan path sesuai struktur proyek Anda
 import BackButton from '@components/partial/BackButton.vue';
+import { useUserStore } from '@stores/user';
 
-const route = useRoute();
 const router = useRouter();
 const user = ref({});
 const userMetadata = ref({});
+const avatarFile = ref(null);
 const errorMessage = ref('');
-import { useUserStore } from '@stores/user';
+const avatarPreview = ref(null); // Untuk menyimpan preview avatar
 
 const fetchUser = async () => {
     const userStore = useUserStore();
     await userStore.fetchUser();
     user.value = userStore.user;
-    userMetadata.value = userStore.user.user_metadata
+    userMetadata.value = userStore.user.user_metadata;
 };
 
 const updateUser = async () => {
-    const { error } = await supabase.auth.updateUser({
-        email: user.value.email,
-        data: {
-            full_name: userMetadata.value.full_name,
-        }
-    });
+    try {
+        if (avatarFile.value) {
+            const { data, error } = await supabase.storage
+                .from('avatars')
+                .update(`${user.value.id}.png`, avatarFile.value, {
+                    cacheControl: '3600',
+                    upsert: true
+                });
 
-    if (error) {
-        if (error.message === 'New password should be different from the old password.') {
-            errorMessage.value = 'New password should be different from the old password';
-        } else {
-            errorMessage.value = 'Error updating user: ' + error.message;
+            if (error) {
+                errorMessage.value = 'Error uploading avatar: ' + error.message;
+                console.error('Error uploading avatar:', error);
+                return;
+            }
+
+            const { data: dataAvatar } = await supabase.storage
+                .from('avatars')
+                .getPublicUrl(`${user.value.id}.png`);
+
+            userMetadata.value.avatar_url = dataAvatar.publicUrl;
         }
+
+        const { error: updateError } = await supabase.auth.updateUser({
+            email: user.value.email,
+            data: {
+                full_name: userMetadata.value.full_name,
+                avatar_url: userMetadata.value.avatar_url,
+            }
+        });
+
+        if (updateError) {
+            errorMessage.value = 'Error updating user: ' + updateError.message;
+            console.error('Error updating user:', updateError);
+        } else {
+            await supabase.auth.refreshSession();
+            console.log('User updated successfully');
+            router.push('/account');
+        }
+    } catch (error) {
+        errorMessage.value = 'Error updating user: ' + error.message;
         console.error('Error updating user:', error);
-    } else {
-        console.log('User updated successfully');
-        router.push('/account');
     }
+};
+
+const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    avatarFile.value = file;
+
+    if (!file) return;
+
+    // Menampilkan preview gambar yang dipilih
+    const reader = new FileReader();
+    reader.onload = () => {
+        avatarPreview.value = reader.result;
+    };
+    reader.readAsDataURL(file);
 };
 
 onMounted(async () => {
     await fetchUser();
 });
 </script>
-  
