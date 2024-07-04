@@ -40,10 +40,15 @@
 
 <script>
 import { parseDuration } from '@helpers/durationHelper';
+import dayjs from 'dayjs';
 
 export default {
     props: {
         song: {
+            type: Object,
+            required: true,
+        },
+        prayerSchedule: {
             type: Object,
             required: true,
         },
@@ -52,6 +57,8 @@ export default {
         return {
             isPlaying: false,
             player: null,
+            nextAdzan: '',
+            adzanTimes: [],
         };
     },
     computed: {
@@ -62,6 +69,9 @@ export default {
     mounted() {
         this.loadYouTubeIframeAPI();
         window.addEventListener('beforeunload', this.handleBeforeUnload);
+        this.calculateAdzanTimes();
+        this.checkAdzanTime();
+        setInterval(this.checkAdzanTime, 60000); // Check every minute
     },
     beforeDestroy() {
         this.cleanup();
@@ -102,7 +112,7 @@ export default {
         onPlayerStateChange(event) {
             if (event.data !== window.YT.PlayerState.BUFFERING) {
                 console.log('Video state changed');
-                this.$emit('video-state', event.data);
+                // this.$emit('video-state', event.data);
 
                 if (event.data === window.YT.PlayerState.PLAYING) {
                     this.isPlaying = true;
@@ -138,11 +148,27 @@ export default {
         },
         stopVideoAndUpdateStatus() {
             this.stopVideo();
-            this.$emit('video-state', window.YT.PlayerState.ENDED);
+            // this.$emit('video-state', window.YT.PlayerState.ENDED);
         },
         cleanup() {
             this.stopVideoAndUpdateStatus();
             window.removeEventListener('beforeunload', this.handleBeforeUnload);
+        },
+        calculateAdzanTimes() {
+            const adzanTimes = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'].map(prayer => {
+                return dayjs(this.prayerSchedule.date + ' ' + this.prayerSchedule[prayer]).subtract(2, 'm');
+            });
+            this.adzanTimes = adzanTimes;
+        },
+        checkAdzanTime() {
+            const now = dayjs();
+            for (let time of this.adzanTimes) {
+                if (now.isSame(time, 'minute')) {
+                    this.stopVideo();
+                    this.nextAdzan = time.format('HH:mm');
+                    break;
+                }
+            }
         },
     },
 };

@@ -3,7 +3,7 @@
     <h1 class="text-2xl font-bold mb-4">Music Player</h1>
     <div v-if="currentSong">
       <VideoPlayer :song="currentSong" :video-url="currentSong.url" @video-state="handleVideoState"
-        @prev-song="setPrevSong" @skip-song="setNexSong" />
+        @prev-song="setPrevSong" @skip-song="setNexSong" :prayerSchedule="prayerSchedule"/>
     </div>
     <SongList :songs="songs" @delete-song="deleteSong" />
   </Container>
@@ -14,6 +14,8 @@ import VideoPlayer from '@components/views/player/VideoPlayer.vue';
 import SongList from '@components/views/player/SongList.vue';
 import Container from '@components/layout/Container.vue';
 import { supabase } from '@services/supabase';
+import dayjs from 'dayjs';
+import axios from 'axios';
 
 export default {
   async beforeRouteLeave(to, from, next) {
@@ -32,6 +34,14 @@ export default {
     return {
       currentSong: null,
       songs: [],
+      prayerSchedule: {
+        subuh: '04:31',
+        dzuhur: '11:46',
+        ashar: '13:45',
+        maghrib: '18:00',
+        isya: '18:50',
+        date: dayjs().format('YYYY-MM-DD'),
+      },
     };
   },
   methods: {
@@ -109,11 +119,31 @@ export default {
         })
         .subscribe()
     },
+    async fetchPrayerSchedule() {
+      try {
+        const today = dayjs().format('YYYY-MM-DD');
+
+        const response = await axios.get(`https://api.myquran.com/v2/sholat/jadwal/1501/${today}`)
+        const jadwalData = response.data.data.jadwal;
+        // this.prayerSchedule = {
+        //   subuh: jadwalData.subuh,
+        //   dzuhur: jadwalData.dzuhur,
+        //   ashar: jadwalData.ashar,
+        //   maghrib: jadwalData.maghrib,
+        //   isya: jadwalData.isya,
+        //   date: today
+        // };
+      } catch (error) {
+        console.error('Error fetching jadwal:', error);
+      }
+    },
+
   },
   mounted() {
     this.fetchNextSong();
     this.setupRealtime()
     this.fetchSongs();
+    this.fetchPrayerSchedule();
   },
 };
 </script>
