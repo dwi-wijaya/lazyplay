@@ -68,11 +68,11 @@ export default {
             userRole: '',
             menuItems: [
                 { label: 'Dashboard', href: '/', iconClass: 'fad fa-home', accessSible: ['admin', 'public', 'operator'] },
-                { label: 'Queue', href: '/queue', iconClass: 'fad fa-list-music', accessSible: ['admin', 'public', 'operator'] },
+                { label: 'Queue', href: '/queue', iconClass: 'fad fa-signal-stream', accessSible: ['admin', 'public', 'operator'] },
                 { label: 'Player', href: '/play', iconClass: 'fad fa-circle-play', accessSible: ['admin', 'operator'] },
+                { label: 'Playlist', href: '/playlist', iconClass: 'fad fa-list-music', accessSible: ['admin', 'operator', 'public',] },
                 { label: 'Recents', href: '/recent', iconClass: 'fad fa-clock-rotate-left', accessSible: ['admin', 'operator', 'public',] },
                 { label: 'Users', href: '/users', iconClass: 'fad fa-users', accessSible: ['admin'] },
-                // Add more menu items as needed
             ],
         };
     },
