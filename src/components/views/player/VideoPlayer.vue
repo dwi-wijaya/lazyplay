@@ -20,6 +20,9 @@
                     <i class="fad fa-timer"></i>{{ parseDuration(song.duration) }}
                 </button>
                 <div class="flex gap-2">
+                    <button class="btn !px-3 !py-2 h-fit" @click="toggleMute">
+                        <i :class="isMuted ? 'fas fa-volume-xmark' : 'fas fa-volume'"></i>
+                    </button>
                     <button class="btn !px-3 !py-2 h-fit" @click="$emit('prev-song')">
                         <i class="fad fa-backward"></i>
                     </button>
@@ -56,6 +59,7 @@ export default {
     data() {
         return {
             isPlaying: false,
+            isMuted: false,
             player: null,
             nextAdzan: '',
             adzanTimes: [],
@@ -126,6 +130,15 @@ export default {
                 this.pauseVideo();
             } else {
                 this.playVideo();
+            }
+        },
+        toggleMute() {
+            if (this.isMuted) {
+                this.isMuted = false
+                this.player.unMute();
+            } else {
+                this.isMuted = true
+                this.player.mute();
             }
         },
         playVideo() {
