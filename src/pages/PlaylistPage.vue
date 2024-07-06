@@ -57,8 +57,8 @@ export default {
                         duration: song.duration,
                         thumbnail: song.thumbnail,
                         created_at: new Date(),
-                        artist: song.channelTitle,
-                        artist_image: song.channelImage,
+                        artist: song.artist,
+                        artist_image: song.artist_image,
                         created_by: this.user.id,
                         created_name: this.user.user_metadata.full_name
                     }
