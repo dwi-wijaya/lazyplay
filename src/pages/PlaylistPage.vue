@@ -3,13 +3,8 @@
         <div>
             <SongInput @song-added="fetchSongs" />
             <div class="flex flex-col gap-2">
-                <SongList 
-                    @add-to-queue="handleAddToQueue" 
-                    :playlist="playlist" 
-                    :isCooldown="isCooldown" 
-                    :cooldownTime="cooldownTime" 
-                    @delete-song="deleteSong" 
-                />
+                <SongList @add-to-queue="handleAddToQueue" :playlist="playlist" :isCooldown="isCooldown"
+                    :cooldownTime="cooldownTime" @delete-song="deleteSong" />
             </div>
         </div>
     </Container>
@@ -35,6 +30,7 @@ export default {
             error: null,
             isCooldown: false,
             cooldownTime: 0,
+            duration: 0,
             cooldownInterval: null
         }
     },
@@ -111,20 +107,44 @@ export default {
         },
         startCooldown() {
             this.isCooldown = true;
-            this.cooldownTime = 10;
+            this.cooldownTime = 20;
+            localStorage.setItem('isCooldown', true);
+            localStorage.setItem('cooldownTime', this.cooldownTime);
             this.cooldownInterval = setInterval(() => {
                 this.cooldownTime--;
+                localStorage.setItem('cooldownTime', this.cooldownTime);
                 if (this.cooldownTime <= 0) {
                     clearInterval(this.cooldownInterval);
                     this.isCooldown = false;
+                    localStorage.removeItem('isCooldown');
+                    localStorage.removeItem('cooldownTime');
                 }
             }, 1000);
+        },
+        checkCooldown() {
+            const isCooldown = localStorage.getItem('isCooldown');
+            const cooldownTime = localStorage.getItem('cooldownTime');
+            if (isCooldown && cooldownTime > 0) {
+                this.isCooldown = true;
+                this.cooldownTime = cooldownTime;
+                this.cooldownInterval = setInterval(() => {
+                    this.cooldownTime--;
+                    localStorage.setItem('cooldownTime', this.cooldownTime);
+                    if (this.cooldownTime <= 0) {
+                        clearInterval(this.cooldownInterval);
+                        this.isCooldown = false;
+                        localStorage.removeItem('isCooldown');
+                        localStorage.removeItem('cooldownTime');
+                    }
+                }, 1000);
+            }
         }
     },
     async mounted() {
-        await this.userStore()
-        this.fetchSongs()
-        this.setupRealtime()
+        await this.userStore();
+        this.fetchSongs();
+        this.setupRealtime();
+        this.checkCooldown(); // Periksa cooldown saat komponen dipasang
     },
 }
 </script>
