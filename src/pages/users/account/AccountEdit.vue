@@ -39,11 +39,12 @@
     </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { supabase } from '@services/supabase.js'; // Sesuaikan path sesuai struktur proyek Anda
 import BackButton from '@components/partial/BackButton.vue';
 import { useUserStore } from '@stores/user';
+import { useTitle } from '@vueuse/core'
 
 const router = useRouter();
 const user = ref({});
@@ -121,4 +122,5 @@ const handleImageChange = (event) => {
 onMounted(async () => {
     await fetchUser();
 });
+useTitle(computed(() => 'Account - ' + (user.value?.user_metadata?.full_name || 'User')));
 </script>

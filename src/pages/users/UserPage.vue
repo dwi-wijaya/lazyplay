@@ -11,5 +11,7 @@
 <script setup>
 import UserList from '@components/views/user/UserList.vue';
 import Container from '@components/layout/Container.vue'
+import { useTitle } from '@vueuse/core'
+useTitle('Users - Lazyplay')
 
 </script>

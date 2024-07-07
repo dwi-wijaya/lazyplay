@@ -14,13 +14,14 @@ import SongCard from '@components/views/queue/SongCard.vue'
 import SongInput from '@components/views/queue/SongInput.vue'
 import Container from '@components/layout/Container.vue'
 import { supabase } from '@services/supabase'
+import { useTitle } from '@vueuse/core'
 
 export default {
     components: {
-    SongInput,
-    Container,
-    SongCard
-},
+        SongInput,
+        Container,
+        SongCard
+    },
     data() {
         return {
             songs: [],
@@ -57,6 +58,7 @@ export default {
     mounted() {
         this.fetchSongs()
         this.setupRealtime()
+        useTitle('Queue - Lazyplay')
     },
 }
 </script>
@@ -66,4 +68,3 @@ export default {
     @apply max-w-4xl mx-auto p-4;
 }
 </style>
-g

@@ -58,6 +58,7 @@ import { useRoute } from 'vue-router';
 import { useDateFormat } from '@vueuse/core';
 import BackButton from '@components/partial/BackButton.vue';
 import { useUserStore } from '@stores/user';
+import { useTitle } from '@vueuse/core'
 
 const route = useRoute();
 const user = ref(null);
@@ -84,5 +85,6 @@ const userRole = computed(() => {
     }
     return 'Public';
 });
+useTitle(computed(() => 'Account - ' + (user.value?.user_metadata?.full_name || 'User')));
 </script>
   

@@ -13,7 +13,7 @@
                         <input id="role-operator" name="role" v-model="userMetadata.role" type="radio" value="public">
                         <label for="role-operator">Public</label>
                     </div>
-                    
+
                     <div class="flex gap-2 items-center">
                         <input id="role-operator" name="role" v-model="userMetadata.role" type="radio" value="operator">
                         <label for="role-operator">Operator</label>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-                <div class="flex justify-end">
+            <div class="flex justify-end">
                 <button type="submit" class="btn mt-4"><i class="fad fa-pen"></i>Update</button>
             </div>
         </form>
@@ -32,10 +32,11 @@
 </template>
   
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { adminSupabase } from '@services/supabase.js'; // sesuaikan path sesuai struktur proyek Anda
 import BackButton from '@components/partial/BackButton.vue';
+import { useTitle } from '@vueuse/core'
 
 const route = useRoute();
 const router = useRouter();
@@ -75,5 +76,5 @@ const updateUser = async () => {
 onMounted(async () => {
     await fetchUser();
 });
+useTitle(computed(() => 'Edit - ' + (user.value?.user_metadata?.full_name || 'User')));
 </script>
-  

@@ -16,6 +16,7 @@ import SongInput from '@components/views/playlist/SongInput.vue'
 import Container from '@components/layout/Container.vue'
 import { supabase } from '@services/supabase'
 import { useUserStore } from '@stores/user';
+import { useTitle } from '@vueuse/core'
 
 export default {
     components: {
@@ -145,12 +146,8 @@ export default {
         this.fetchSongs();
         this.setupRealtime();
         this.checkCooldown(); // Periksa cooldown saat komponen dipasang
+        useTitle('Playlist - Lazyplay')
     },
 }
 </script>
 
-<style scoped>
-.container {
-    @apply max-w-4xl mx-auto p-4;
-}
-</style>

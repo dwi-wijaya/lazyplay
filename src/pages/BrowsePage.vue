@@ -2,9 +2,11 @@
     <Container>
         <SearchBar @search="searchVideos" :isLoading="isLoading" />
         <div class="mt-6">
-            <p class="text-text flex items-center gap-2" v-if="error"><i class="fa-duotone fa-circle-exclamation"></i> {{ error }}</p>
+            <p class="text-text flex items-center gap-2" v-if="error"><i class="fa-duotone fa-circle-exclamation"></i> {{
+                error }}</p>
             <p class="text-text flex items-center gap-2" v-else-if="videos === 'notfound'">
-                <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something else.
+                <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something
+                else.
             </p>
             <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
                 :cooldownTime="cooldownTime" />
@@ -19,6 +21,7 @@ import SearchBar from '@components/views/browse/SearchBar.vue';
 import VideoGrid from '@components/views/browse/VideoGrid.vue';
 import { supabase } from '@services/supabase';
 import { useUserStore } from '@stores/user';
+import { useTitle } from '@vueuse/core'
 
 export default {
     components: {
@@ -39,6 +42,7 @@ export default {
     async mounted() {
         await this.userStore();
         this.checkCooldown();
+        useTitle('Browse - Lazyplay')
     },
     methods: {
         async userStore() {

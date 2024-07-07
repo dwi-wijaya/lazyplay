@@ -40,6 +40,7 @@ import Jumbotron from '@components/views/dashboard/Jumbotron.vue';
 import NowPlaying from '@components/views/dashboard/NowPlaying.vue';
 import { supabase } from '@services/supabase'
 import { parseState, stateIcon } from '@helpers/stateHelper';
+import { useTitle } from '@vueuse/core'
 
 export default {
     components: {
@@ -174,6 +175,7 @@ export default {
         this.fetchPlayingSong();
         this.fetchDasboardSongs();
         this.setupRealtime();
+        useTitle('Dashboard - Lazyplay')
     },
 }
 </script>

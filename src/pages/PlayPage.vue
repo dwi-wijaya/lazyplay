@@ -16,6 +16,7 @@ import Container from '@components/layout/Container.vue';
 import { supabase } from '@services/supabase';
 import dayjs from 'dayjs';
 import axios from 'axios';
+import { useTitle } from '@vueuse/core'
 
 export default {
   async beforeRouteLeave(to, from, next) {
@@ -144,6 +145,7 @@ export default {
     this.setupRealtime()
     this.fetchSongs();
     this.fetchPrayerSchedule();
+    useTitle('Play - Lazyplay')
   },
 };
 </script>

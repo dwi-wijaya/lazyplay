@@ -20,10 +20,11 @@
 </template>
   
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { supabase } from '@services/supabase.js'; // sesuaikan path sesuai struktur proyek Anda
 import BackButton from '@components/partial/BackButton.vue';
+import { useTitle } from '@vueuse/core'
 
 const route = useRoute();
 const router = useRouter();
@@ -64,5 +65,6 @@ const updateUser = async () => {
 onMounted(async () => {
     await fetchUser();
 });
+useTitle(computed(() => 'Change Password - ' + (user.value?.user_metadata?.full_name || 'User')));
 </script>
   

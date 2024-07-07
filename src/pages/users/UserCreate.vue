@@ -41,6 +41,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { adminSupabase } from '@/services/supabase.js'; // sesuaikan path sesuai struktur proyek Anda
 import BackButton from '@/components/partial/BackButton.vue'; // sesuaikan path sesuai struktur proyek Anda
+import { useTitle } from '@vueuse/core'
 
 const router = useRouter();
 const user = ref({ email: '', password: '' });
@@ -81,4 +82,5 @@ const createUser = async () => {
         router.push('/users');
     }
 };
+useTitle('Create User - Lazyplay')
 </script>
