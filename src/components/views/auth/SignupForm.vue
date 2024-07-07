@@ -3,22 +3,22 @@
         <div class="flex gap-3 items-center w-full">
             <div class="form-group flex-1">
                 <label for="firstname" class="font-medium text-text text-base">First Name</label>
-                <input v-model="firstName" type="text" class="form-input  !rounded-md w-full"
+                <input v-model="firstName" type="text" class="form-input !bg-slate-50 dark:!bg-[#323946] !rounded-md w-full"
                     id="firstname" required>
             </div>
             <div class="form-group flex-1">
                 <label for="lastname" class="font-medium text-text text-base">Last Name</label>
-                <input v-model="lastName" type="text" class="form-input  !rounded-md w-full"
+                <input v-model="lastName" type="text" class="form-input !bg-slate-50 dark:!bg-[#323946] !rounded-md w-full"
                     id="lastname" required>
             </div>
         </div>
         <div class="form-group">
             <label for="email" class="font-medium text-text text-base">Email Address</label>
-            <input v-model="email" type="email" class="form-input  !rounded-md" id="email" required>
+            <input v-model="email" type="email" class="form-input !bg-slate-50 dark:!bg-[#323946] !rounded-md" id="email" required>
         </div>
         <div class="form-group">
             <label for="password" class="font-medium text-text text-base">Password</label>
-            <input v-model="password" type="password" class="form-input  !rounded-md" id="password"
+            <input v-model="password" type="password" class="form-input !bg-slate-50 dark:!bg-[#323946] !rounded-md" id="password"
                 required>
         </div>
         <div class="mt-2">

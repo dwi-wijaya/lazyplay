@@ -2,11 +2,11 @@
     <form @submit.prevent="signIn" class="flex flex-col gap-3">
         <div class="form-group">
             <label for="email" class="font-medium text-text text-base">Email Address</label>
-            <input v-model="email" type="email" class="form-input  !rounded-md" id="email" required>
+            <input v-model="email" type="email" class="form-input !bg-slate-50 dark:!bg-[#323946] !rounded-md" id="email" required>
         </div>
         <div class="form-group">
             <label for="password" class="font-medium text-text text-base">Password</label>
-            <input v-model="password" type="password" class="form-input  !rounded-md" id="password"
+            <input v-model="password" type="password" class="form-input !bg-slate-50 dark:!bg-[#323946] !rounded-md" id="password"
                 required>
         </div>
         <div class="flex justify-between mt-2">

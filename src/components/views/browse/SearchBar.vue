@@ -1,7 +1,7 @@
 <template>
     <div class="flex">
         <input ref="urlInput" v-model="query" @keypress.enter="onInput" type="url" placeholder="Type your favourite song"
-            class="form-input !bg-container !border-neutral-300 dark:!border-stroke flex-1 !rounded-r-none" required />
+            class="form-input flex-1 !rounded-r-none" required />
         <button type="button" @click="onInput"
             class="w-10 bg-container py-2 px-3 rounded-r-md border !border-neutral-300 dark:!border-stroke flex items-center hover:text-primary base-transition">
             <i :class="isLoading ? 'fas fa-spinner fa-spin' : 'fad fa-music-magnifying-glass'"></i>

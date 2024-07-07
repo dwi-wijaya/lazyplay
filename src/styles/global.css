@@ -5,14 +5,14 @@
 
 :root {
   --foreground-color: rgb(94, 92, 127);
-  --background-color: rgb(247 249 253);
+  --background-color: rgb(247, 249, 253);
   --container-color: rgb(255, 255, 255);
   --primary-color: rgb(239 68 68);
   --primary-bg: #ff985c4d;
   --title-color: rgb(53, 50, 82);
   --text-color: rgb(94, 92, 127);
   --text-secondary: rgb(133, 131, 165);
-  --stroke-color: #e5ebff;
+  --stroke-color: #d9e1fc;
 }
 
 .dark {
@@ -64,7 +64,7 @@ html {
   }
 
   .form-input {
-    @apply border border-stroke bg-neutral-50 dark:bg-[#323946] text-text rounded-md py-2 px-3 z-[1] focus-visible:!outline-none;
+    @apply border border-stroke bg-container border-neutral-300 dark:border-stroke dark:bg-[#323946] text-text rounded-md py-2 px-3 z-[1] focus-visible:!outline-none;
   }
 
   .form-control {
@@ -88,58 +88,80 @@ html {
   }
 }
 
+.glass {
+  /* From https://css.glass */
+  background: var(--glass-background-color);
+  /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
+  backdrop-filter: blur(6.2px);
+  -webkit-backdrop-filter: blur(6.2px);
+  backdrop-filter: blur(6.2px);
+  border-top: 1px solid var(--stroke-color);
+}
+
 /* start: CUSTOM GRIDJS */
-.gridjs-search{
+.gridjs-search {
   /* float: right !important;  */
 }
+
 input.gridjs-input {
   outline: none;
   color: var(--text-color) !important;
   background-color: var(--container-color) !important;
   border: 1px solid var(--stroke-color) !important;
 }
+
 input.gridjs-input:focus {
   box-shadow: none !important;
   border-color: none !important;
 }
 
-.gridjs-wrapper{
+.gridjs-wrapper {
   border-color: #61666f !important;
   border-top-width: 0 !important;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-th.gridjs-th{
+
+th.gridjs-th {
   color: var(--text-color) !important;
 }
-.dark th.gridjs-th{
+
+.dark th.gridjs-th {
   background-color: #494d58;
-  border: 1px solid #61666f !important; 
+  border: 1px solid #61666f !important;
   border-bottom: 0 !important;
 }
+
 td.gridjs-td {
   color: var(--text-color) !important;
   background-color: var(--container-color) !important;
 }
+
 .dark td.gridjs-td {
   border: 1px solid #4e5259 !important;
   border-top: 0 !important;
 }
-.gridjs-footer{
+
+.gridjs-footer {
   border: 1px solid var(--stroke-color) !important;
   background-color: var(--container-color) !important;
 }
-.gridjs-pagination .gridjs-summary{
+
+.gridjs-pagination .gridjs-summary {
   color: var(--text-color) !important;
 }
-.gridjs-pagination .gridjs-pages button{
+
+.gridjs-pagination .gridjs-pages button {
   color: var(--text-color) !important;
   background-color: var(--container-color) !important;
 }
-.dark .gridjs-pagination .gridjs-pages button{
+
+.dark .gridjs-pagination .gridjs-pages button {
   border: 1px solid #4e5259 !important;
 }
-.dark .gridjs-pagination .gridjs-pages button.gridjs-currentPage{
+
+.dark .gridjs-pagination .gridjs-pages button.gridjs-currentPage {
   background-color: #323946 !important;
 }
+
 /* end: CUSTOM GRIDJS */
