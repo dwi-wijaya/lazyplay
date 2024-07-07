@@ -1,23 +1,23 @@
 <template>
     <Container>
-        <SearchBar @search="debouncedSearch" :isLoading="isLoading" />
+        <SearchBar @search="searchVideos" :isLoading="isLoading" />
         <div class="mt-6">
-            <p class="text-text text-lg flex gap-2 items-center" v-if="videos === 'notfound'">
-                <i class="text-primary fad fa-exclamation-circle"></i> Sorry, we couldn't find any song matching your search.
+            <p class="text-text flex items-center gap-2" v-if="error"><i class="fa-duotone fa-circle-exclamation"></i> {{ error }}</p>
+            <p class="text-text flex items-center gap-2" v-else-if="videos === 'notfound'">
+                <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something else.
             </p>
             <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
                 :cooldownTime="cooldownTime" />
         </div>
     </Container>
 </template>
-  
+
 <script>
 import axios from 'axios';
-import _ from 'lodash';
 import Container from '@components/layout/Container.vue';
 import SearchBar from '@components/views/browse/SearchBar.vue';
 import VideoGrid from '@components/views/browse/VideoGrid.vue';
-import { supabase } from '@services/supabase'
+import { supabase } from '@services/supabase';
 import { useUserStore } from '@stores/user';
 
 export default {
@@ -32,6 +32,7 @@ export default {
             isCooldown: false,
             cooldownTime: 0,
             cooldownInterval: null,
+            error: '',
             isLoading: false
         };
     },
@@ -57,14 +58,12 @@ export default {
                 created_by: this.user.id,
                 created_name: this.user.user_metadata.full_name
             };
-            const { error } = await supabase
-                .from('songs')
-                .insert([song]);
+            const { error } = await supabase.from('songs').insert([song]);
 
             if (!error) {
                 this.error = '';
             } else {
-                this.error = 'Gagal menambahkan lagu.';
+                this.error = 'Failed to add the song.';
             }
         },
         handleAddToQueue(data) {
@@ -75,7 +74,7 @@ export default {
         },
         startCooldown() {
             this.isCooldown = true;
-            this.cooldownTime = 20; // 20 detik cooldown
+            this.cooldownTime = 20; // 20 seconds cooldown
             localStorage.setItem('isCooldown', true);
             localStorage.setItem('cooldownTime', this.cooldownTime);
             this.cooldownInterval = setInterval(() => {
@@ -119,9 +118,9 @@ export default {
                         part: 'snippet',
                         q: query,
                         type: 'video',
-                        videoCategoryId: '10', // Kategori Musik
+                        videoCategoryId: '10', // Music Category
                         maxResults: 20,
-                        key: import.meta.env.VITE_GOOGLE_API_KEY // Ganti dengan API Key Anda
+                        key: import.meta.env.VITE_GOOGLE_API_KEY // Replace with your API Key
                     }
                 });
 
@@ -131,25 +130,22 @@ export default {
                     params: {
                         part: 'snippet,contentDetails',
                         id: videoIds,
-                        key: import.meta.env.VITE_GOOGLE_API_KEY // Ganti dengan API Key Anda
+                        key: import.meta.env.VITE_GOOGLE_API_KEY // Replace with your API Key
                     }
                 });
 
                 this.videos = videosResponse.data.items.length === 0 ? 'notfound' : videosResponse.data.items;
+                this.error = '';
             } catch (error) {
-                console.error('Error fetching videos:', error);
+                if (error.response && error.response.data.error.message.includes('quota')) {
+                    this.error = 'The request cannot be completed because you have exceeded your quota. Please try again later.';
+                } else {
+                    console.error('Error fetching videos:', error);
+                }
             } finally {
                 this.isLoading = false;
             }
-        },
-        debouncedSearch: _.debounce(function (query) {
-            this.searchVideos(query);
-        }, 300)
+        }
     }
 };
 </script>
-  
-<style>
-/* Add any global styles here */
-</style>
-  
