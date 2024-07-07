@@ -16,6 +16,7 @@
     "dateformat": "^5.0.3",
     "dayjs": "^1.11.11",
     "gridjs": "^6.2.0",
+    "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "tailwind-scrollbar-hide": "^1.1.7",
     "vue": "^3.4.29",

@@ -68,6 +68,7 @@ export default {
             userRole: '',
             menuItems: [
                 { label: 'Dashboard', href: '/', iconClass: 'fad fa-home', accessSible: ['admin', 'public', 'operator'] },
+                { label: 'Browse', href: '/browse', iconClass: 'fad fa-music-magnifying-glass', accessSible: ['admin', 'public', 'operator'] },
                 { label: 'Queue', href: '/queue', iconClass: 'fad fa-signal-stream', accessSible: ['admin', 'public', 'operator'] },
                 { label: 'Player', href: '/play', iconClass: 'fad fa-circle-play', accessSible: ['admin', 'operator'] },
                 { label: 'Playlist', href: '/playlist', iconClass: 'fad fa-list-music', accessSible: ['admin', 'operator', 'public',] },

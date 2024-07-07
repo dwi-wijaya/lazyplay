@@ -32,7 +32,7 @@ export const getVideoDetails = async (videoID) => {
     }
 }
 
-const parseArtist = (videoSnippet) => {
+export const parseArtist = (videoSnippet) => {
     let artistName = ''
 
     const channelTitle = videoSnippet.channelTitle
@@ -57,7 +57,7 @@ const parseArtist = (videoSnippet) => {
     return artistName
 }
 
-const getChannelDetails = async (channelId) => {
+export const getChannelDetails = async (channelId) => {
 
     const channelApiUrl = `https://www.googleapis.com/youtube/v3/channels?id=${channelId}&key=${import.meta.env.VITE_GOOGLE_API_KEY}&part=snippet`
     const channelResponse = await fetch(channelApiUrl)

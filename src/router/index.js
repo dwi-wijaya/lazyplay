@@ -5,6 +5,7 @@ import Voice from '@pages/Voice.vue';
 import QueuePage from '@pages/QueuePage.vue';
 import PlaylistPage from '@pages/PlaylistPage.vue';
 import PlayPage from '@pages/PlayPage.vue';
+import BrowsePage from '@pages/BrowsePage.vue';
 import Signin from '@pages/auth/Signin.vue';
 import Signup from '@pages/auth/Signup.vue';
 import RecentPage from '@pages/RecentPage.vue';
@@ -22,6 +23,7 @@ const routes = [
   { path: '/playlist', component: PlaylistPage, meta: { requiresAuth: true } },
   { path: '/voice', component: Voice},
   { path: '/play', component: PlayPage, meta: { requiresOperator: true } },
+  { path: '/browse', component: BrowsePage, meta: { requiresOperator: true } },
   { path: '/signin', component: Signin, meta: { requiresGuest: true } },
   { path: '/signup', component: Signup, meta: { requiresGuest: true } },
   { path: '/recent', component: RecentPage, meta: { requiresAuth: true } },
