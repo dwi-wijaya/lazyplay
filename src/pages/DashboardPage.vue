@@ -118,7 +118,7 @@ export default {
                 .select('*')
                 .eq('status', -2)
                 .order('created_at', { ascending: true })
-                .limit(6)
+                .limit(20)
             if (!errorArtist && !errorSong && !erroRecentTrack && !erroUpcomingSong) {
                 this.topSong = songs;
                 this.topArtist = artists;
@@ -135,7 +135,7 @@ export default {
                 .select('*')
                 .eq('status', -2)
                 .order('created_at', { ascending: true })
-                .limit(6)
+                .limit(20)
             if (!erroUpcomingSong) {
                 this.upcomingSongs = upcomingSongs
             } else {
