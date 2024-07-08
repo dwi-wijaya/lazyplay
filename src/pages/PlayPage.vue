@@ -1,9 +1,10 @@
 <template>
   <Container>
     <h1 class="text-2xl font-bold mb-4">Music Player</h1>
+    <VideoSkeleton v-if="!currentSong" />
     <div v-if="currentSong">
       <VideoPlayer :song="currentSong" :video-url="currentSong.url" @video-state="handleVideoState"
-        @prev-song="setPrevSong" @skip-song="setNexSong" :prayerSchedule="prayerSchedule"/>
+        @prev-song="setPrevSong" @skip-song="setNexSong" :prayerSchedule="prayerSchedule" />
     </div>
     <SongList :songs="songs" @delete-song="deleteSong" />
   </Container>
@@ -11,6 +12,7 @@
     
 <script>
 import VideoPlayer from '@components/views/player/VideoPlayer.vue';
+import VideoSkeleton from '@components/views/player/VideoSkeleton.vue';
 import SongList from '@components/views/player/SongList.vue';
 import Container from '@components/layout/Container.vue';
 import { supabase } from '@services/supabase';
@@ -28,6 +30,7 @@ export default {
   },
   components: {
     VideoPlayer,
+    VideoSkeleton,
     SongList,
     Container
   },
