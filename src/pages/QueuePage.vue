@@ -1,8 +1,9 @@
 <template>
     <Container>
         <div class="">
-            <SongInput @song-added="fetchSongs" />
-            <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+            <SongInput @song-added="fetchSongs" :queue="songs" />
+            <div v-if="songs.length == 0" class="flex flex-col gap-2">The Queue are currently empty, add some songs!</div>
+            <div v-else class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
                 <SongCard :songs="songs" @delete-song="deleteSong" />
             </div>
         </div>

@@ -22,7 +22,7 @@
                 
             </div>
             <div class="flex gap-2 mt-1 mb-4 items-center">
-                <p class="text-subtext text-sm"><i class="fad fa-list-music mr-2"></i> Queue</p>
+                <p class="text-subtext text-sm"><i class="fad fa-list-music mr-2"></i> Queue ({{ upcomingSongs.length }})</p>
                 <hr class="flex-1 border border-stroke">
             </div>
             <ul class="flex flex-col gap-3 h-[calc(100vh-28.5rem)] lg:h-[calc(100vh-29rem)] overflow-auto scrollbar-hide">
