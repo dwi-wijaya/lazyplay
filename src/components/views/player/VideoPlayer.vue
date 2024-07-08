@@ -67,7 +67,7 @@ export default {
     },
     computed: {
         videoUrlWithParams() {
-            return `${this.song.url}?autoplay=1&enablejsapi=1`;
+            return `${this.song.url}?autoplay=1&enablejsapi=1&rel=0&showinfo=0&iv_load_policy=3`;
         },
     },
     mounted() {
