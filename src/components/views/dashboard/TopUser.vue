@@ -3,7 +3,7 @@
         <i class="text-primary fad fa-user-headset"></i> Top User
     </h3>
     <p class="text-subtext mb-4 text-sm">This user has contributed the most songs!</p>
-    <div class="grid grid-cols-6 gap-4">
+    <div class="grid grid-cols-5 gap-2 sm:gap-4">
         <div v-for="(user, index) in users" :key="index"
             class="group/user mb-2 flex flex-col justify-start base-transition">
             <div class="w-full relative mb-2 rounded-xl">
@@ -21,7 +21,7 @@
                     <i class="fad fa-fire  text-xl xl:text-3xl"></i> {{ user.top_user }}
                 </div>
             </div>
-            <p class="leading-5 text-center line-clamp-2 text-sm">{{ user.created_name }}</p>
+            <p class="leading-5 text-center line-clamp-2 text-sm mx-1">{{ user.created_name }}</p>
         </div>
     </div>
 </template>

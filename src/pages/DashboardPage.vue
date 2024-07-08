@@ -102,11 +102,11 @@ export default {
             let { data: artists, errorArtist } = await supabase
                 .from('popular_artists')
                 .select('*')
-                .limit(6)
+                .limit(5)
             let { data: users, errorUser } = await supabase
                 .from('top_users')
                 .select('*')
-                .limit(6)
+                .limit(5)
             let { data: recentTracks, erroRecentTrack } = await supabase
                 .from('songs')
                 .select('*')

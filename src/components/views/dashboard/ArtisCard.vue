@@ -3,7 +3,7 @@
             class="text-primary fad fa-microphone"></i>Top Artist
     </h3>
     <p class="text-subtext mb-4 text-sm">Artist with the most songs requested by users</p>
-    <div class="grid grid-cols-6 gap-4">
+    <div class="grid grid-cols-5 gap-2 sm:gap-4">
         <div v-for="artist in artists" :key="artist.index"
             class="group/artist mb-2 flex flex-col justify-start base-transition">
             <div class="w-full relative  mb-2 rounded-xl ">
@@ -16,7 +16,7 @@
                     <i class="fad fa-fire text-xl xl:text-3xl"></i> {{ artist.count_artist }}
                 </div>
             </div>
-            <p class="leading-5 text-center line-clamp-2 text-sm">{{ artist.artist }} </p>
+            <p class="leading-5 text-center line-clamp-2 text-sm mx-1">{{ artist.artist }} </p>
         </div>
     </div>
 </template>
