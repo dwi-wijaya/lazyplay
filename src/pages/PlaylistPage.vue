@@ -1,7 +1,7 @@
 <template>
     <Container>
         <div>
-            <SongInput :playlist="playlist" @song-added="fetchSongs" />
+            <SongInput :playlist="playlist" />
             <div class=" mt-8">
 
                 <p v-if="playlist && playlist.length === 0" class="text-base text-subtext flex gap-2 items-center"><i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!</p>
@@ -40,7 +40,7 @@ export default {
         }
     },
     methods: {
-        async fetchSongs() {
+        async fetchPlaylist() {
             let { data: songs, error } = await supabase
                 .from('playlist')
                 .select('*')
@@ -80,21 +80,21 @@ export default {
                 console.error('Error deleting song:', error);
             }
         },
-        async deleteSong(play_id) {
+        async deleteSong(id) {
             const { error } = await supabase
-                .from('songs')
+                .from('playlist')
                 .delete()
-                .eq('id', play_id)
+                .eq('id', id)
             if (error) {
                 console.error('Error deleting song:', error)
             }
         },
         setupRealtime() {
             supabase
-                .channel('realtime-songs')
-                .on('postgres_changes', { event: '*', schema: 'public', table: 'songs' }, payload => {
+                .channel('realtime-playlist')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'playlist' }, payload => {
                     console.log('Change received!', payload)
-                    this.fetchSongs()
+                    this.fetchPlaylist()
                 })
                 .subscribe()
         },
@@ -147,7 +147,7 @@ export default {
     },
     async mounted() {
         await this.userStore();
-        this.fetchSongs();
+        this.fetchPlaylist();
         this.setupRealtime();
         this.checkCooldown(); // Periksa cooldown saat komponen dipasang
         useTitle('Playlist - Lazyplay')

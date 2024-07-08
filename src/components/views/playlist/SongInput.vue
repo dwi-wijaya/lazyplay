@@ -132,7 +132,6 @@ export default {
                     ])
 
                 if (!error) {
-                    this.$emit('song-added')
                     this.showInput = false
                     this.url = ''
                     this.error = ''
