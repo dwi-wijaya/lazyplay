@@ -3,8 +3,8 @@
         <img src="/logo.png" class="absolute -top-6 left-6 w-14" alt="" srcset="">
         <div class="flex justify-between">
             <div class="w-full md:w-1/2">
-                <h1 class="text-3xl font-bold text-red-500 dark:text-red-200 underline decoration-red-400 dark:decoration-red-300 underline-offset-4">Lazyplay.</h1>
-                <p class="text-red-400 dark:text-red-300 leading-5 mt-2 text-sm">
+                <h1 class="text-3xl font-bold text-red-500 dark:text-rose-300 underline decoration-red-300 dark:decoration-red-100 underline-offset-4">Lazyplay.</h1>
+                <p class="text-red-400 dark:text-red-200 leading-5 mt-2 text-sm">
                     Listen to music together and request your favorite song. <br>
                     Perfect for creating a fun atmosphere.
                 </p>
