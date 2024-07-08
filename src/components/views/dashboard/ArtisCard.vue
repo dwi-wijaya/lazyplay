@@ -9,8 +9,11 @@
             <div class="w-full relative  mb-2 rounded-xl ">
                 <img :src="artist.artist_image" alt="" class="w-full rounded-xl ">
                 <div
-                    class="flex gap-1 absolute top-0 left-0 w-full h-full rounded-xl  bg-black opacity-0 transition-opacity duration-300 justify-center items-center text-white group-hover/artist:opacity-85">
-                    <i class="fad fa-fire text-primary"></i> {{ artist.count_artist }}
+                    class=" absolute top-0 left-0 w-full h-full rounded-xl bg-black opacity-0 transition-opacity duration-300 text-white group-hover/artist:opacity-90">
+                </div>
+                <div
+                    class="flex gap-2 items-center justify-center absolute top-0 left-0 w-full h-full rounded-xl opacity-0 transition-opacity duration-300 text-white group-hover/artist:opacity-100">
+                    <i class="fad fa-fire text-xl xl:text-3xl"></i> {{ artist.count_artist }}
                 </div>
             </div>
             <p class="leading-5 text-center line-clamp-2 text-sm">{{ artist.artist }} </p>
