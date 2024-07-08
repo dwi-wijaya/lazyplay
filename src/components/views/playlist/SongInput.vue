@@ -3,12 +3,12 @@
 
         <form @submit.prevent="toggleInput" :class="['flex justify-between gap-4', { 'flex-col': showInput }]">
             <div class="flex justify-between flex-1">
-                <h1 class="text-2xl font-bold">Song Playlist</h1>
+                <h1 class="text-2xl font-bold">Song Playlist ({{ playlist.length }})</h1>
                 <div class="flex gap-1 justify-end">
                     <button v-if="showInput" @click="showInput = false" type="button" class="btn !py-2 !px-2">
                         <i class="fas fa-xmark"></i>
                     </button>
-                    <button type="submit" class="btn !py-2 !px-3">
+                    <button v-if="playlist.length <= 20" type="submit" class="btn !py-2 !px-3">
                         <i class="fad fa-music"></i>Add Songs
                     </button>
                 </div>
@@ -37,6 +37,12 @@ import { parseISO8601Duration } from '@helpers/durationHelper'
 import { useUserStore } from '@stores/user';
 
 export default {
+    props: {
+        playlist: {
+            type: Array,
+            required: true,
+        },
+    },
     data() {
         return {
             url: '',

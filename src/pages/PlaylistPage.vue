@@ -1,7 +1,7 @@
 <template>
     <Container>
         <div>
-            <SongInput @song-added="fetchSongs" />
+            <SongInput :playlist="playlist" @song-added="fetchSongs" />
             <div class="flex flex-col gap-2">
                 <SongList @add-to-queue="handleAddToQueue" :playlist="playlist" :isCooldown="isCooldown"
                     :cooldownTime="cooldownTime" @delete-song="deleteSong" />
