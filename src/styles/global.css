@@ -19,7 +19,7 @@
   --foreground-color: rgb(159, 159, 159);
   --background-color: rgb(34, 40, 49);
   --container-color: rgb(42 48 58);
-  --primary-color: rgb(255, 140, 140);
+  --primary-color: rgb(251, 149, 149);
   --title-color: rgb(228, 230, 235);
   --text-color: rgb(163, 163, 163);
   --text-secondary: rgb(121, 121, 121);
@@ -52,7 +52,7 @@ html {
   }
 
   .btn {
-    @apply px-5 py-3 leading-4 rounded-md shadow-sm  bg-red-500 dark:bg-red-200 hover:bg-red-600 dark:hover:bg-red-200 dark:text-red-600 text-red-50 flex gap-2 items-center font-normal w-fit border-primary base-transition
+    @apply px-5 py-3 leading-4 rounded-md shadow-sm  bg-red-500 dark:bg-rose-100 hover:bg-red-600 dark:hover:bg-pink-200 dark:text-red-600 text-red-50 flex gap-2 items-center font-normal w-fit border-primary base-transition
   }
 
   .act-btn {
