@@ -2,9 +2,13 @@
     <Container>
         <div>
             <SongInput :playlist="playlist" @song-added="fetchSongs" />
-            <div class="flex flex-col gap-2">
-                <SongList @add-to-queue="handleAddToQueue" :playlist="playlist" :isCooldown="isCooldown"
+            <div class=" mt-8">
+
+                <p v-if="playlist && playlist.length === 0" class="text-base text-subtext flex gap-2 items-center"><i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!</p>
+                <div v-else class="flex flex-col gap-2">
+                    <SongList @add-to-queue="handleAddToQueue" :playlist="playlist" :isCooldown="isCooldown"
                     :cooldownTime="cooldownTime" @delete-song="deleteSong" />
+                </div>
             </div>
         </div>
     </Container>

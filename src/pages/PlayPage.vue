@@ -6,7 +6,12 @@
       <VideoPlayer :song="currentSong" :video-url="currentSong.url" @video-state="handleVideoState"
         @prev-song="setPrevSong" @skip-song="setNexSong" :prayerSchedule="prayerSchedule" />
     </div>
-    <SongList :songs="songs" @delete-song="deleteSong" />
+    <div class="mt-8">
+      <div v-if="songs.length == 0" class="text-subtext flex items-center gap-2"><i class="fad fa-list-music"></i>The
+        Queue are currently
+        empty, add some songs!</div>
+      <SongList v-else :songs="songs" @delete-song="deleteSong" />
+    </div>
   </Container>
 </template>
     
@@ -22,7 +27,7 @@ import { useTitle } from '@vueuse/core'
 
 export default {
   async beforeRouteLeave(to, from, next) {
-    await supabase
+    if (this.currentSong) await supabase
       .from('songs')
       .update({ status: -1 })
       .eq('id', this.currentSong.id);

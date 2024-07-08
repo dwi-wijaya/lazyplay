@@ -58,9 +58,14 @@ export default {
             topUser: [],
             topArtist: [],
             recentTracks: [],
+            initialCurrentSong: {
+                title: 'No song selected',
+                artist: 'Unknown artist',
+                status: -3
+            },
             currentSong: {
-                title: 'Empty',
-                artist: '-',
+                title: 'No song selected',
+                artist: 'Unknown artist',
                 status: -3
             },
             upcomingSongs: [],
@@ -149,7 +154,7 @@ export default {
                 .in('status', [-1, 1, 2, 5])
                 .limit(1)
             if (!erroCurrentSong) {
-                this.currentSong = currentSong[0]
+                this.currentSong = currentSong.length == 0 ? this.initialCurrentSong : currentSong[0]
             } else {
                 console.error('Error fetching current song data:', error);
             }
