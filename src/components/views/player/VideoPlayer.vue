@@ -116,7 +116,7 @@ export default {
         onPlayerStateChange(event) {
             if (event.data !== window.YT.PlayerState.BUFFERING) {
                 console.log('Video state changed');
-                // this.$emit('video-state', event.data);
+                this.$emit('video-state', event.data);
 
                 if (event.data === window.YT.PlayerState.PLAYING) {
                     this.isPlaying = true;
@@ -161,7 +161,7 @@ export default {
         },
         stopVideoAndUpdateStatus() {
             this.stopVideo();
-            // this.$emit('video-state', window.YT.PlayerState.ENDED);
+            this.$emit('video-state', window.YT.PlayerState.ENDED);
         },
         cleanup() {
             this.stopVideoAndUpdateStatus();
