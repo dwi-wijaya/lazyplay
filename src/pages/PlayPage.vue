@@ -3,8 +3,8 @@
     <h1 class="text-2xl font-bold mb-4">Music Player</h1>
     <VideoSkeleton v-if="!currentSong" />
     <div v-if="currentSong">
-      <VideoPlayer :song="currentSong" :video-url="currentSong.url" @video-state="handleVideoState"
-        @prev-song="setPrevSong" @skip-song="setNexSong" :prayerSchedule="prayerSchedule" />
+      <VideoPlayer :song="currentSong" :autoplay="autoplay" :video-url="currentSong.url" @video-state="handleVideoState"
+        @prev-song="setPrevSong" @skip-song="setNexSong" :prayerSchedule="prayerSchedule" @play-break="playBreak" @play-adzan="playAdzan" />
     </div>
     <div class="mt-8">
       <div v-if="songs.length == 0" class="text-subtext flex items-center gap-2"><i class="fad fa-list-music"></i>The
@@ -43,14 +43,15 @@ export default {
     return {
       currentSong: null,
       songs: [],
-      prayerSchedule: {
-        subuh: '04:31',
-        dzuhur: '11:46',
-        ashar: '13:45',
-        maghrib: '18:00',
-        isya: '18:50',
-        date: dayjs().format('YYYY-MM-DD'),
-      },
+      autoplay: true,
+      prayerSchedule: [
+        { key: 'break', time: '10:00' },
+        { key: 'subuh', time: '04:31' },
+        { key: 'dzuhur', time: '11:46' },
+        { key: 'ashar', time: '15:06' },
+        { key: 'maghrib', time: '17:36' },
+        { key: 'isya', time: '18:50' }
+      ],
     };
   },
   methods: {
@@ -78,7 +79,7 @@ export default {
       this.fetchNextSong();
     },
     async setNexSong() {
-      await supabase
+      this.autoplay != 'break' && await supabase
         .from('songs')
         .update({ status: 0 })
         .eq('id', this.currentSong.id);
@@ -96,6 +97,7 @@ export default {
       }
     },
     async fetchNextSong() {
+      this.autoplay = this.autoplay == 'break' ? false : true
       let { data: songs, error } = await supabase
         .from('songs')
         .select('*')
@@ -103,6 +105,32 @@ export default {
         .order('created_at', { ascending: true })
         .limit(1);
       if (!error && songs.length > 0) this.currentSong = songs[0];
+    },
+    async playBreak() {
+      this.autoplay = 'break'
+      this.currentSong = {
+        url: 'https://youtube.com/embed/OuMfyndwARQ',
+        note: 'Take some break guys!',
+        title: 'Break Time',
+        duration: 'PT26S',
+        thumbnail: 'https://i.ytimg.com/vi/JX29r4mR5KU/hqdefault.jpg',
+        artist: 'System',
+        artist_image: 'https://raw.githubusercontent.com/dwi-wijaya/lazyplay/main/assets/alarm.png',
+        created_name: 'System',
+      }
+    },
+    async playAdzan() {
+      this.autoplay = 'break'
+      this.currentSong = {
+        url: 'https://youtube.com/embed/4QO93_G_YcM',
+        note: 'Its pray time',
+        title: 'Pray Time',
+        duration: 'PT4M9S',
+        thumbnail: 'https://i.ytimg.com/vi/4QO93_G_YcM/hqdefault.jpg',
+        artist: 'System',
+        artist_image: 'https://raw.githubusercontent.com/dwi-wijaya/lazyplay/main/assets/mosque.png',
+        created_name: 'System',
+      }
     },
     async handleVideoState(status) {
       if (this.currentSong) {
@@ -146,6 +174,7 @@ export default {
         console.error('Error fetching jadwal:', error);
       }
     },
+
 
   },
   mounted() {

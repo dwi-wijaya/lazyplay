@@ -1,8 +1,7 @@
 <template>
     <div class="p-5 rounded-xl border border-stroke bg-container">
         <iframe class="border border-stroke rounded-xl w-full h-[30rem]" ref="player" :src="videoUrlWithParams"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            frameborder="0">
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;" frameborder="0">
         </iframe>
         <div class="flex justify-between gap-3 mt-5 flex-col sm:flex-row">
             <div class="flex gap-2">
@@ -47,6 +46,10 @@ import dayjs from 'dayjs';
 
 export default {
     props: {
+        autoplay: {
+            type: String,
+            required: true,
+        },
         song: {
             type: Object,
             required: true,
@@ -67,13 +70,15 @@ export default {
     },
     computed: {
         videoUrlWithParams() {
-            return `${this.song.url}?autoplay=1&enablejsapi=1&rel=0&showinfo=0&iv_load_policy=3`;
+            let url = this.autoplay == false ?
+                `${this.song.url}?enablejsapi=1&rel=0&showinfo=0&iv_load_policy=3`
+                : `${this.song.url}?autoplay=1&enablejsapi=1&rel=0&showinfo=0&iv_load_policy=3`;
+            return url
         },
     },
     mounted() {
         this.loadYouTubeIframeAPI();
         window.addEventListener('beforeunload', this.handleBeforeUnload);
-        this.calculateAdzanTimes();
         this.checkAdzanTime();
         setInterval(this.checkAdzanTime, 60000); // Check every minute
     },
@@ -161,28 +166,26 @@ export default {
         },
         stopVideoAndUpdateStatus() {
             this.stopVideo();
-            this.$emit('video-state', window.YT.PlayerState.ENDED);
+            this.$emit('video-state', -1);
         },
         cleanup() {
             this.stopVideoAndUpdateStatus();
             window.removeEventListener('beforeunload', this.handleBeforeUnload);
         },
-        calculateAdzanTimes() {
-            const adzanTimes = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'].map(prayer => {
-                return dayjs(this.prayerSchedule.date + ' ' + this.prayerSchedule[prayer]).subtract(2, 'm');
-            });
-            this.adzanTimes = adzanTimes;
-        },
-        checkAdzanTime() {
-            const now = dayjs();
-            for (let time of this.adzanTimes) {
-                if (now.isSame(time, 'minute')) {
-                    this.stopVideo();
-                    this.nextAdzan = time.format('HH:mm');
+        async checkAdzanTime() {
+            const hour = dayjs().hour();
+            const minute = dayjs().minute();
+            const now = `${hour}:${minute}`;
+
+            for (let time of this.prayerSchedule) {
+                if (now === time.time) {
+                    this.$emit('video-state', -1);
+                    time.key === 'break' ? this.$emit('play-break') : this.$emit('play-adzan');
                     break;
                 }
             }
-        },
+        }
+
     },
 };
 </script>
