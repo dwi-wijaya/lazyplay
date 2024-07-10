@@ -4,7 +4,8 @@
     <VideoSkeleton v-if="!currentSong" />
     <div v-if="currentSong">
       <VideoPlayer :song="currentSong" :autoplay="autoplay" :video-url="currentSong.url" @video-state="handleVideoState"
-        @prev-song="setPrevSong" @skip-song="setNexSong" :prayerSchedule="prayerSchedule" @play-break="playBreak" @play-adzan="playAdzan" />
+        @prev-song="setPrevSong" @skip-song="setNexSong" :BreakSchedule="BreakSchedule" @play-break="playBreak"
+        @play-adzan="playAdzan" />
     </div>
     <div class="mt-8">
       <div v-if="songs.length == 0" class="text-subtext flex items-center gap-2"><i class="fad fa-list-music"></i>The
@@ -44,13 +45,12 @@ export default {
       currentSong: null,
       songs: [],
       autoplay: true,
-      prayerSchedule: [
-        { key: 'break', time: '10:00' },
-        { key: 'subuh', time: '04:31' },
+      BreakSchedule: [
+        { key: 'break', time: '10:0' },
         { key: 'dzuhur', time: '11:46' },
-        { key: 'ashar', time: '15:06' },
+        { key: 'ashar', time: '15:6' },
         { key: 'maghrib', time: '17:36' },
-        { key: 'isya', time: '18:50' }
+        { key: 'isya', time: '23:19' }
       ],
     };
   },
@@ -156,32 +156,11 @@ export default {
         })
         .subscribe()
     },
-    async fetchPrayerSchedule() {
-      try {
-        const today = dayjs().format('YYYY-MM-DD');
-
-        const response = await axios.get(`https://api.myquran.com/v2/sholat/jadwal/1501/${today}`)
-        const jadwalData = response.data.data.jadwal;
-        // this.prayerSchedule = {
-        //   subuh: jadwalData.subuh,
-        //   dzuhur: jadwalData.dzuhur,
-        //   ashar: jadwalData.ashar,
-        //   maghrib: jadwalData.maghrib,
-        //   isya: jadwalData.isya,
-        //   date: today
-        // };
-      } catch (error) {
-        console.error('Error fetching jadwal:', error);
-      }
-    },
-
-
   },
   mounted() {
     this.fetchNextSong();
     this.setupRealtime()
     this.fetchSongs();
-    this.fetchPrayerSchedule();
     useTitle('Play - Lazyplay')
   },
 };

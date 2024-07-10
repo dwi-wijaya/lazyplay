@@ -54,7 +54,7 @@ export default {
             type: Object,
             required: true,
         },
-        prayerSchedule: {
+        BreakSchedule: {
             type: Object,
             required: true,
         },
@@ -177,7 +177,7 @@ export default {
             const minute = dayjs().minute();
             const now = `${hour}:${minute}`;
 
-            for (let time of this.prayerSchedule) {
+            for (let time of this.BreakSchedule) {
                 if (now === time.time) {
                     this.$emit('video-state', -1);
                     time.key === 'break' ? this.$emit('play-break') : this.$emit('play-adzan');
