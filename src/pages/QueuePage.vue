@@ -4,7 +4,7 @@
             <SongInput @song-added="fetchSongs" :queue="songs" />
             <div v-if="songs.length == 0" class="text-subtext flex items-center gap-2"><i class="fad fa-list-music"></i>The Queue are currently empty, add some songs!</div>
             <div v-else class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                <SongCard :songs="songs" @delete-song="deleteSong" />
+                <SongCard :user="user" :songs="songs" @delete-song="deleteSong" />
             </div>
         </div>
     </Container>
@@ -16,6 +16,7 @@ import SongInput from '@components/views/queue/SongInput.vue'
 import Container from '@components/layout/Container.vue'
 import { supabase } from '@services/supabase'
 import { useTitle } from '@vueuse/core'
+import { useUserStore } from '@stores/user';
 
 export default {
     components: {
@@ -25,6 +26,7 @@ export default {
     },
     data() {
         return {
+            user: null,
             songs: [],
         }
     },
@@ -54,9 +56,15 @@ export default {
                     this.fetchSongs()
                 })
                 .subscribe()
-        }
+        },
+        async userStore() {
+            const userStore = useUserStore();
+            await userStore.fetchUser();
+            this.user = userStore.user
+        },
     },
-    mounted() {
+    async mounted() {
+        await this.userStore();
         this.fetchSongs()
         this.setupRealtime()
         useTitle('Queue - Lazyplay')

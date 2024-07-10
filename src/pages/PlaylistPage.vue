@@ -102,7 +102,6 @@ export default {
             const userStore = useUserStore();
             await userStore.fetchUser();
             this.user = userStore.user
-            console.log(userStore.user);
         },
         handleAddToQueue(song) {
             if (!this.isCooldown) {
