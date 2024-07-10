@@ -4,7 +4,9 @@
             <img :src="song.thumbnail" :alt="song.title"
                 class='object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.275] group-hover:blur-sm scale-[1.4]' />
             <div class="flex gap-2 top-3 right-3 absolute">
-                <button  v-if="index != 0 && (user?.id == song.created_by)" @click="$emit('delete-song', song.id)"
+                <button
+                    v-if="index != 0 && (user?.id == song.created_by || ['admin', 'operator'].includes(user.user_metadata.role))"
+                    @click="$emit('delete-song', song.id)"
                     class='z-10 !border-none shadow-slate-50 badge !text-base bg-secondary flex items-center gap-1 text-neutral-500 hover:text-primary'>
                     <i class="fad fa-trash"></i>
                 </button>
