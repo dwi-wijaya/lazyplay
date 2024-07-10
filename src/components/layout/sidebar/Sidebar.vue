@@ -35,6 +35,17 @@
         </div>
 
         <div class="flex gap-3 flex-col ml-6">
+            <div
+                class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
+                <i class="fad fa-glass-cheers group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
+                Cheers, Sir Aji
+            </div>
+            <a href="https://saweria.co/dwiwijaya"
+                class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
+                <i class="fad fa-gift group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
+                Support Developer
+            </a>
+            <hr class="my-2 border-stroke">
             <ThemeToggle />
             <ProfileLink />
             <Signout />
