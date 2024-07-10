@@ -24,7 +24,7 @@ export const getVideoDetails = async (videoID) => {
             duration: video.contentDetails.duration,
             thumbnail: video.snippet.thumbnails.high.url,
             channelTitle: artistName,
-            channelImage: channel.snippet.thumbnails.default.url
+            channelImage: channel.snippet.thumbnails.high.url
         }
     } catch (error) {
         console.error('Error fetching video details:', error.message)
