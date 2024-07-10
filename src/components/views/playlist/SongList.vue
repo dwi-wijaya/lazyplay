@@ -7,7 +7,7 @@
                     <img :src="song.artist_image" width="50" height="50" alt="" class="rounded-lg" srcset="">
                     <div class="flex flex-col">
                         <a :href="song.url" target="_blank" class="line-clamp-1 !text-text leading-5">
-                            {{ song.title + " - " + parseState(song.status) }}
+                            {{ song.title }}
                         </a>
                         <p class="line-clamp-1 text-subtext text-sm"><i class="fad fa-user-music mr-2"></i>{{ song.artist }}
                         </p>
