@@ -170,6 +170,7 @@ export default {
                     } else if (payload.new.status == -2) {
                         this.fetchUpcomingSongs()
                     } else if ([-1, 1, 2, 5].includes(payload.new.status)) {
+                        this.fetchUpcomingSongs()
                         this.fetchPlayingSong()
                     }
                 })
