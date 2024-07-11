@@ -8,8 +8,7 @@
 
             <img v-if="currentSong.thumbnail" :src="currentSong.thumbnail" alt="" srcset=""
                 class="rounded-xl object-none h-48 w-full">
-            <div v-if="!currentSong.thumbnail"
-                class=" h-48 w-full animate-pulse">
+            <div v-if="!currentSong.thumbnail" class=" h-48 w-full animate-pulse">
                 <div class="bg-background h-full border border-stroke rounded-xl flex justify-center items-center">
                     <i class="text-2xl fal fa-music-magnifying-glass"></i>
                 </div>
@@ -42,9 +41,10 @@
                     </div>
                     <div class="flex flex-col">
                         <p class="text-text line-clamp-1 ">{{ song.title }}</p>
-                        <p class="text-subtext text-sm text-neutral-400 line-clamp-1 flex items-center base-transition">
+                        <p class="text-subtext text-sm text-neutral-400  flex items-center base-transition line-clamp-1">
                             <i class="fad fa-user-music mr-2"></i>
-                                <span class="block group-hover:hidden">{{song.artist }}</span> <span class="hidden group-hover:block"> {{ song.created_name }}</span>
+                            <span class="line-clamp-1 group-hover:hidden">{{ song.artist }}</span>
+                            <span class="line-clamp-1 hidden group-hover:block"> {{ song.created_name }}</span>
                         </p>
                     </div>
                 </li>
