@@ -30,8 +30,8 @@
             </div>
             <ul class="flex flex-col gap-3 h-[calc(100vh-28.5rem)] lg:h-[calc(100vh-29rem)] overflow-auto scrollbar-hide">
                 <p v-if="upcomingSongs.length == 0" class="text-subtext text-sm">The Queue are currently empty !</p>
-                <li class="flex gap-2 px-0" v-for="(song, index) in upcomingSongs" :key="song.id">
-                    <div class="group !w-12 !h-12 relative ">
+                <li class="group flex gap-2 px-0" v-for="(song, index) in upcomingSongs" :key="song.id">
+                    <div class=" !w-12 !h-12 relative ">
                         <img :src="song.artist_image" alt="" srcset="" class="rounded-lg object-cover min-w-12 !w-12 !h-12">
                         <div
                             class="base-transition bg-black opacity-0 group-hover:opacity-70 rounded-lg absolute top-0 left-0 w-full h-full">
@@ -42,9 +42,9 @@
                     </div>
                     <div class="flex flex-col">
                         <p class="text-text line-clamp-1 ">{{ song.title }}</p>
-                        <p class="text-subtext text-sm text-neutral-400 line-clamp-1"><i
-                                class="fad fa-user-music mr-2"></i>{{
-                                    song.artist }}
+                        <p class="text-subtext text-sm text-neutral-400 line-clamp-1 flex items-center base-transition">
+                            <i class="fad fa-user-music mr-2"></i>
+                                <span class="block group-hover:hidden">{{song.artist }}</span> <span class="hidden group-hover:block"> {{ song.created_name }}</span>
                         </p>
                     </div>
                 </li>
