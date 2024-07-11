@@ -107,7 +107,7 @@ export default {
                 }
 
                 const videoDurationInSeconds = parseISO8601Duration(videoDetails.duration);
-                const maxDurationInSeconds = 6 * 60; // 6 minutes
+                const maxDurationInSeconds = 8 * 60; // 8 minutes
 
                 if (videoDurationInSeconds > maxDurationInSeconds) {
                     this.error = 'Video duration exceeds 6 minutes.';
