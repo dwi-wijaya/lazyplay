@@ -23,7 +23,7 @@ const routes = [
   { path: '/playlist', component: PlaylistPage, meta: { requiresAuth: true } },
   { path: '/voice', component: Voice},
   { path: '/play', component: PlayPage, meta: { requiresOperator: true } },
-  { path: '/browse', component: BrowsePage, meta: { requiresOperator: true } },
+  { path: '/browse', component: BrowsePage, meta: { requiresAuth: true } },
   { path: '/signin', component: Signin, meta: { requiresGuest: true } },
   { path: '/signup', component: Signup, meta: { requiresGuest: true } },
   { path: '/recent', component: RecentPage, meta: { requiresAuth: true } },
