@@ -1,26 +1,31 @@
 <template>
     <div class="w-full sm:max-w-64 md:max-w-72 xl:max-w-80 h-[calc(100vh-5rem)] pb-6">
         <div class="bg-container rounded-2xl p-4 lg:p-5 border border-stroke h-full">
-            <p class="mb-2 text-text">
-                <i :class="['text-sm mr-2', stateIcon(currentSong.status)]"></i>
-                {{ parseState(currentSong.status) }}
-            </p>
+            <div class="group">
+                <p class="mb-2 text-text">
+                    <i :class="['text-sm mr-2', stateIcon(currentSong.status)]"></i>
+                    {{ parseState(currentSong.status) }}
+                </p>
 
-            <img v-if="currentSong.thumbnail" :src="currentSong.thumbnail" alt="" srcset=""
-                class="rounded-xl object-none h-48 w-full">
-            <div v-if="!currentSong.thumbnail" class=" h-48 w-full animate-pulse">
-                <div class="bg-background h-full border border-stroke rounded-xl flex justify-center items-center">
-                    <i class="text-2xl fal fa-music-magnifying-glass"></i>
+                <img v-if="currentSong.thumbnail" :src="currentSong.thumbnail" alt="" srcset=""
+                    class="rounded-xl object-none h-48 w-full">
+                <div v-if="!currentSong.thumbnail" class=" h-48 w-full animate-pulse">
+                    <div class="bg-background h-full border border-stroke rounded-xl flex justify-center items-center">
+                        <i class="text-2xl fal fa-music-magnifying-glass"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="flex justify-between items-end">
-                <div class="">
-                    <p class="text-text line-clamp-1 mt-2 font-semibold">{{ currentSong ? currentSong.title : '-' }}</p>
-                    <p class="text-subtext text-sm text-neutral-400 line-clamp-1">
-                        <i class="fad fa-user-music mr-2"></i>{{ currentSong ? currentSong.artist : '-' }}
-                    </p>
+                <div class="flex justify-between items-end">
+                    <div class="">
+                        <p class="text-text line-clamp-1 mt-2 font-semibold">{{ currentSong ? currentSong.title : '-' }}</p>
+                        <p class="text-subtext text-sm text-neutral-400 line-clamp-1 flex items-center">
+                            <i class="fad fa-user-music mr-2"></i>
+                            <span class="line-clamp-1 group-hover:hidden">{{ currentSong ? currentSong.artist : '-'
+                            }}</span>
+                            <span class="line-clamp-1 hidden group-hover:block">{{ currentSong ? currentSong.created_name :
+                                '-' }}</span>
+                        </p>
+                    </div>
                 </div>
-
             </div>
             <div class="flex gap-2 mt-5 mb-3 items-center">
                 <p class="text-subtext text-sm"><i class="fad fa-list-music mr-2"></i> Queue ({{ upcomingSongs.length }})
