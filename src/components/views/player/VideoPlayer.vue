@@ -180,7 +180,7 @@ export default {
             for (let time of this.BreakSchedule) {
                 if (now === time.time) {
                     this.$emit('video-state', -1);
-                    time.key === 'break' ? this.$emit('play-break') : this.$emit('play-adzan');
+                    time.key === 'break' ? this.$emit('play-break') : time.key === 'home' ? this.$emit('play-sayonara') : this.$emit('play-adzan');
                     break;
                 }
             }

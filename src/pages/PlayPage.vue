@@ -4,7 +4,7 @@
     <VideoSkeleton v-if="!currentSong" />
     <div v-if="currentSong">
       <VideoPlayer :song="currentSong" :autoplay="autoplay" :video-url="currentSong.url" @video-state="handleVideoState"
-        @prev-song="setPrevSong" @skip-song="setNexSong" :BreakSchedule="BreakSchedule" @play-break="playBreak"
+        @prev-song="setPrevSong" @skip-song="setNexSong" :BreakSchedule="BreakSchedule" @play-break="playBreak" @play-sayonara="playSayonara"
         @play-adzan="playAdzan" />
     </div>
     <div class="mt-8">
@@ -50,7 +50,8 @@ export default {
         { key: 'dzuhur', time: '11:46' },
         { key: 'ashar', time: '15:6' },
         { key: 'maghrib', time: '17:36' },
-        { key: 'isya', time: '23:19' }
+        { key: 'isya', time: '23:19' },
+        { key: 'home', time: '17:0' },
       ],
     };
   },
@@ -129,6 +130,19 @@ export default {
         thumbnail: 'https://i.ytimg.com/vi/4QO93_G_YcM/hqdefault.jpg',
         artist: 'System',
         artist_image: 'https://raw.githubusercontent.com/dwi-wijaya/lazyplay/main/assets/mosque.png',
+        created_name: 'System',
+      }
+    },
+    async playSayonara() {
+      this.autoplay = 'break'
+      this.currentSong = {
+        url: 'https://youtube.com/embed/5U4nzEpB1aY',
+        note: 'Its time to go home',
+        title: 'Sayonara',
+        duration: 'PT2M55S',
+        thumbnail: 'https://i.ytimg.com/vi/5U4nzEpB1aY/hqdefault.jpg',
+        artist: 'System',
+        artist_image: 'https://raw.githubusercontent.com/dwi-wijaya/lazyplay/main/assets/home.png',
         created_name: 'System',
       }
     },
