@@ -32,7 +32,7 @@
                 </p>
                 <hr class="flex-1 border border-stroke">
             </div>
-            <ul class="flex flex-col gap-3 h-[calc(100vh-28.5rem)] lg:h-[calc(100vh-29rem)] overflow-auto scrollbar-hide">
+            <ul class="flex flex-col gap-3 h-[calc(100vh-29.25rem)] lg:h-[calc(100vh-29.75rem)] overflow-auto scrollbar-hide">
                 <p v-if="upcomingSongs.length == 0" class="text-subtext text-sm">The Queue are currently empty !</p>
                 <li class="group flex gap-2 px-0" v-for="(song, index) in upcomingSongs" :key="song.id">
                     <div class=" !w-12 !h-12 relative ">
