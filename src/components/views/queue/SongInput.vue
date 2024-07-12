@@ -1,6 +1,5 @@
 <template>
     <div class="mb-4">
-
         <form @submit.prevent="toggleInput" :class="['flex justify-between gap-4', { 'flex-col': showInput }]">
             <div class="flex justify-between flex-1">
                 <h1 class="text-2xl font-bold">Song Queue ({{ queue.length }})</h1>
@@ -8,13 +7,19 @@
                     <button v-if="showInput" @click="showInput = false" type="button" class="btn !py-2 !px-2">
                         <i class="fas fa-xmark"></i>
                     </button>
-                    <button type="submit" class="btn !py-2 !px-3">
-                        <i class="fad fa-music"></i>Add Songs
-                    </button>
+                    <div class="relative group">
+                        <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed"
+                            :disabled="disableAddButton">
+                            <i class="fad fa-music"></i>Add Songs
+                        </button>
+                        <span v-if="disableAddButton"
+                            class="absolute left-0 border border-stroke top-10 mb-2 opacity-0 base-transition group-hover:opacity-100 bg-container text-sm rounded py-1 px-2 z-20">
+                            Please wait until your requested songs are played...
+                        </span>
+                    </div>
                 </div>
             </div>
             <div v-if="showInput" class="grid col-2 gap-2">
-
                 <div class="flex">
                     <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL"
                         class="form-input flex-1 !rounded-r-none" required />
@@ -35,7 +40,7 @@
         <p v-if="error" class="text-red-500">{{ error }}</p>
     </div>
 </template>
-
+  
 <script>
 import { supabase } from '@services/supabase'
 import { getVideoDetails, extractVideoID } from '@services/youtube'
@@ -60,6 +65,12 @@ export default {
     computed: {
         buttonIcon() {
             return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
+        },
+        disableAddButton() {
+            const userStore = useUserStore();
+            const userId = userStore.user.id;
+            const userQueueCount = this.queue.filter(song => song.created_by === userId).length;
+            return userQueueCount >= 4;
         }
     },
     methods: {
@@ -165,3 +176,10 @@ export default {
     },
 }
 </script>
+  
+<style>
+.group:hover .group-hover\:block {
+    display: block;
+}
+</style>
+  
