@@ -1,12 +1,12 @@
 <template>
     <Container>
         <div>
-            <SongInput :playlist="playlist" />
+            <SongInput :playlist="playlist" :userQueue="userQueue" />
             <div class=" mt-8">
 
                 <p v-if="playlist && playlist.length === 0" class="text-base text-subtext flex gap-2 items-center"><i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!</p>
                 <div v-else class="flex flex-col gap-2">
-                    <SongList @add-to-queue="handleAddToQueue" :playlist="playlist" :isCooldown="isCooldown"
+                    <SongList :user="user" :userQueue="userQueue" @add-to-queue="handleAddToQueue" :playlist="playlist" :isCooldown="isCooldown"
                     :cooldownTime="cooldownTime" @delete-song="deleteSong" />
                 </div>
             </div>
@@ -34,6 +34,7 @@ export default {
             user: null,
             error: null,
             isCooldown: false,
+            userQueue: [],
             cooldownTime: 0,
             duration: 0,
             cooldownInterval: null
@@ -142,10 +143,20 @@ export default {
                     }
                 }, 1000);
             }
-        }
+        },
+        async fetchUserQueue() {
+            let { data: songs, error } = await supabase
+                .from('songs')
+                .select('*')
+                .neq('status', 0)
+                .eq('created_by', this.user.id) 
+                .order('created_at', { ascending: true })
+            if (!error) this.userQueue = songs
+        },
     },
     async mounted() {
         await this.userStore();
+        await this.fetchUserQueue()
         this.fetchPlaylist();
         this.setupRealtime();
         this.checkCooldown(); // Periksa cooldown saat komponen dipasang

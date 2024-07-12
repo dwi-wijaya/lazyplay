@@ -9,7 +9,7 @@
                 else.
             </p>
             <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
-                :cooldownTime="cooldownTime" />
+                :cooldownTime="cooldownTime" :userQueue="userQueue" :user="user" />
         </div>
     </Container>
 </template>
@@ -36,11 +36,13 @@ export default {
             cooldownTime: 0,
             cooldownInterval: null,
             error: '',
+            userQueue: [],
             isLoading: false
         };
     },
     async mounted() {
         await this.userStore();
+        await this.fetchUserQueue()
         this.checkCooldown();
         useTitle('Browse - Lazyplay')
     },
@@ -149,7 +151,17 @@ export default {
             } finally {
                 this.isLoading = false;
             }
-        }
+        },
+        async fetchUserQueue() {
+            let { data: songs, error } = await supabase
+                .from('songs')
+                .select('*')
+                .neq('status', 0)
+                .eq('created_by', this.user.id)
+                .order('created_at', { ascending: true })
+            if (!error) this.userQueue = songs
+        },
+        
     }
 };
 </script>

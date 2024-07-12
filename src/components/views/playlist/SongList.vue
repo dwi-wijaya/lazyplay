@@ -22,12 +22,19 @@
                         class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden  group-hover:flex gap-2 items-center"><i
                             class="fad fa-trash"></i>Delete
                     </button>
-                    <button @click="$emit('add-to-queue', song)" :disabled="isCooldown"
-                        class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden group-hover:flex gap-2 items-center">
-                        <i v-if="!isCooldown" class="fad fa-signal-stream"></i>
-                        <i v-else class="fad fa-hourglass"></i>
-                        {{ isCooldown ? cooldownTime + 's' : 'Add to queue' }}
-                    </button>
+                    <div class="relative group/btn">
+                        <button @click="$emit('add-to-queue', song)" :disabled="isCooldown || disableAddButton"
+                            class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden group-hover:flex gap-2 items-center disabled:cursor-not-allowed">
+                            <i v-if="!isCooldown" class="fad fa-signal-stream"></i>
+                            <i v-else class="fad fa-hourglass"></i>
+                            {{ isCooldown ? cooldownTime + 's' : 'Add to queue' }}
+                        </button>
+                        <span v-if="disableAddButton"
+                            class="absolute left-0 border border-stroke top-12 hidden base-transition group-hover/btn:block bg-container text-sm rounded py-1 px-2 z-20">
+                            Please wait until your requested songs are played...
+                        </span>
+                    </div>
+
                 </div>
             </li>
         </ul>
@@ -51,6 +58,21 @@ export default {
         cooldownTime: {
             type: Number,
             required: true,
+        },
+        userQueue: {
+            type: Array,
+            required: true,
+        },
+        user: {
+            type: Object,
+            required: true,
+        }
+    },
+    computed: {
+        disableAddButton() {
+            const userId = this.user.id;
+            const userQueueCount = this.userQueue.filter(song => song.created_by === userId).length;
+            return userQueueCount >= 4;
         }
     },
     methods: {

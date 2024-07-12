@@ -13,7 +13,7 @@
                             <i class="fad fa-music"></i>Add Songs
                         </button>
                         <span v-if="disableAddButton"
-                            class="absolute left-0 border border-stroke top-10 mb-2 opacity-0 base-transition group-hover:opacity-100 bg-container text-sm rounded py-1 px-2 z-20">
+                            class="absolute left-0 border border-stroke top-10 mb-2 hidden group-hover:block bg-container text-sm rounded py-1 px-2 z-20">
                             Please wait until your requested songs are played...
                         </span>
                     </div>

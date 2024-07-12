@@ -8,9 +8,16 @@
                     <button v-if="showInput" @click="showInput = false" type="button" class="btn !py-2 !px-2">
                         <i class="fas fa-xmark"></i>
                     </button>
-                    <button v-if="playlist.length <= 20" type="submit" class="btn !py-2 !px-3">
-                        <i class="fad fa-music"></i>Add Songs
-                    </button>
+                    <div class="relative group/btn">
+                        <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed"
+                            :disabled="disableAddButton">
+                            <i class="fad fa-music"></i>Add Songs
+                        </button>
+                        <span v-if="disableAddButton"
+                            class="absolute left-0 border border-stroke top-10 mb-2 opacity-0 base-transition group-hover/btn:opacity-100 bg-container text-sm rounded py-1 px-2 z-20">
+                            Playlist is full(20)
+                        </span>
+                    </div>
                 </div>
             </div>
             <div v-if="showInput" class="grid col-2 gap-2">
@@ -42,6 +49,10 @@ export default {
             type: Array,
             required: true,
         },
+        userQueue: {
+            type: Array,
+            required: true,
+        },
     },
     data() {
         return {
@@ -53,6 +64,9 @@ export default {
     computed: {
         buttonIcon() {
             return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
+        },
+        disableAddButton() {
+            return this.playlist.length > 20
         }
     },
     methods: {
