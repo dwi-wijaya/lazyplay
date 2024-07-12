@@ -28,7 +28,7 @@
 
             <div class='flex flex-col justify-end'>
                 <div class='flex flex-col space-y-3 text-neutral-300'>
-                    <h3
+                    <h3 :title="song.title"
                         class='line-clamp-1 leading-5 !mt-1 font-medium text-neutral-200 group-hover:underline group-hover:underline-offset-4 '>
                         {{ song.title }}
                     </h3>

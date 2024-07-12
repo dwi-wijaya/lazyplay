@@ -16,7 +16,7 @@
                 </div>
                 <div class="flex justify-between items-end">
                     <div class="">
-                        <p class="text-text line-clamp-1 mt-2 font-semibold">{{ currentSong ? currentSong.title : '-' }}</p>
+                        <p class="text-text line-clamp-1 mt-2 font-semibold" :title="currentSong.title">{{ currentSong ? currentSong.title : '-' }}</p>
                         <p class="text-subtext text-sm text-neutral-400 line-clamp-1 flex items-center">
                             <i class="fad fa-user-music mr-2"></i>
                             <span class="line-clamp-1 group-hover:hidden">{{ currentSong ? currentSong.artist : '-'
@@ -34,7 +34,7 @@
             </div>
             <ul class="flex flex-col gap-3 h-[calc(100vh-29.25rem)] lg:h-[calc(100vh-29.75rem)] overflow-auto scrollbar-hide">
                 <p v-if="upcomingSongs.length == 0" class="text-subtext text-sm">The Queue are currently empty !</p>
-                <li class="group flex gap-2 px-0" v-for="(song, index) in upcomingSongs" :key="song.id">
+                <li class="group flex gap-2 px-0" v-for="(song, index) in upcomingSongs" :key="song.id" :title="song.title">
                     <div class=" !w-12 !h-12 relative ">
                         <img :src="song.artist_image" alt="" srcset="" class="rounded-lg object-cover min-w-12 !w-12 !h-12">
                         <div
