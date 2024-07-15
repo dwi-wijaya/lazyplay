@@ -1,6 +1,6 @@
 <template>
     <h3 class="text-text text-lg mt-6 flex gap-2 font-semibold items-center">
-        <i class="text-primary fad fa-crown"></i> Top Contribution
+        <i class="text-primary fad fa-award"></i> Top Contribution
     </h3>
     <p class="text-subtext mb-4 text-sm">This user has contributed the most songs!</p>
     <div class="grid grid-cols-5 gap-2 sm:gap-4">
