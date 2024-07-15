@@ -38,7 +38,7 @@
             <div
                 class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
                 <i class="fad fa-glass-cheers group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
-                Cheers, Sir Aji
+                Cheers, Bobababa
             </div>
             <a href="https://saweria.co/dwiwijaya"
                 target="_blank"
