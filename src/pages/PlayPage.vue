@@ -110,7 +110,7 @@ export default {
     async playBreak() {
       this.autoplay = 'break'
       this.currentSong = {
-        url: 'https://youtube.com/embed/OuMfyndwARQ',
+        url: 'https://youtube.com/embed/uyyLot4PLXM',
         note: 'Take some break guys!',
         title: 'Break Time',
         duration: 'PT26S',
