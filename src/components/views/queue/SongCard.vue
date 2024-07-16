@@ -1,8 +1,8 @@
 <template>
-    <div class='group relative flex flex-col min-h-56 w-full' v-for="(song, index) in songs" :key="song.id">
+    <div class='group relative flex flex-col min-h-56 w-full hover:scale-[1.01] base-transition' v-for="(song, index) in songs" :key="song.id">
         <div class='duration-500 relative h-full rounded-xl overflow-hidden'>
             <img :src="song.thumbnail" :alt="song.title"
-                class='object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.275] group-hover:blur-sm scale-[1.4]' />
+                class='object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.25] group-hover:blur-sm scale-[1.2]' />
             <div class="flex gap-2 top-3 right-3 absolute">
                 <button
                     v-if="index != 0 && (user?.id == song.created_by || ['admin', 'operator'].includes(user.user_metadata.role))"
