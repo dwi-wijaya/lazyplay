@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div
-                class='absolute inset-0 bg-gradient-to-b from-black/30 to-black opacity-90 transition-opacity duration-300'>
+                class='absolute inset-0 bg-gradient-to-b from-black/40  to-black opacity-90 group-hover:opacity-100 transition-opacity duration-300'>
             </div>
         </div>
 
@@ -29,7 +29,7 @@
             <div class='flex flex-col justify-end'>
                 <div class='flex flex-col space-y-3 text-neutral-300'>
                     <h3 :title="song.title"
-                        class='line-clamp-1 leading-5 !mt-1 font-medium text-neutral-200 group-hover:underline group-hover:underline-offset-4 '>
+                        class='line-clamp-1 leading-5 !mt-1 group-hover:font-medium tracking-wider text-neutral-200 '>
                         {{ song.title }}
                     </h3>
                     <div class='flex gap-1 items-center text-neutral-400 !mt-2'>
@@ -44,7 +44,7 @@
                         <i class='fal fa-note text-xs' />
                         <span class='text-xs ml-0.5 line-clamp-1'>{{ song.note ? song.note : '-' }}</span>
                     </div>
-                    <hr class="border-t border-neutral-500  my-4">
+                    <hr class="border-t border-neutral-600  my-4">
                     <div class="flex justify-between items-center text-neutral-400">
                         <div class="flex gap-2 items-center">
                             <i class="fal fa-user-circle text-sm"></i>
