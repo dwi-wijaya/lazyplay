@@ -36,7 +36,11 @@
                         <i class='fal fa-calendar text-xs' />
                         <span class='text-xs ml-0.5'>{{ useDateFormat(song.created_at, 'DD MMM, YYYY - HH:mm') }}</span>
                     </div>
-                    <div class='flex gap-1 items-center text-neutral-400 !mt-1'>
+                    <div class='hidden group-hover:flex gap-1 items-center text-neutral-400 !mt-1'>
+                        <i class='fal fa-user-music text-xs' />
+                        <span class='text-xs ml-0.5'>{{ song.artist }}</span>
+                    </div>
+                    <div class='group-hover:hidden flex gap-1 items-center text-neutral-400 !mt-1'>
                         <i class='fal fa-note text-xs' />
                         <span class='text-xs ml-0.5 line-clamp-1'>{{ song.note ? song.note : '-' }}</span>
                     </div>
