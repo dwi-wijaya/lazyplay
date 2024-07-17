@@ -36,6 +36,15 @@
 
         <div class="flex gap-3 flex-col ml-6">
             <div
+                class="group flex flex-col gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl base-transition text-base hover:text-primary">
+                <div class="flex items-center gap-2 font-semibold">
+                    Upgrade to PRO
+                <i class="fad fa-fire text-primary group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
+                </div>
+                <div class="text-subtext text-sm"> Unlock and Get Premium Features and More. </div>
+                <button class="btn mt-3 mb-1 text-sm !rounded-xl !px-4 !py-3 !w-full justify-center !font-medium"> Upgrade <i class="group-hover:ml-1 base-transition fad fa-arrow-right"></i></button>
+            </div>
+            <div
                 class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
                 <i class="fad fa-glass-cheers group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
                 Cheers, Bobababa
