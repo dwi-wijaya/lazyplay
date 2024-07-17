@@ -24,7 +24,7 @@
                     class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
             </div>
             <div class="form-group">
-                <label for="full_name">Full Name:</label>
+                <label for="full_name" class="font-medium">Full Name:</label>
                 <input class="form-input" id="full_name" v-model="userMetadata.full_name" type="text" required>
             </div>
             <div class="form-group" v-if="!userMetadata.iss">

@@ -3,11 +3,11 @@
     <div class="card !p-5">
         <form @submit.prevent="updateUser">
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password" class="font-medium">Password:</label>
                 <input minlength="6" class="form-input" id="password" v-model="user.password" type="password" required>
             </div>
-            <div class="form-group">
-                <label for="confirm_password">Confirm Password:</label>
+            <div class="form-group mt-4">
+                <label for="confirm_password" class="font-medium">Re-enter Password:</label>
                 <input minlength="6" class="form-input" id="confirm_password" v-model="confirmPassword" type="password"
                     required>
             </div>

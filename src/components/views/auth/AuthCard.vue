@@ -20,7 +20,7 @@
                     <img class="w-6 group-hover:-rotate-12 duration-300 transition-all" src="@assets/logos/twitter.svg" alt="Twitter">
                 </button>
             </div>
-            <div class="divider flex items-center gap-4 my-5">
+            <div class="divider flex items-center gap-4 my-5 font-semibold text-subtext">
                 <hr class="border border-stroke flex-1">
                 OR
                 <hr class="border border-stroke flex-1">
