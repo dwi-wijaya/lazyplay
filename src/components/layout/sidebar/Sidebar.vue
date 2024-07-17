@@ -42,7 +42,7 @@
                 <i class="fad fa-fire text-primary group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
                 </div>
                 <div class="text-subtext text-sm"> Unlock and Get Premium Features and More. </div>
-                <button class="btn mt-3 mb-1 text-sm !rounded-xl !px-4 !py-3 !w-full justify-center !font-medium"> Upgrade <i class="group-hover:ml-1 base-transition fad fa-arrow-right"></i></button>
+                <a href="https://wa.me/6287700304010" target="_blank" class="btn mt-3 mb-1 text-sm !rounded-xl !px-4 !py-3 !w-full justify-center !font-medium"> Upgrade <i class="group-hover:ml-1 base-transition fad fa-arrow-right"></i></a>
             </div>
             <div
                 class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
