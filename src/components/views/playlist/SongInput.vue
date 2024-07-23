@@ -66,7 +66,7 @@ export default {
             return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
         },
         disableAddButton() {
-            return this.playlist.length > 20
+            return this.playlist.length >= 50
         }
     },
     methods: {
