@@ -3,11 +3,23 @@
         <div>
             <SongInput :playlist="playlist" :userQueue="userQueue" />
             <div class=" mt-8">
-
-                <p v-if="playlist && playlist.length === 0" class="text-base text-subtext flex gap-2 items-center"><i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!</p>
-                <div v-else class="flex flex-col gap-2">
-                    <SongList :user="user" :userQueue="userQueue" @add-to-queue="handleAddToQueue" :playlist="playlist" :isCooldown="isCooldown"
-                    :cooldownTime="cooldownTime" @delete-song="deleteSong" />
+                <div class="flex mb-4">
+                    <input ref="urlInput" v-model="query" @input="onInput" type="url" placeholder="Type your favourite song or artist"
+                        class="form-input flex-1 !rounded-r-none" required />
+                    <button type="button" @click="search"
+                        class="w-10 bg-container py-2 px-3 rounded-r-md border !border-neutral-300 dark:!border-stroke flex items-center hover:text-primary base-transition">
+                        <i class="fad fa-music-magnifying-glass"></i>
+                    </button>
+                </div>
+                <p v-if="originPlaylist && originPlaylist.length === 0" class="text-base text-subtext flex gap-2 items-center">
+                    <i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!
+                </p>
+                <p v-else-if="playlist && playlist.length === 0 && query" class="text-base text-subtext flex gap-2 items-center">
+                    <i class="fas fa-music-slash"></i> Sorry, we couldn't find any song that matches your search '{{ query }}'.
+                </p>
+                <div v-else class="flex flex-col gap-2 mt-4">
+                    <SongList :user="user" :userQueue="userQueue" @add-to-queue="handleAddToQueue" :playlist="playlist"
+                        :isCooldown="isCooldown" :cooldownTime="cooldownTime" @delete-song="deleteSong" />
                 </div>
             </div>
         </div>
@@ -21,6 +33,7 @@ import Container from '@components/layout/Container.vue'
 import { supabase } from '@services/supabase'
 import { useUserStore } from '@stores/user';
 import { useTitle } from '@vueuse/core'
+import { debounce } from 'lodash';
 
 export default {
     components: {
@@ -31,16 +44,30 @@ export default {
     data() {
         return {
             playlist: [],
+            originPlaylist: [],
             user: null,
             error: null,
             isCooldown: false,
             userQueue: [],
             cooldownTime: 0,
             duration: 0,
-            cooldownInterval: null
+            cooldownInterval: null,
+            query: '',
         }
     },
     methods: {
+        onInput: debounce(function () {
+            this.search();
+        }, 300),
+        search() {
+            if (!this.query) {
+                this.playlist = this.originPlaylist;
+                return;
+            }
+            this.playlist = this.originPlaylist.filter(song =>
+                song.title.toLowerCase().includes(this.query.toLowerCase()) || song.artist.toLowerCase().includes(this.query.toLowerCase())
+            );
+        },
         async fetchPlaylist() {
             let { data: songs, error } = await supabase
                 .from('playlist')
@@ -48,6 +75,7 @@ export default {
                 .eq('created_by', this.user.id)
                 .order('created_at', { ascending: true })
             if (!error) this.playlist = songs
+            if (!error) this.originPlaylist = songs
         },
         async addToQueue(song) {
             const { error } = await supabase
@@ -79,15 +107,6 @@ export default {
                 .eq('id', id);
             if (error) {
                 console.error('Error deleting song:', error);
-            }
-        },
-        async deleteSong(id) {
-            const { error } = await supabase
-                .from('playlist')
-                .delete()
-                .eq('id', id)
-            if (error) {
-                console.error('Error deleting song:', error)
             }
         },
         setupRealtime() {
@@ -149,7 +168,7 @@ export default {
                 .from('songs')
                 .select('*')
                 .neq('status', 0)
-                .eq('created_by', this.user.id) 
+                .eq('created_by', this.user.id)
                 .order('created_at', { ascending: true })
             if (!error) this.userQueue = songs
         },
@@ -164,4 +183,3 @@ export default {
     },
 }
 </script>
-
