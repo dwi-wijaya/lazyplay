@@ -13,8 +13,8 @@
                             <i class="fad fa-music"></i>Add Songs
                         </button>
                         <span v-if="disableAddButton"
-                            class="absolute left-0 border border-stroke top-10 mb-2 hidden group-hover:block bg-container text-sm rounded py-1 px-2 z-20">
-                            Please wait until your requested songs are played...
+                            class="absolute right-0 border border-stroke top-10 mb-2 hidden group-hover:block bg-container text-sm rounded py-1 px-2 z-20">
+                            {{ this.disableMsg }}
                         </span>
                     </div>
                 </div>
@@ -37,7 +37,9 @@
                 </div>
             </div>
         </form>
-        <p v-if="error" class="text-red-500">{{ error }}</p>
+        <p class="text-text flex items-center gap-2" v-if="error"><i class="fa-duotone fa-circle-exclamation"></i>
+            {{ error }}
+        </p>
     </div>
 </template>
   
@@ -46,6 +48,7 @@ import { supabase } from '@services/supabase'
 import { getVideoDetails, extractVideoID } from '@services/youtube'
 import { parseISO8601Duration } from '@helpers/durationHelper'
 import { useUserStore } from '@stores/user';
+import dayjs from 'dayjs';
 
 export default {
     props: {
@@ -60,6 +63,7 @@ export default {
             note: '',
             error: '',
             showInput: false,
+            disableMsg: '',
         }
     },
     computed: {
@@ -70,7 +74,14 @@ export default {
             const userStore = useUserStore();
             const userId = userStore.user.id;
             const userQueueCount = this.queue.filter(song => song.created_by === userId).length;
-            return userQueueCount >= 4;
+            console.log(dayjs().format('HH:MM'));
+            if (dayjs().format('HH:MM') <= '07:20') {
+                this.disableMsg = 'Requests will be available starting at 07:20 AM. Please check back then.'
+                return true
+            } else if (userQueueCount >= 4) {
+                this.disableMsg = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                return true
+            }
         }
     },
     methods: {
@@ -109,6 +120,14 @@ export default {
         },
         async addSong() {
             this.error = ''
+
+            if (dayjs().format('HH:MM') <= '07:20') {
+                this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
+                return
+            } else if (userQueueCount >= 4) {
+                this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                return
+            }
 
             const processedUrl = this.processYouTubeUrl(this.url)
             if (!processedUrl) {

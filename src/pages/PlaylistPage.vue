@@ -4,18 +4,25 @@
             <SongInput :playlist="playlist" :userQueue="userQueue" />
             <div class=" mt-8">
                 <div class="flex mb-4">
-                    <input ref="urlInput" v-model="query" @input="onInput" type="url" placeholder="Type your favourite song or artist"
-                        class="form-input flex-1 !rounded-r-none" required />
+                    <input ref="urlInput" v-model="query" @input="onInput" type="url"
+                        placeholder="Type your favourite song or artist" class="form-input flex-1 !rounded-r-none"
+                        required />
                     <button type="button" @click="search"
                         class="w-10 bg-container py-2 px-3 rounded-r-md border !border-neutral-300 dark:!border-stroke flex items-center hover:text-primary base-transition">
                         <i class="fad fa-music-magnifying-glass"></i>
                     </button>
                 </div>
-                <p v-if="originPlaylist && originPlaylist.length === 0" class="text-base text-subtext flex gap-2 items-center">
+                <p v-if="error" class="text-base text-subtext flex gap-2 items-center">
+                    <i class="fas fa-circle-exclamation"></i> {{ error }}
+                </p>
+                <p v-if="originPlaylist && originPlaylist.length === 0"
+                    class="text-base text-subtext flex gap-2 items-center">
                     <i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!
                 </p>
-                <p v-else-if="playlist && playlist.length === 0 && query" class="text-base text-subtext flex gap-2 items-center">
-                    <i class="fas fa-music-slash"></i> Sorry, we couldn't find any song that matches your search '{{ query }}'.
+                <p v-else-if="playlist && playlist.length === 0 && query"
+                    class="text-base text-subtext flex gap-2 items-center">
+                    <i class="fas fa-music-slash"></i> Sorry, we couldn't find any song that matches your search '{{ query
+                    }}'.
                 </p>
                 <div v-else class="flex flex-col gap-2 mt-4">
                     <SongList :user="user" :userQueue="userQueue" @add-to-queue="handleAddToQueue" :playlist="playlist"
@@ -34,6 +41,7 @@ import { supabase } from '@services/supabase'
 import { useUserStore } from '@stores/user';
 import { useTitle } from '@vueuse/core'
 import { debounce } from 'lodash';
+import dayjs from 'dayjs'
 
 export default {
     components: {
@@ -78,6 +86,7 @@ export default {
             if (!error) this.originPlaylist = songs
         },
         async addToQueue(song) {
+            this.error = ''
             const { error } = await supabase
                 .from('songs')
                 .insert([
@@ -125,6 +134,13 @@ export default {
         },
         handleAddToQueue(song) {
             if (!this.isCooldown) {
+                if (dayjs().format('HH:MM') <= '07:20') {
+                    this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
+                    return
+                } else if (this.userQueue.length >= 4) {
+                    this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                    return
+                }
                 this.addToQueue(song);
                 this.startCooldown();
             }

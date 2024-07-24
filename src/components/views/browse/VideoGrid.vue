@@ -75,6 +75,7 @@ import {
     parseArtist,
     getChannelDetails
 } from "@services/youtube.js";
+import dayjs from 'dayjs';
 
 export default {
     props: {
@@ -94,16 +95,14 @@ export default {
             type: Array,
             required: true
         },
-        user: {
-            type: Object,
-            required: true
-        }
     },
     computed: {
         disableAddButton() {
-            const userId = this.user.id;
-            const userQueueCount = this.userQueue.filter(song => song.created_by === userId).length;
-            return userQueueCount >= 4;
+            if (dayjs().format('HH:MM') <= '07:20') {
+                return true
+            } else if (this.userQueue.length >= 4) {
+                return true
+            }
         }
     },
     data() {

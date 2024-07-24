@@ -2,14 +2,15 @@
     <Container>
         <SearchBar @search="searchVideos" :isLoading="isLoading" />
         <div class="mt-6">
-            <p class="text-text flex items-center gap-2" v-if="error"><i class="fa-duotone fa-circle-exclamation"></i> {{
-                error }}</p>
+            <p class="text-text flex items-center gap-2" v-if="error"><i class="fa-duotone fa-circle-exclamation"></i>
+                {{ error }}
+            </p>
             <p class="text-text flex items-center gap-2" v-else-if="videos === 'notfound'">
                 <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something
                 else.
             </p>
             <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
-                :cooldownTime="cooldownTime" :userQueue="userQueue" :user="user" />
+                :cooldownTime="cooldownTime" :userQueue="userQueue" />
         </div>
     </Container>
 </template>
@@ -22,6 +23,7 @@ import VideoGrid from '@components/views/browse/VideoGrid.vue';
 import { supabase } from '@services/supabase';
 import { useUserStore } from '@stores/user';
 import { useTitle } from '@vueuse/core'
+import dayjs from 'dayjs';
 
 export default {
     components: {
@@ -53,6 +55,13 @@ export default {
             this.user = userStore.user;
         },
         async addToQueue(data) {
+            if (dayjs().format('HH:MM') <= '07:20') {
+                this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
+                return
+            } else if (this.userQueue.length >= 4) {
+                this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                return
+            }
             const song = {
                 url: data.url,
                 title: data.title,
@@ -161,7 +170,7 @@ export default {
                 .order('created_at', { ascending: true })
             if (!error) this.userQueue = songs
         },
-        
+
     }
 };
 </script>

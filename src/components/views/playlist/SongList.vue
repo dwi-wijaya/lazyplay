@@ -30,8 +30,8 @@
                             {{ isCooldown ? cooldownTime + 's' : 'Add to queue' }}
                         </button>
                         <span v-if="disableAddButton"
-                            class="absolute left-0 border border-stroke top-12 hidden base-transition group-hover/btn:block bg-container text-sm rounded py-1 px-2 z-20">
-                            Please wait until your requested songs are played...
+                            class="absolute right-0 w-[17rem] border border-stroke top-12 hidden base-transition group-hover/btn:block bg-container text-sm rounded py-1 px-2 z-20">
+                            {{ this.disableMsg }}
                         </span>
                     </div>
 
@@ -44,6 +44,7 @@
 <script>
 import { parseDuration } from '@helpers/durationHelper';
 import { parseState } from '@helpers/stateHelper';
+import dayjs from 'dayjs';
 
 export default {
     props: {
@@ -68,11 +69,20 @@ export default {
             required: true,
         }
     },
+    data() {
+        return {
+            disableMsg: ''
+        }
+    },
     computed: {
         disableAddButton() {
-            const userId = this.user.id;
-            const userQueueCount = this.userQueue.filter(song => song.created_by === userId).length;
-            return userQueueCount >= 4;
+            if (dayjs().format('HH:MM') <= '07:20') {
+                this.disableMsg = 'Requests will be available starting at 07:20 AM. Please check back then.'
+                return true
+            } else if (this.userQueue.length >= 4) {
+                this.disableMsg = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                return true
+            }
         }
     },
     methods: {
