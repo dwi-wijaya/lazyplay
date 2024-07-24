@@ -18,11 +18,14 @@
                         </select>
                     </div> -->
                 </div>
-
-                <topUser :users="topUser" />
-                <ArtisCard :artists="topArtist" />
-                <TopSong :songs="topSong" />
-                <RecentTracks :songs="recentTracks" />
+                <div class="flex flex-col gap-6 mt-6">
+                    <StatCard :totalRequest="totalRequest" :myRequest="myRequest" :uniqueSong="uniqueSong"
+                        :uniqueArtist="uniqueArtist" />
+                    <topUser :users="topUser" />
+                    <ArtisCard :artists="topArtist" />
+                    <TopSong :songs="topSong" />
+                    <RecentTracks :songs="recentTracks" />
+                </div>
             </div>
             <now-playing :currentSong="currentSong" :upcomingSongs="upcomingSongs" />
         </div>
@@ -32,6 +35,7 @@
 <script>
 
 import ArtisCard from '@components/views/dashboard/ArtisCard.vue';
+import StatCard from '@components/views/dashboard/StatCard.vue';
 import Container from '@components/layout/Container.vue';
 import TopSong from '@components/views/dashboard/TopSong.vue';
 import TopUser from '@components/views/dashboard/TopUser.vue';
@@ -41,10 +45,12 @@ import NowPlaying from '@components/views/dashboard/NowPlaying.vue';
 import { supabase } from '@services/supabase'
 import { parseState, stateIcon } from '@helpers/stateHelper';
 import { useTitle } from '@vueuse/core'
+import { useUserStore } from '@stores/user';
 
 export default {
     components: {
         ArtisCard,
+        StatCard,
         Container,
         TopSong,
         TopUser,
@@ -54,6 +60,7 @@ export default {
     },
     data() {
         return {
+            user: null,
             topSong: [],
             topUser: [],
             topArtist: [],
@@ -70,9 +77,19 @@ export default {
             },
             upcomingSongs: [],
             selectedTimeRange: '1day',
+            totalRequest: 0,
+            myRequest: 0,
+            uniqueSong: 0,
+            uniqueArtist: 0
         }
     },
     methods: {
+        async userStore() {
+            const userStore = useUserStore();
+            await userStore.fetchUser();
+            this.user = userStore.user
+        },
+
         parseState,
         stateIcon,
         async fetchDasboardSongs() {
@@ -99,6 +116,27 @@ export default {
                 default:
                     pastDate.setDate(now.getDate() - 1);
             }
+            // Dashboard statistics
+            let { count: totalRequest, error } = await supabase
+                .from('songs')
+                .select('*', { count: 'exact', head: true })
+            !error && (this.totalRequest = totalRequest)
+
+            let { count: myRequest, errorMyRequest } = await supabase
+                .from('songs')
+                .select('*', { count: 'exact', head: true })
+                .eq('created_by', this.user.id)
+            !errorMyRequest && (this.myRequest = myRequest)
+
+            let { count: uniqueArtists, errorUniqueArtists } = await supabase
+                .from('popular_artists')
+                .select('*', { count: 'exact', head: true })
+            !errorUniqueArtists && (this.uniqueArtist = uniqueArtists)
+
+            let { count: uniqueSongs, errorUniqueSongs } = await supabase
+                .from('popular_songs')
+                .select('*', { count: 'exact', head: true })
+            !errorUniqueSongs && (this.uniqueSong = uniqueSongs)
 
             let { data: songs, errorSong } = await supabase
                 .from('popular_songs')
@@ -178,10 +216,11 @@ export default {
         }
     },
     mounted() {
+        this.userStore();
         this.fetchPlayingSong();
         this.fetchDasboardSongs();
         this.setupRealtime();
-        useTitle('Dashboard - Lazyplay')
+        useTitle('Dashboard - Lazyplay');
     },
 }
 </script>
