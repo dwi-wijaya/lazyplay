@@ -21,6 +21,7 @@
                 <div class="flex flex-col gap-6 mt-6">
                     <StatCard :totalRequest="totalRequest" :myRequest="myRequest" :uniqueSong="uniqueSong"
                         :uniqueArtist="uniqueArtist" />
+                    <BreakInfo/>
                     <topUser :users="topUser" />
                     <ArtisCard :artists="topArtist" />
                     <TopSong :songs="topSong" />
@@ -36,6 +37,7 @@
 
 import ArtisCard from '@components/views/dashboard/ArtisCard.vue';
 import StatCard from '@components/views/dashboard/StatCard.vue';
+import BreakInfo from '@components/views/dashboard/BreakInfo.vue';
 import Container from '@components/layout/Container.vue';
 import TopSong from '@components/views/dashboard/TopSong.vue';
 import TopUser from '@components/views/dashboard/TopUser.vue';
@@ -51,6 +53,7 @@ export default {
     components: {
         ArtisCard,
         StatCard,
+        BreakInfo,
         Container,
         TopSong,
         TopUser,
