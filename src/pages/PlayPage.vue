@@ -50,7 +50,7 @@ export default {
         { key: 'dzuhur', time: '11:46' },
         { key: 'ashar', time: '15:6' },
         { key: 'maghrib', time: '17:36' },
-        { key: 'isya', time: '23:19' },
+        { key: 'isya', time: '18:50' },
         { key: 'home', time: '17:0' },
       ],
     };
