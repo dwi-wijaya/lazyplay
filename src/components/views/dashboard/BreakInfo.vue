@@ -47,7 +47,7 @@
   
 <style scoped>
 .scroll-item {
-    @apply bg-slate-50 dark:bg-slate-700 px-2 py-1 border border-stroke rounded-md text-sm inline-flex mx-1 hover:bg-slate-100 dark:hover:bg-slate-600 hover:ring-1 ring-offset-2 ring-slate-300 ring-offset-background dark:ring-slate-500 base-transition
+    @apply bg-container dark:bg-slate-700 px-2 py-1 border border-stroke rounded-md text-sm inline-flex mx-1 hover:bg-slate-100 dark:hover:bg-slate-600 hover:ring-1 ring-offset-2 ring-slate-300 ring-offset-background dark:ring-slate-500 base-transition
 }
 
 .scroll {
