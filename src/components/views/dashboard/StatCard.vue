@@ -5,7 +5,7 @@
                 class="absolute -top-[0.35rem] mx-auto left-0 right-0 w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
             </div>
             <p class="font-bold text-3xl text-red-50 dark:text-red-600">{{ animatedTotalRequest }}</p>
-            <p class="text-subtext flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
+            <p class="flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
                 <i class="fad fa-list-music"></i>Total request
             </p>
         </div>
@@ -14,7 +14,7 @@
                 class="absolute -top-[0.35rem] mx-auto left-0 right-0  w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
             </div>
             <p class="font-bold text-3xl text-red-50 dark:text-red-600">{{ animatedMyRequest }}</p>
-            <p class="text-subtext flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
+            <p class="flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
                 <i class="fad fa-user-music"></i>My request
             </p>
         </div>
@@ -23,7 +23,7 @@
                 class="absolute -top-[0.35rem] mx-auto left-0 right-0  w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
             </div>
             <p class="font-bold text-3xl text-red-50 dark:text-red-600">{{ animatedUniqueSong }}</p>
-            <p class="text-subtext flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
+            <p class="flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
                 <i class="fad fa-music-note"></i> Unique Song
             </p>
         </div>
@@ -32,7 +32,7 @@
                 class="absolute -top-[0.35rem] mx-auto left-0 right-0  w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
             </div>
             <p class="font-bold text-3xl text-red-50 dark:text-red-600">{{ animatedUniqueArtist }}</p>
-            <p class="text-subtext flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
+            <p class="flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
                 <i class="fad fa-microphone"></i> Unique Artist
             </p>
         </div>
