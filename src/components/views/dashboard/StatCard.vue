@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 gap-y-6 mb-2">
+    <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 gap-y-6">
         <div class="card relative !bg-red-500 dark:!bg-red-100 !border-none">
             <div
                 class="absolute -top-[0.35rem] mx-auto left-0 right-0 w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
