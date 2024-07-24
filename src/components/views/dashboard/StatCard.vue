@@ -1,59 +1,27 @@
+<!-- CardStat.vue -->
 <template>
-    <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 gap-y-6">
-        <div class="card relative !bg-red-500 dark:!bg-red-100 !border-none">
-            <div
-                class="absolute -top-[0.35rem] mx-auto left-0 right-0 w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
-            </div>
-            <p class="font-bold text-3xl text-red-50 dark:text-red-600">{{ animatedTotalRequest }}</p>
-            <p class="flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
-                <i class="fad fa-list-music"></i>Total request
-            </p>
+    <div class="card relative !bg-red-500 dark:!bg-red-100 !border-none">
+        <div
+            class="absolute -top-[0.35rem] mx-auto left-0 right-0 w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
         </div>
-        <div class="card relative !bg-red-500 dark:!bg-red-100 !border-none">
-            <div
-                class="absolute -top-[0.35rem] mx-auto left-0 right-0  w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
-            </div>
-            <p class="font-bold text-3xl text-red-50 dark:text-red-600">{{ animatedMyRequest }}</p>
-            <p class="flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
-                <i class="fad fa-user-music"></i>My request
-            </p>
-        </div>
-        <div class="card relative !bg-red-500 dark:!bg-red-100 !border-none">
-            <div
-                class="absolute -top-[0.35rem] mx-auto left-0 right-0  w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
-            </div>
-            <p class="font-bold text-3xl text-red-50 dark:text-red-600">{{ animatedUniqueSong }}</p>
-            <p class="flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
-                <i class="fad fa-music-note"></i> Unique Song
-            </p>
-        </div>
-        <div class="card relative !bg-red-500 dark:!bg-red-100 !border-none">
-            <div
-                class="absolute -top-[0.35rem] mx-auto left-0 right-0  w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
-            </div>
-            <p class="font-bold text-3xl text-red-50 dark:text-red-600">{{ animatedUniqueArtist }}</p>
-            <p class="flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
-                <i class="fad fa-microphone"></i> Unique Artist
-            </p>
-        </div>
+        <p class="font-bold text-3xl text-red-50 dark:text-red-600">{{ animatedValue }}</p>
+        <p class="flex items-center gap-1 text-sm text-red-200 dark:text-red-400">
+            <i :class="iconClass"></i>{{ label }}
+        </p>
     </div>
 </template>
-  
+
 <script setup>
 import { ref, watch } from 'vue';
 import { gsap } from 'gsap';
 
 const props = defineProps({
-    totalRequest: Number,
-    myRequest: Number,
-    uniqueSong: Number,
-    uniqueArtist: Number
+    value: Number,
+    label: String,
+    iconClass: String,
 });
 
-const animatedTotalRequest = ref(0);
-const animatedMyRequest = ref(0);
-const animatedUniqueSong = ref(0);
-const animatedUniqueArtist = ref(0);
+const animatedValue = ref(0);
 
 const animateCounter = (target, endValue) => {
     gsap.to(target, {
@@ -67,19 +35,14 @@ const animateCounter = (target, endValue) => {
     });
 };
 
-watch(() => props.totalRequest, (newValue) => {
-    animateCounter(animatedTotalRequest, newValue);
-});
-
-watch(() => props.myRequest, (newValue) => {
-    animateCounter(animatedMyRequest, newValue);
-});
-
-watch(() => props.uniqueSong, (newValue) => {
-    animateCounter(animatedUniqueSong, newValue);
-});
-
-watch(() => props.uniqueArtist, (newValue) => {
-    animateCounter(animatedUniqueArtist, newValue);
+watch(() => props.value, (newValue) => {
+    animateCounter(animatedValue, newValue);
 });
 </script>
+  
+<style scoped>
+.card {
+    /* Tambahkan gaya CSS spesifik untuk card jika diperlukan */
+}
+</style>
+  
