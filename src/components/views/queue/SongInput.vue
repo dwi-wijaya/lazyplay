@@ -13,7 +13,7 @@
                             <i class="fad fa-music"></i>Add Songs
                         </button>
                         <span v-if="disableAddButton"
-                            class="absolute right-0 border border-stroke top-10 mb-2 hidden group-hover:block bg-container text-sm rounded py-1 px-2 z-20">
+                            class="absolute right-0 border w-72 border-stroke top-10 mb-2 hidden group-hover:block bg-container text-sm rounded py-1 px-2 z-20">
                             {{ this.disableMsg }}
                         </span>
                     </div>
@@ -74,7 +74,7 @@ export default {
             const userStore = useUserStore();
             const userId = userStore.user.id;
             const userQueueCount = this.queue.filter(song => song.created_by === userId).length;
-            console.log(dayjs().format('HH:MM'));
+
             if (dayjs().format('HH:MM') <= '07:20') {
                 this.disableMsg = 'Requests will be available starting at 07:20 AM. Please check back then.'
                 return true
