@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="flex gap-2">
-                <router-link to="history" class="btn !text-sm !px-3 !py-1">
+                <router-link to="listen-again" class="btn !text-sm !px-3 !py-1">
                     Others
                 </router-link>
                 <div class="hidden gap-1 sm:flex">
@@ -57,8 +57,7 @@
                     <div class="flex gap-2">
                         <img :src="video.artist_image" class="w-8 h-8 rounded-md" alt="" srcset="">
                         <div class="flex flex-col">
-                            <h3
-                                class="line-clamp-1 leading-5 font-medium text-neutral-200 ">
+                            <h3 class="line-clamp-1 leading-5 font-medium text-neutral-200 ">
                                 {{ video.title }}
                             </h3>
                             <p class="text-xs line-clamp-1 m-0 text-neutral-400">{{ video.artist }}</p>
@@ -71,22 +70,8 @@
 </template>
   
 <script>
-import {
-    parseState,
-    stateIcon
-} from "@helpers/stateHelper";
-import {
-    parseDuration
-} from "@helpers/durationHelper";
-import {
-    useDateFormat,
-    useClipboard
-} from "@vueuse/core";
-import {
-    parseArtist,
-    getChannelDetails
-} from "@services/youtube.js";
-import dayjs from 'dayjs';
+
+import { useClipboard } from "@vueuse/core";
 
 export default {
     props: {
@@ -124,11 +109,6 @@ export default {
         };
     },
     methods: {
-        parseState,
-        parseArtist,
-        stateIcon,
-        parseDuration,
-        useDateFormat,
         async AddToQueue(song) {
             if (!this.isCooldown) {
 
