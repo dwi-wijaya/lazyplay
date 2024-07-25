@@ -1,6 +1,6 @@
 <!-- CardStat.vue -->
 <template>
-    <div class="card relative !bg-red-500 dark:!bg-red-100 !border-none">
+    <div class="card relative !bg-red-600 dark:!bg-red-100 !border-none">
         <div
             class="absolute -top-[0.35rem] mx-auto left-0 right-0 w-[85%] h-[0.35rem] rounded-t-xl bg-red-300 dark:bg-red-300">
         </div>
