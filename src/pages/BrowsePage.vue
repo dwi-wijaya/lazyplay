@@ -155,7 +155,7 @@ export default {
             }
         },
         async searchVideos(query) {
-            if (!query && this.error) {
+            if (!query) {
                 this.videos = [];
                 return;
             }
