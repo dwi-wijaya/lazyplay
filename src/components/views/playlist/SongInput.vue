@@ -108,7 +108,7 @@ export default {
 
             const processedUrl = this.processYouTubeUrl(this.url)
             if (!processedUrl) {
-                this.error = 'Please enter a valid YouTube URL.'
+                this.$emit('handle-error', 'The YouTube URL you entered is invalid. Please check the URL and try again.');
                 return
             }
             const ytID = extractVideoID(this.url)
@@ -116,7 +116,7 @@ export default {
             try {
                 const videoDetails = await getVideoDetails(ytID)
                 if (!videoDetails) {
-                    this.error = 'Failed to fetch video details.'
+                    this.$emit('handle-error', 'Unable to retrieve YouTube song details. Please try again later.');
                     return
                 }
 
@@ -124,7 +124,8 @@ export default {
                 const maxDurationInSeconds = 8 * 60; // 8 minutes
 
                 if (videoDurationInSeconds > maxDurationInSeconds) {
-                    this.error = 'Video duration exceeds 6 minutes.';
+                    this.$emit('handle-error', 'The song duration exceeds the 6-minute limit. Please select a shorter video.');
+
                     return;
                 }
                 const userStore = useUserStore();
@@ -150,11 +151,11 @@ export default {
                     this.url = ''
                     this.error = ''
                 } else {
-                    this.error = 'Failed to add the song.'
+                    this.$emit('handle-error', error.message)
                 }
             } catch (error) {
                 console.error('Error adding song:', error.message)
-                this.error = 'Failed to add the song.'
+                this.$emit('handle-error', error.message)
             }
         },
         processYouTubeUrl(url) {

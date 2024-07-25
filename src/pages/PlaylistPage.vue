@@ -1,10 +1,11 @@
 <template>
     <Container>
         <div>
-            <SongInput :playlist="playlist" :userQueue="userQueue" />
+            <SongInput @handle-error="handleError" :playlist="playlist" :userQueue="userQueue" />
 
             <div class="mt-8 flex flex-col gap-4">
                 <Alert :message="message" :icon="'circle-info'" />
+                <Alert :message="error" :icon="'triangle-exclamation'" :type="'danger'" :closable="true" />
                 <div class="flex">
                     <input ref="urlInput" v-model="query" @input="onInput" type="url"
                         placeholder="Type your favourite song or artist" class="form-input flex-1 !rounded-r-none"
@@ -66,6 +67,7 @@ export default {
             cooldownInterval: null,
             query: '',
             message: '',
+            error: '',
             currentTime: dayjs().format('HH:mm'),
         }
     },
@@ -86,6 +88,9 @@ export default {
         onInput: debounce(function () {
             this.search();
         }, 300),
+        async handleError(error) {
+            this.error = error
+        },
         search() {
             if (!this.query) {
                 this.playlist = this.originPlaylist;
