@@ -43,6 +43,7 @@ import { useUserStore } from '@stores/user';
 import { useTitle } from '@vueuse/core'
 import { debounce } from 'lodash';
 import dayjs from 'dayjs'
+import { REQUEST_AVAILABLE_TIME, MAX_REQUESTS_REACHED } from '@constants/messages.js';
 
 export default {
     components: {
@@ -69,10 +70,10 @@ export default {
     computed: {
         disableAddButton() {
             if (this.currentTime <= '08:20') {
-                this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
+                this.error = REQUEST_AVAILABLE_TIME
                 return true
             } else if (this.userQueue.length >= 4) {
-                this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                this.error = MAX_REQUESTS_REACHED
                 return true
             } else {
                 this.error = ''

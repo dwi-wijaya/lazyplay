@@ -47,6 +47,7 @@ import { getVideoDetails, extractVideoID } from '@services/youtube'
 import { parseISO8601Duration } from '@helpers/durationHelper'
 import dayjs from 'dayjs';
 import Alert from '@components/partial/Alert.vue';
+import { REQUEST_AVAILABLE_TIME, MAX_REQUESTS_REACHED } from '@constants/messages.js';
 
 export default {
     props: {
@@ -84,10 +85,10 @@ export default {
             const userQueueCount = this.queue.filter(song => song.created_by === this.user.id).length;
 
             if (this.currentTime <= '08:20') {
-                this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
+                this.error = REQUEST_AVAILABLE_TIME
                 return true
             } else if (userQueueCount >= 4) {
-                this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                this.error = MAX_REQUESTS_REACHED
                 return true
             } else {
                 this.error = ''
