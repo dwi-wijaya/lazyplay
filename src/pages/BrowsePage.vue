@@ -1,15 +1,18 @@
 <template>
     <Container>
         <div class="flex flex-col gap-4">
-            <SearchBar @search="searchVideos" :isLoading="isLoading" />
-            <Alert :message="message" :icon="'circle-info'" />
-            <Alert :message="error" :icon="'circle-info'" :type="'danger'" />
-            <p class="text-text flex items-center gap-2" v-if="videos === 'notfound'">
-                <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something
-                else.
-            </p>
-            <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
-                :isDisable="disableRequest" :cooldownTime="cooldownTime" :userQueue="userQueue" />
+            <h1 class="text-2xl font-bold">Browse Youtube</h1>
+            <div class="mt-4 flex flex-col gap-4">
+                <Alert :message="message" :icon="'circle-info'" />
+                <Alert :message="error" :icon="'triangle-exclamation'" :type="'danger'" />
+                <SearchBar @search="searchVideos" :isLoading="isLoading" />
+                <p class="text-text flex items-center gap-2" v-if="videos === 'notfound'">
+                    <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something
+                    else.
+                </p>
+                <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
+                    :isDisable="disableRequest" :cooldownTime="cooldownTime" :userQueue="userQueue" />
+            </div>
         </div>
     </Container>
 </template>
