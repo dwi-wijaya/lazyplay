@@ -23,16 +23,12 @@
                             class="fad fa-trash"></i>Delete
                     </button>
                     <div class="relative group/btn">
-                        <button @click="$emit('add-to-queue', song)" :disabled="isCooldown || disableAddButton"
+                        <button @click="$emit('add-to-queue', song)" :disabled="isCooldown || disableBtn"
                             class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden group-hover:flex gap-2 items-center disabled:cursor-not-allowed">
                             <i v-if="!isCooldown" class="fad fa-signal-stream"></i>
                             <i v-else class="fad fa-hourglass"></i>
                             {{ isCooldown ? cooldownTime + 's' : 'Add to queue' }}
                         </button>
-                        <span v-if="disableAddButton"
-                            class="absolute right-0 w-[17rem] border border-stroke top-12 hidden base-transition group-hover/btn:block bg-container text-sm rounded py-1 px-2 z-20">
-                            {{ this.disableMsg }}
-                        </span>
                     </div>
 
                 </div>
@@ -56,6 +52,10 @@ export default {
             type: Boolean,
             required: true,
         },
+        disableBtn: {
+            type: Boolean,
+            required: true,
+        },
         cooldownTime: {
             type: Number,
             required: true,
@@ -67,23 +67,7 @@ export default {
         user: {
             type: Object,
             required: true,
-        }
-    },
-    data() {
-        return {
-            disableMsg: ''
-        }
-    },
-    computed: {
-        disableAddButton() {
-            if (dayjs().format('HH:MM') <= '07:20') {
-                this.disableMsg = 'Requests will be available starting at 07:20 AM. Please check back then.'
-                return true
-            } else if (this.userQueue.length >= 4) {
-                this.disableMsg = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
-                return true
-            }
-        }
+        },
     },
     methods: {
         parseState,

@@ -5,7 +5,7 @@
                 <img :src="video.snippet.thumbnails.high.url" :alt="video.snippet.title"
                     class="object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.275] group-hover:blur-sm scale-[1.4]" />
                 <div class="absolute z-10 top-0 left-0 flex flex-col gap-2 justify-center items-center w-full h-full">
-                    <button @click="AddToQueue(video)" :disabled="isCooldown || disableAddButton"
+                    <button @click="AddToQueue(video)" :disabled="isCooldown || isDisable"
                         class="!w-52 justify-center btn z-10 opacity-0 group-hover:opacity-100 disabled:cursor-not-allowed">
                         <i class="fad fa-signal-stream"></i>
                         {{
@@ -87,6 +87,10 @@ export default {
             type: Boolean,
             required: true
         },
+        isDisable: {
+            type: Boolean,
+            required: true
+        },
         cooldownTime: {
             type: Number,
             required: true
@@ -95,15 +99,6 @@ export default {
             type: Array,
             required: true
         },
-    },
-    computed: {
-        disableAddButton() {
-            if (dayjs().format('HH:MM') <= '07:20') {
-                return true
-            } else if (this.userQueue.length >= 4) {
-                return true
-            }
-        }
     },
     data() {
         return {

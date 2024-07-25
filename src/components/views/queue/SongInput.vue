@@ -12,10 +12,10 @@
                             :disabled="disableAddButton">
                             <i class="fad fa-music"></i>Add Songs
                         </button>
-                        <span v-if="disableAddButton"
+                        <!-- <span v-if="disableAddButton"
                             class="absolute right-0 border w-72 border-stroke top-10 mb-2 hidden group-hover:block bg-container text-sm rounded py-1 px-2 z-20">
                             {{ this.disableMsg }}
-                        </span>
+                        </span> -->
                     </div>
                 </div>
             </div>
@@ -37,7 +37,8 @@
                 </div>
             </div>
         </form>
-        <p class="text-text flex items-center gap-2" v-if="error"><i class="fa-duotone fa-circle-exclamation"></i>
+        <p class="text-text flex items-center gap-2 card !rounded-lg mt-4" v-if="error"><i
+                class="fa-duotone fa-circle-exclamation"></i>
             {{ error }}
         </p>
     </div>
@@ -47,13 +48,16 @@
 import { supabase } from '@services/supabase'
 import { getVideoDetails, extractVideoID } from '@services/youtube'
 import { parseISO8601Duration } from '@helpers/durationHelper'
-import { useUserStore } from '@stores/user';
 import dayjs from 'dayjs';
 
 export default {
     props: {
         queue: {
             type: Array,
+            required: true,
+        },
+        user: {
+            type: Object,
             required: true,
         },
     },
@@ -63,24 +67,29 @@ export default {
             note: '',
             error: '',
             showInput: false,
-            disableMsg: '',
+            currentTime: dayjs().format('HH:mm'),
         }
     },
+    mounted() {
+        this.updateTime();
+        setInterval(this.updateTime, 60000); // Update setiap menit
+    },
+
     computed: {
         buttonIcon() {
             return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
         },
         disableAddButton() {
-            const userStore = useUserStore();
-            const userId = userStore.user.id;
-            const userQueueCount = this.queue.filter(song => song.created_by === userId).length;
+            const userQueueCount = this.queue.filter(song => song.created_by === this.user.id).length;
 
-            if (dayjs().format('HH:MM') <= '07:20') {
-                this.disableMsg = 'Requests will be available starting at 07:20 AM. Please check back then.'
+            if (this.currentTime <= '07:20') {
+                this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
                 return true
             } else if (userQueueCount >= 4) {
-                this.disableMsg = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
                 return true
+            } else {
+                this.error = ''
             }
         }
     },
@@ -88,6 +97,9 @@ export default {
         getVideoDetails,
         extractVideoID,
         parseISO8601Duration,
+        updateTime() {
+            this.currentTime = dayjs().format('HH:mm');
+        },
         handleButtonClick() {
             if (this.url !== '') {
                 this.clearUrl();
@@ -124,7 +136,7 @@ export default {
             if (dayjs().format('HH:MM') <= '07:20') {
                 this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
                 return
-            } else if (userQueueCount >= 4) {
+            } else if (this.queue.filter(song => song.created_by === this.user.id).length >= 4) {
                 this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
                 return
             }
@@ -150,8 +162,6 @@ export default {
                     this.error = 'Video duration exceeds 6 minutes.';
                     return;
                 }
-                const userStore = useUserStore();
-                await userStore.fetchUser();
 
                 const { data, error } = await supabase
                     .from('songs')
@@ -165,8 +175,8 @@ export default {
                             created_at: new Date(),
                             artist: videoDetails.channelTitle,
                             artist_image: videoDetails.channelImage,
-                            created_by: userStore.user.id,
-                            created_name: userStore.user.user_metadata.full_name,
+                            created_by: this.user.id,
+                            created_name: this.user.user_metadata.full_name,
                         }
                     ])
 

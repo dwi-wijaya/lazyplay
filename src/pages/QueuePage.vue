@@ -1,7 +1,7 @@
 <template>
     <Container>
         <div class="">
-            <SongInput @song-added="fetchSongs" :queue="songs" />
+            <SongInput @song-added="fetchSongs" :queue="songs" :user="user" />
             <div v-if="songs.length == 0" class="text-subtext flex items-center gap-2"><i class="fad fa-list-music"></i>The Queue are currently empty, add some songs!</div>
             <div v-else class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
                 <SongCard :user="user" :songs="songs" @delete-song="deleteSong" />

@@ -2,6 +2,7 @@
     <Container>
         <div>
             <SongInput :playlist="playlist" :userQueue="userQueue" />
+
             <div class=" mt-8">
                 <div class="flex mb-4">
                     <input ref="urlInput" v-model="query" @input="onInput" type="url"
@@ -12,7 +13,7 @@
                         <i class="fad fa-music-magnifying-glass"></i>
                     </button>
                 </div>
-                <p v-if="error" class="text-base text-subtext flex gap-2 items-center">
+                <p v-if="error" class="text-base text-subtext flex gap-2 items-center card !rounded-lg">
                     <i class="fas fa-circle-exclamation"></i> {{ error }}
                 </p>
                 <p v-if="originPlaylist && originPlaylist.length === 0"
@@ -26,7 +27,7 @@
                 </p>
                 <div v-else class="flex flex-col gap-2 mt-4">
                     <SongList :user="user" :userQueue="userQueue" @add-to-queue="handleAddToQueue" :playlist="playlist"
-                        :isCooldown="isCooldown" :cooldownTime="cooldownTime" @delete-song="deleteSong" />
+                        :isCooldown="isCooldown" :cooldownTime="cooldownTime" @delete-song="deleteSong" :disableBtn="disableAddButton" />
                 </div>
             </div>
         </div>
@@ -61,6 +62,20 @@ export default {
             duration: 0,
             cooldownInterval: null,
             query: '',
+            currentTime: dayjs().format('HH:mm'),
+        }
+    },
+    computed: {
+        disableAddButton() {
+            if (this.currentTime <= '07:20') {
+                this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
+                return true
+            } else if (this.userQueue.length >= 4) {
+                this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                return true
+            } else {
+                this.error = ''
+            }
         }
     },
     methods: {
@@ -125,6 +140,10 @@ export default {
                     console.log('Change received!', payload)
                     this.fetchPlaylist()
                 })
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'songs' }, payload => {
+                    console.log('a');
+                    this.fetchUserQueue()
+                })
                 .subscribe()
         },
         async userStore() {
@@ -134,7 +153,7 @@ export default {
         },
         handleAddToQueue(song) {
             if (!this.isCooldown) {
-                if (dayjs().format('HH:MM') <= '07:20') {
+                if (this.currentTime <= '07:20') {
                     this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
                     return
                 } else if (this.userQueue.length >= 4) {
@@ -188,6 +207,9 @@ export default {
                 .order('created_at', { ascending: true })
             if (!error) this.userQueue = songs
         },
+        updateTime() {
+            this.currentTime = dayjs().format('HH:mm');
+        },
     },
     async mounted() {
         await this.userStore();
@@ -195,6 +217,8 @@ export default {
         this.fetchPlaylist();
         this.setupRealtime();
         this.checkCooldown(); // Periksa cooldown saat komponen dipasang
+        this.updateTime();
+        setInterval(this.updateTime, 60000);
         useTitle('Playlist - Lazyplay')
     },
 }

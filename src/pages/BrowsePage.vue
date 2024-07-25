@@ -2,7 +2,8 @@
     <Container>
         <SearchBar @search="searchVideos" :isLoading="isLoading" />
         <div class="mt-6">
-            <p class="text-text flex items-center gap-2" v-if="error"><i class="fa-duotone fa-circle-exclamation"></i>
+            <p class="text-text flex items-center gap-2 card !rounded-lg mt-4" v-if="error">
+                <i class="fa-duotone fa-circle-exclamation"></i>
                 {{ error }}
             </p>
             <p class="text-text flex items-center gap-2" v-else-if="videos === 'notfound'">
@@ -10,7 +11,7 @@
                 else.
             </p>
             <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
-                :cooldownTime="cooldownTime" :userQueue="userQueue" />
+                :isDisable="disableAddButton" :cooldownTime="cooldownTime" :userQueue="userQueue" />
         </div>
     </Container>
 </template>
@@ -39,16 +40,48 @@ export default {
             cooldownInterval: null,
             error: '',
             userQueue: [],
-            isLoading: false
-        };
+            isLoading: false,
+            currentTime: dayjs().format('HH:mm'),
+        }
+    },
+    computed: {
+        disableAddButton() {
+            if (this.currentTime <= '07:20') {
+                console.log('time');
+                this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
+                return true
+            } else if (this.userQueue.length >= 4) {
+                console.log('que');
+                this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
+                return true
+            } else {
+                console.log('reset');
+                this.error = ''
+            }
+        }
     },
     async mounted() {
         await this.userStore();
-        await this.fetchUserQueue()
+        await this.fetchUserQueue();
+        this.setupRealtime();
         this.checkCooldown();
+        this.updateTime();
+        setInterval(this.updateTime, 60000); // Update setiap menit
         useTitle('Browse - Lazyplay')
     },
     methods: {
+        updateTime() {
+            this.currentTime = dayjs().format('HH:mm');
+        },
+        setupRealtime() {
+            supabase
+                .channel('realtime-songs')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'songs' }, payload => {
+                    console.log('realtime');
+                    this.fetchUserQueue()
+                })
+                .subscribe()
+        },
         async userStore() {
             const userStore = useUserStore();
             await userStore.fetchUser();
@@ -122,7 +155,7 @@ export default {
             }
         },
         async searchVideos(query) {
-            if (!query) {
+            if (!query && this.error) {
                 this.videos = [];
                 return;
             }
