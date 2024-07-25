@@ -10,8 +10,12 @@
                     <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something
                     else.
                 </p>
-                <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
-                    :isDisable="disableRequest" :cooldownTime="cooldownTime" :userQueue="userQueue" />
+                <div v-else class="flex flex-col gap-4">
+                    <History :user="user" :userHistory="userHistory" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
+                        :isDisable="disableRequest" :cooldownTime="cooldownTime" :userQueue="userQueue" />
+                    <VideoGrid :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
+                        :isDisable="disableRequest" :cooldownTime="cooldownTime" :userQueue="userQueue" />
+                </div>
             </div>
         </div>
     </Container>
@@ -22,6 +26,7 @@ import axios from 'axios';
 import Container from '@components/layout/Container.vue';
 import SearchBar from '@components/views/browse/SearchBar.vue';
 import VideoGrid from '@components/views/browse/VideoGrid.vue';
+import History from '@components/views/browse/History.vue';
 import { supabase } from '@services/supabase';
 import { useUserStore } from '@stores/user';
 import { useTitle } from '@vueuse/core'
@@ -34,6 +39,7 @@ export default {
         SearchBar,
         Container,
         VideoGrid,
+        History,
         Alert
     },
     data() {
@@ -45,6 +51,7 @@ export default {
             cooldownInterval: null,
             error: '',
             userQueue: [],
+            userHistory: [],
             isLoading: false,
             message: '',
             currentTime: dayjs().format('HH:mm'),
@@ -65,7 +72,9 @@ export default {
     },
     async mounted() {
         await this.userStore();
+        console.log(this.user);
         await this.fetchUserQueue();
+        await this.fetchHistory();
         this.setupRealtime();
         this.checkCooldown();
         this.updateTime();
@@ -82,6 +91,7 @@ export default {
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'songs' }, payload => {
                     console.log('realtime');
                     this.fetchUserQueue()
+                    this.fetchHistory()
                 })
                 .subscribe()
         },
@@ -203,6 +213,16 @@ export default {
                 .eq('created_by', this.user.id)
                 .order('created_at', { ascending: true })
             if (!error) this.userQueue = songs
+        },
+        async fetchHistory() {
+            let { data: songs, error } = await supabase
+                .from('songs')
+                .select('*')
+                .eq('status', 0)
+                .eq('created_by', this.user.id)
+                .order('created_at', { ascending: false })
+                .limit(10)
+            if (!error) this.userHistory = songs
         },
 
     }
