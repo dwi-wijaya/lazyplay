@@ -6,29 +6,31 @@
             <div class="mt-8 flex flex-col gap-4">
                 <Alert :message="message" :icon="'circle-info'" />
                 <Alert :message="error" :icon="'triangle-exclamation'" :type="'danger'" :closable="true" />
-                <div class="flex">
-                    <input ref="urlInput" v-model="query" @input="onInput" type="url"
-                        placeholder="Type your favourite song or artist" class="form-input flex-1 !rounded-r-none"
-                        required />
-                    <button type="button" @click="search"
-                        class="w-10 bg-container py-2 px-3 rounded-r-md border !border-neutral-300 dark:!border-stroke flex items-center hover:text-primary base-transition">
-                        <i class="fad fa-music-magnifying-glass"></i>
-                    </button>
-                </div>
-                <p v-if="originPlaylist && originPlaylist.length === 0"
-                    class="text-base text-subtext flex gap-2 items-center">
-                    <i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!
-                </p>
-                <p v-else-if="playlist && playlist.length === 0 && query"
-                    class="text-base text-subtext flex gap-2 items-center">
-                    <i class="fas fa-music-slash"></i> Sorry, we couldn't find any song that matches your search '{{
-                        query
-                    }}'.
-                </p>
-                <div v-else class="flex flex-col gap-2">
-                    <SongList :user="user" :userQueue="userQueue" @add-to-queue="handleAddToQueue" :playlist="playlist"
-                        :isCooldown="isCooldown" :cooldownTime="cooldownTime" @delete-song="deleteSong"
-                        :disableBtn="disableRequest" />
+                <div class="card !p-3">
+                    <div class="flex mb-2">
+                        <input ref="urlInput" v-model="query" @input="onInput" type="url"
+                            placeholder="Type your favourite song or artist" class="form-input flex-1 !rounded-r-none"
+                            required />
+                        <button type="button" @click="search"
+                            class="w-10 bg-container py-2 px-3 rounded-r-md border !border-neutral-300 dark:!border-stroke flex items-center hover:text-primary base-transition">
+                            <i class="fad fa-music-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    <p v-if="originPlaylist && originPlaylist.length === 0"
+                        class="text-base text-subtext flex gap-2 items-center">
+                        <i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!
+                    </p>
+                    <p v-else-if="playlist && playlist.length === 0 && query"
+                        class="text-base text-subtext flex gap-2 items-center">
+                        <i class="fas fa-music-slash"></i> Sorry, we couldn't find any song that matches your search '{{
+                            query
+                        }}'.
+                    </p>
+                    <div v-else class="flex flex-col gap-2">
+                        <SongList :user="user" :userQueue="userQueue" @add-to-queue="handleAddToQueue" :playlist="playlist"
+                            :isCooldown="isCooldown" :cooldownTime="cooldownTime" @delete-song="deleteSong"
+                            :disableBtn="disableRequest" />
+                    </div>
                 </div>
             </div>
         </div>

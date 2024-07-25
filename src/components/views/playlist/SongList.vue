@@ -1,5 +1,5 @@
 <template>
-    <section class="list-disc flex flex-col bg-container border border-stroke rounded-lg p-2">
+    <section class="list-disc flex flex-col">
         <ul class="rounded-md">
             <li v-for="song in playlist" :key="song.id"
                 class="justify-between flex p-3 !m-0 group items-center hover:bg-background gap-2 border-b border-stroke last:border-b-0">
