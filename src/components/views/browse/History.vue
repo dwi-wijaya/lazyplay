@@ -24,11 +24,10 @@
             </div>
         </div>
         <div class="flex gap-3 max-w-full overflow-auto scrollbar-hide">
-            <div class="group relative flex flex-col min-h-[16.5rem] min-w-60 w-full" v-for="(video, index) in userHistory"
-                :key="index">
+            <div class="group relative flex flex-col min-h-60 min-w-60" v-for="(video, index) in userHistory" :key="index">
                 <div class="duration-500 relative h-full rounded-xl overflow-hidden">
                     <img :src="video.thumbnail" :alt="video.title"
-                        class="object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.15] group-hover:blur-sm" />
+                        class="object-cover w-full h-full transform transition-transform duration-300 scale-[1.35] group-hover:scale-[1.5] group-hover:blur-sm" />
                     <div
                         class="absolute z-10 top-0 left-0 flex flex-col gap-2 justify-center items-center w-full h-[calc(100%-3.75rem)]">
                         <button @click="AddToQueue(video)" :disabled="isCooldown || isDisable"
