@@ -1,40 +1,22 @@
 <template>
-    <div class="mb-4">
+    <form @submit.prevent="toggleInput" :class="['flex justify-between gap-4 flex-col mb-4']">
+        <h1 class="text-2xl font-bold">Song Playlist ({{ playlist.length }})</h1>
 
-        <form @submit.prevent="toggleInput" :class="['flex justify-between gap-4', { 'flex-col': showInput }]">
-            <div class="flex justify-between flex-1">
-                <h1 class="text-2xl font-bold">Song Playlist ({{ playlist.length }})</h1>
-                <div class="flex gap-1 justify-end">
-                    <button v-if="showInput" @click="showInput = false" type="button" class="btn !py-2 !px-2">
-                        <i class="fas fa-xmark"></i>
-                    </button>
-                    <div class="relative group/btn">
-                        <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed"
-                            :disabled="disableRequest">
-                            <i class="fad fa-music"></i>Add Songs
-                        </button>
-                        <span v-if="disableRequest"
-                            class="absolute left-0 border border-stroke top-10 mb-2 opacity-0 base-transition group-hover/btn:opacity-100 bg-container text-sm rounded py-1 px-2 z-20">
-                            Playlist is full(20)
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div v-if="showInput" class="grid col-2 gap-2">
-
-                <div class="flex">
-                    <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL"
-                        class="form-input flex-1 !rounded-r-none" required />
-                    <button type="button"
-                        class="w-10 bg-container py-2 px-3 rounded-r-md border border-stroke flex items-center hover:text-primary base-transition"
-                        @click="handleButtonClick">
-                        <i :class="buttonIcon"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <p v-if="error" class="text-red-500">{{ error }}</p>
-    </div>
+        <div class="flex mt-4">
+            <button type="button"
+                class="w-10 bg-container rounded-l-lg border-r-0 py-2 px-3 border border-stroke flex items-center hover:text-primary base-transition"
+                @click="handleButtonClick">
+                <i :class="buttonIcon"></i>
+            </button>
+            <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL"
+                class="form-input flex-1 !rounded-none" required />
+            <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed !rounded-l-none"
+                :disabled="isPlaylistFull">
+                <i class="fad fa-list-music"></i>
+                Add
+            </button>
+        </div>
+    </form>
 </template>
 
 <script>
@@ -53,6 +35,10 @@ export default {
             type: Array,
             required: true,
         },
+        isPlaylistFull: {
+            type: Boolean,
+            required: true,
+        }
     },
     data() {
         return {
@@ -65,7 +51,7 @@ export default {
         buttonIcon() {
             return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
         },
-        disableRequest() {
+        disableAddPlaylist() {
             return this.playlist.length >= 50
         }
     },

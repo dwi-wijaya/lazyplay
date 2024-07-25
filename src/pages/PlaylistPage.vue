@@ -1,9 +1,11 @@
 <template>
     <Container>
         <div>
-            <SongInput @handle-error="handleError" :playlist="playlist" :userQueue="userQueue" />
+            <SongInput @handle-error="handleError" :playlist="playlist" :userQueue="userQueue"
+                :isPlaylistFull="isPlaylistFull" />
 
-            <div class="mt-8 flex flex-col gap-4">
+            <div class="flex flex-col gap-4">
+                <Alert v-if="isPlaylistFull" :message="maxPlaylistMsg" :icon="'circle-info'" />
                 <Alert :message="message" :icon="'circle-info'" />
                 <Alert :message="error" :icon="'triangle-exclamation'" :type="'danger'" :closable="true" />
                 <div class="card !p-3">
@@ -47,7 +49,7 @@ import { useUserStore } from '@stores/user';
 import { useTitle } from '@vueuse/core'
 import { debounce } from 'lodash';
 import dayjs from 'dayjs'
-import { REQUEST_AVAILABLE_TIME, MAX_REQUESTS_REACHED } from '@constants/messages.js';
+import { REQUEST_AVAILABLE_TIME, MAX_REQUESTS_REACHED, MAX_PLAYLIST_REACHED } from '@constants/messages.js';
 
 export default {
     components: {
@@ -84,6 +86,12 @@ export default {
             } else {
                 this.message = ''
             }
+        },
+        isPlaylistFull() {
+            return this.playlist.length >= 50
+        },
+        maxPlaylistMsg() {
+            return MAX_PLAYLIST_REACHED
         }
     },
     methods: {
