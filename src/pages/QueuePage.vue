@@ -1,9 +1,10 @@
 <template>
     <Container>
         <div class="flex flex-col gap-4">
-            <SongInput @song-added="fetchSongs" :queue="songs" :user="user" :message="message" :disableRequest="disableRequest" />
+            <SongInput @song-added="fetchSongs" @handle-error="handleError" :queue="songs" :user="user" :message="message" :disableRequest="disableRequest" />
             <div class="mt-4 flex flex-col gap-4">
                 <Alert :message="message" :icon="'circle-info'" />
+                <Alert :message="error" :icon="'triangle-exclamation'" :type="'danger'" :closable="true" />
                 <div v-if="songs.length == 0" class="text-subtext flex items-center gap-2"><i
                         class="fad fa-list-music"></i>The Queue are currently empty, add some songs!</div>
                 <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -36,6 +37,7 @@ export default {
         return {
             currentTime: dayjs().format('HH:mm'),
             message: '',
+            error: '',
             user: null,
             songs: [],
         }
@@ -56,6 +58,9 @@ export default {
         }
     },
     methods: {
+        async handleError(error) {
+            this.error = error
+        },
         async fetchSongs() {
             let { data: songs, error } = await supabase
                 .from('songs')

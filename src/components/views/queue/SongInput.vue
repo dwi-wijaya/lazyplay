@@ -77,13 +77,11 @@ export default {
         buttonIcon() {
             return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
         },
-        
     },
     methods: {
         getVideoDetails,
         extractVideoID,
         parseISO8601Duration,
-        
         handleButtonClick() {
             if (this.url !== '') {
                 this.clearUrl();
@@ -115,7 +113,6 @@ export default {
             }
         },
         async addSong() {
-            this.error = ''
 
             if (this.currentTime <= '08:20') {
                 return
@@ -125,7 +122,7 @@ export default {
 
             const processedUrl = this.processYouTubeUrl(this.url)
             if (!processedUrl) {
-                this.error = 'Please enter a valid YouTube URL.'
+                this.$emit('handle-error', 'Please enter a valid YouTube URL.')
                 return
             }
             const ytID = extractVideoID(this.url)
@@ -133,7 +130,7 @@ export default {
             try {
                 const videoDetails = await getVideoDetails(ytID)
                 if (!videoDetails) {
-                    this.error = 'Failed to fetch video details.'
+                    this.$emit('handle-error', 'Failed to fetch video details.');
                     return
                 }
 
@@ -141,7 +138,7 @@ export default {
                 const maxDurationInSeconds = 8 * 60; // 8 minutes
 
                 if (videoDurationInSeconds > maxDurationInSeconds) {
-                    this.error = 'Video duration exceeds 6 minutes.';
+                    this.$emit('handle-error', 'Video duration exceeds 6 minutes.');
                     return;
                 }
 
@@ -167,13 +164,12 @@ export default {
                     this.showInput = false
                     this.url = ''
                     this.note = ''
-                    this.error = ''
                 } else {
-                    this.error = 'Failed to add the song.'
+                    this.$emit('handle-error', error.message)
                 }
             } catch (error) {
                 console.error('Error adding song:', error.message)
-                this.error = 'Failed to add the song.'
+                this.$emit('handle-error', error.message)
             }
         },
         processYouTubeUrl(url) {
