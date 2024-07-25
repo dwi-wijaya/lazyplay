@@ -88,7 +88,7 @@ export default {
             this.user = userStore.user;
         },
         async addToQueue(data) {
-            if (dayjs().format('HH:MM') <= '08:20') {
+            if (this.currentTime <= '08:20') {
                 this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
                 return
             } else if (this.userQueue.length >= 4) {

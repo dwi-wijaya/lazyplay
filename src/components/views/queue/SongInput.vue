@@ -133,7 +133,7 @@ export default {
         async addSong() {
             this.error = ''
 
-            if (dayjs().format('HH:MM') <= '08:20') {
+            if (this.currentTime <= '08:20') {
                 this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
                 return
             } else if (this.queue.filter(song => song.created_by === this.user.id).length >= 4) {
