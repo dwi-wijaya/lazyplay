@@ -4,7 +4,7 @@
             <h1 class="text-2xl font-bold">Browse Youtube</h1>
             <div class="mt-4 flex flex-col gap-4">
                 <Alert :message="message" :icon="'circle-info'" />
-                <Alert :message="error" :icon="'triangle-exclamation'" :type="'danger'" />
+                <Alert :message="error" :icon="'triangle-exclamation'" :type="'danger'" :closable="true" />
                 <SearchBar @search="searchVideos" :isLoading="isLoading" />
                 <p class="text-text flex items-center gap-2" v-if="videos === 'notfound'">
                     <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something
