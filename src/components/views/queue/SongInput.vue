@@ -37,18 +37,16 @@
                 </div>
             </div>
         </form>
-        <p class="text-text flex items-center gap-2 card !rounded-lg mt-4" v-if="error"><i
-                class="fa-duotone fa-circle-exclamation"></i>
-            {{ error }}
-        </p>
+        <Alert :message="error" :icon="'circle-info'" />
     </div>
 </template>
-  
+
 <script>
 import { supabase } from '@services/supabase'
 import { getVideoDetails, extractVideoID } from '@services/youtube'
 import { parseISO8601Duration } from '@helpers/durationHelper'
 import dayjs from 'dayjs';
+import Alert from '@components/partial/Alert.vue';
 
 export default {
     props: {
@@ -60,6 +58,9 @@ export default {
             type: Object,
             required: true,
         },
+    },
+    components: {
+        Alert
     },
     data() {
         return {

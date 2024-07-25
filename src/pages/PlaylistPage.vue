@@ -13,9 +13,7 @@
                         <i class="fad fa-music-magnifying-glass"></i>
                     </button>
                 </div>
-                <p v-if="error" class="text-base text-subtext flex gap-2 items-center card !rounded-lg">
-                    <i class="fas fa-circle-exclamation"></i> {{ error }}
-                </p>
+                <Alert :message="error" :icon="'circle-info'" />
                 <p v-if="originPlaylist && originPlaylist.length === 0"
                     class="text-base text-subtext flex gap-2 items-center">
                     <i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!
@@ -27,7 +25,8 @@
                 </p>
                 <div v-else class="flex flex-col gap-2 mt-4">
                     <SongList :user="user" :userQueue="userQueue" @add-to-queue="handleAddToQueue" :playlist="playlist"
-                        :isCooldown="isCooldown" :cooldownTime="cooldownTime" @delete-song="deleteSong" :disableBtn="disableAddButton" />
+                        :isCooldown="isCooldown" :cooldownTime="cooldownTime" @delete-song="deleteSong"
+                        :disableBtn="disableAddButton" />
                 </div>
             </div>
         </div>
@@ -38,6 +37,7 @@
 import SongList from '@components/views/playlist/SongList.vue'
 import SongInput from '@components/views/playlist/SongInput.vue'
 import Container from '@components/layout/Container.vue'
+import Alert from '@components/partial/Alert.vue';
 import { supabase } from '@services/supabase'
 import { useUserStore } from '@stores/user';
 import { useTitle } from '@vueuse/core'
@@ -48,7 +48,8 @@ export default {
     components: {
         SongInput,
         Container,
-        SongList
+        SongList,
+        Alert
     },
     data() {
         return {
