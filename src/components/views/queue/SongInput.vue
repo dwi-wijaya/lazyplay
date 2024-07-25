@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-4">
+    <div class="">
         <form @submit.prevent="toggleInput" :class="['flex justify-between gap-4', { 'flex-col': showInput }]">
             <div class="flex justify-between flex-1">
                 <h1 class="text-2xl font-bold">Song Queue ({{ queue.length }})</h1>
@@ -9,13 +9,9 @@
                     </button>
                     <div class="relative group">
                         <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed"
-                            :disabled="disableAddButton">
+                            :disabled="disableRequest">
                             <i class="fad fa-music"></i>Add Songs
                         </button>
-                        <!-- <span v-if="disableAddButton"
-                            class="absolute right-0 border w-72 border-stroke top-10 mb-2 hidden group-hover:block bg-container text-sm rounded py-1 px-2 z-20">
-                            {{ this.disableMsg }}
-                        </span> -->
                     </div>
                 </div>
             </div>
@@ -37,7 +33,6 @@
                 </div>
             </div>
         </form>
-        <Alert :message="error" :icon="'circle-info'" />
     </div>
 </template>
 
@@ -59,6 +54,13 @@ export default {
             type: Object,
             required: true,
         },
+        disableRequest: {
+            type: Boolean,
+            required: true,
+        },
+        message: {
+            type: String,
+        }
     },
     components: {
         Alert
@@ -69,39 +71,19 @@ export default {
             note: '',
             error: '',
             showInput: false,
-            currentTime: dayjs().format('HH:mm'),
         }
     },
-    mounted() {
-        this.updateTime();
-        setInterval(this.updateTime, 60000); // Update setiap menit
-    },
-
     computed: {
         buttonIcon() {
             return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
         },
-        disableAddButton() {
-            const userQueueCount = this.queue.filter(song => song.created_by === this.user.id).length;
-
-            if (this.currentTime <= '08:20') {
-                this.error = REQUEST_AVAILABLE_TIME
-                return true
-            } else if (userQueueCount >= 4) {
-                this.error = MAX_REQUESTS_REACHED
-                return true
-            } else {
-                this.error = ''
-            }
-        }
+        
     },
     methods: {
         getVideoDetails,
         extractVideoID,
         parseISO8601Duration,
-        updateTime() {
-            this.currentTime = dayjs().format('HH:mm');
-        },
+        
         handleButtonClick() {
             if (this.url !== '') {
                 this.clearUrl();
@@ -136,10 +118,8 @@ export default {
             this.error = ''
 
             if (this.currentTime <= '08:20') {
-                this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
                 return
             } else if (this.queue.filter(song => song.created_by === this.user.id).length >= 4) {
-                this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
                 return
             }
 

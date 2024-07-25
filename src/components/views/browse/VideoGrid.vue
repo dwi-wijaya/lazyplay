@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
         <div class="group relative flex flex-col min-h-56 w-full" v-for="(video, index) in videos" :key="index">
             <div class="duration-500 relative h-full rounded-xl overflow-hidden">
                 <img :src="video.snippet.thumbnails.high.url" :alt="video.snippet.title"

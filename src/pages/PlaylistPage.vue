@@ -3,8 +3,9 @@
         <div>
             <SongInput :playlist="playlist" :userQueue="userQueue" />
 
-            <div class=" mt-8">
-                <div class="flex mb-4">
+            <div class="mt-8 flex flex-col gap-4">
+                <Alert :message="message" :icon="'circle-info'" />
+                <div class="flex">
                     <input ref="urlInput" v-model="query" @input="onInput" type="url"
                         placeholder="Type your favourite song or artist" class="form-input flex-1 !rounded-r-none"
                         required />
@@ -13,20 +14,20 @@
                         <i class="fad fa-music-magnifying-glass"></i>
                     </button>
                 </div>
-                <Alert :message="error" :icon="'circle-info'" />
                 <p v-if="originPlaylist && originPlaylist.length === 0"
                     class="text-base text-subtext flex gap-2 items-center">
                     <i class="fas fa-music-slash"></i> Your playlist is currently empty. Let's add some tunes!
                 </p>
                 <p v-else-if="playlist && playlist.length === 0 && query"
                     class="text-base text-subtext flex gap-2 items-center">
-                    <i class="fas fa-music-slash"></i> Sorry, we couldn't find any song that matches your search '{{ query
+                    <i class="fas fa-music-slash"></i> Sorry, we couldn't find any song that matches your search '{{
+                        query
                     }}'.
                 </p>
-                <div v-else class="flex flex-col gap-2 mt-4">
+                <div v-else class="flex flex-col gap-2">
                     <SongList :user="user" :userQueue="userQueue" @add-to-queue="handleAddToQueue" :playlist="playlist"
                         :isCooldown="isCooldown" :cooldownTime="cooldownTime" @delete-song="deleteSong"
-                        :disableBtn="disableAddButton" />
+                        :disableBtn="disableRequest" />
                 </div>
             </div>
         </div>
@@ -64,19 +65,20 @@ export default {
             duration: 0,
             cooldownInterval: null,
             query: '',
+            message: '',
             currentTime: dayjs().format('HH:mm'),
         }
     },
     computed: {
-        disableAddButton() {
+        disableRequest() {
             if (this.currentTime <= '08:20') {
-                this.error = REQUEST_AVAILABLE_TIME
+                this.message = REQUEST_AVAILABLE_TIME
                 return true
             } else if (this.userQueue.length >= 4) {
-                this.error = MAX_REQUESTS_REACHED
+                this.message = MAX_REQUESTS_REACHED
                 return true
             } else {
-                this.error = ''
+                this.message = ''
             }
         }
     },
@@ -156,10 +158,8 @@ export default {
         handleAddToQueue(song) {
             if (!this.isCooldown) {
                 if (this.currentTime <= '08:20') {
-                    this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
                     return
                 } else if (this.userQueue.length >= 4) {
-                    this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
                     return
                 }
                 this.addToQueue(song);

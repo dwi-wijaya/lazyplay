@@ -1,16 +1,15 @@
 <template>
     <Container>
-        <div class="">
+        <div class="flex flex-col gap-4">
             <SearchBar @search="searchVideos" :isLoading="isLoading" />
-            <div class="mt-6">
-                <Alert :message="error" :icon="'circle-info'" />
-                <p class="text-text flex items-center gap-2" v-if="videos === 'notfound'">
-                    <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something
-                    else.
-                </p>
-                <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
-                    :isDisable="disableAddButton" :cooldownTime="cooldownTime" :userQueue="userQueue" />
-            </div>
+            <Alert :message="message" :icon="'circle-info'" />
+            <Alert :message="error" :icon="'circle-info'" :type="'danger'" />
+            <p class="text-text flex items-center gap-2" v-if="videos === 'notfound'">
+                <i class="fa-duotone fa-magnifying-glass-minus"></i>Sorry, no videos found. Try searching for something
+                else.
+            </p>
+            <VideoGrid v-else :videos="videos" @add-to-queue="handleAddToQueue" :isCooldown="isCooldown"
+                :isDisable="disableRequest" :cooldownTime="cooldownTime" :userQueue="userQueue" />
         </div>
     </Container>
 </template>
@@ -44,22 +43,20 @@ export default {
             error: '',
             userQueue: [],
             isLoading: false,
+            message: '',
             currentTime: dayjs().format('HH:mm'),
         }
     },
     computed: {
-        disableAddButton() {
+        disableRequest() {
             if (this.currentTime <= '08:20') {
-                console.log('time');
-                this.error = REQUEST_AVAILABLE_TIME
+                this.message = REQUEST_AVAILABLE_TIME
                 return true
             } else if (this.userQueue.length >= 4) {
-                console.log('que');
-                this.error = MAX_REQUESTS_REACHED
+                this.message = MAX_REQUESTS_REACHED
                 return true
             } else {
-                console.log('reset');
-                this.error = ''
+                this.message = ''
             }
         }
     },
@@ -92,10 +89,8 @@ export default {
         },
         async addToQueue(data) {
             if (this.currentTime <= '08:20') {
-                this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
                 return
             } else if (this.userQueue.length >= 4) {
-                this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more or upgrade to PRO.'
                 return
             }
             const song = {

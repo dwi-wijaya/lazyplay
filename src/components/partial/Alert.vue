@@ -18,7 +18,7 @@ const props = defineProps({
 })
 
 const alertClasses = computed(() => {
-    const baseClasses = 'text-sm border px-4 py-3 flex items-center gap-2 rounded-lg mt-4';
+    const baseClasses = 'text-sm border px-4 py-3 flex items-center gap-2 rounded-lg';
     const typeClasses = {
         info: 'bg-blue-50 dark:bg-container text-blue-800 dark:text-blue-400 border-blue-100 dark:border-stroke',
         danger: 'bg-red-50 dark:bg-container text-red-800 dark:text-red-400 border-red-100 dark:borde-stroke',

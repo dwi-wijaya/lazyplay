@@ -10,10 +10,10 @@
                     </button>
                     <div class="relative group/btn">
                         <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed"
-                            :disabled="disableAddButton">
+                            :disabled="disableRequest">
                             <i class="fad fa-music"></i>Add Songs
                         </button>
-                        <span v-if="disableAddButton"
+                        <span v-if="disableRequest"
                             class="absolute left-0 border border-stroke top-10 mb-2 opacity-0 base-transition group-hover/btn:opacity-100 bg-container text-sm rounded py-1 px-2 z-20">
                             Playlist is full(20)
                         </span>
@@ -65,7 +65,7 @@ export default {
         buttonIcon() {
             return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
         },
-        disableAddButton() {
+        disableRequest() {
             return this.playlist.length >= 50
         }
     },
