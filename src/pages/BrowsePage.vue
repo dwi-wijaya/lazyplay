@@ -46,9 +46,9 @@ export default {
     },
     computed: {
         disableAddButton() {
-            if (this.currentTime <= '07:20') {
+            if (this.currentTime <= '08:20') {
                 console.log('time');
-                this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
+                this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
                 return true
             } else if (this.userQueue.length >= 4) {
                 console.log('que');
@@ -88,8 +88,8 @@ export default {
             this.user = userStore.user;
         },
         async addToQueue(data) {
-            if (dayjs().format('HH:MM') <= '07:20') {
-                this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
+            if (dayjs().format('HH:MM') <= '08:20') {
+                this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
                 return
             } else if (this.userQueue.length >= 4) {
                 this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'

@@ -67,8 +67,8 @@ export default {
     },
     computed: {
         disableAddButton() {
-            if (this.currentTime <= '07:20') {
-                this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
+            if (this.currentTime <= '08:20') {
+                this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
                 return true
             } else if (this.userQueue.length >= 4) {
                 this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
@@ -153,8 +153,8 @@ export default {
         },
         handleAddToQueue(song) {
             if (!this.isCooldown) {
-                if (this.currentTime <= '07:20') {
-                    this.error = 'Requests will be available starting at 07:20 AM. Please check back then.'
+                if (this.currentTime <= '08:20') {
+                    this.error = 'Requests will be available starting at 08:20 AM. Please check back then.'
                     return
                 } else if (this.userQueue.length >= 4) {
                     this.error = 'You have reached the maximum number of requests. Please wait for your songs to be played before adding more.'
