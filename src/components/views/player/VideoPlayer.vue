@@ -1,6 +1,6 @@
 <template>
     <div class="p-5 rounded-xl border border-stroke bg-container">
-        <iframe class="border border-stroke rounded-xl w-full h-[30rem]" ref="player" :src="videoUrlWithParams"
+        <iframe class="border border-stroke rounded-xl w-full h-72 sm:h-[30rem] " ref="player" :src="videoUrlWithParams"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;" frameborder="0">
         </iframe>
         <div class="flex justify-between gap-3 mt-5 flex-col sm:flex-row">
@@ -14,11 +14,11 @@
                     </p>
                 </div>
             </div>
-            <div class="flex gap-2 border-t pt-3 sm:border-t-0 sm:pt-0 items-center mr-1 justify-between sm:justify-start">
+            <div class="flex gap-1 sm:gap-2 border-t pt-3 sm:border-t-0 sm:pt-0 items-center mr-1 justify-between sm:justify-start">
                 <button class="btn !px-3 !py-2 h-fit">
                     <i class="fad fa-timer"></i>{{ parseDuration(song.duration) }}
                 </button>
-                <div class="flex gap-2">
+                <div class="flex gap-1 sm:gap-2">
                     <button class="btn !px-3 !py-2 h-fit" @click="toggleMute">
                         <i :class="isMuted ? 'fas fa-volume-xmark' : 'fas fa-volume'"></i>
                     </button>
