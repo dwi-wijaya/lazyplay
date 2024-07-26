@@ -1,8 +1,8 @@
 <template>
-    <div class='group relative flex flex-col min-h-56 w-full hover:scale-[1.01] base-transition' v-for="(song, index) in songs" :key="song.id">
+    <div class='group relative flex flex-col h-full w-full hover:scale-[1.01] aspect-square base-transition' v-for="(song, index) in songs" :key="song.id">
         <div class='duration-500 relative h-full rounded-xl overflow-hidden'>
             <img :src="song.thumbnail" :alt="song.title"
-                class='object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.25] group-hover:blur-sm scale-[1.2]' />
+                class='object-cover w-full h-full transform transition-transform duration-300 group-hover:scale-[1.5] group-hover:blur-sm scale-[1.35]' />
             <div class="flex gap-2 top-3 right-3 absolute">
                 <button
                     v-if="index != 0 && (user?.id == song.created_by || ['admin', 'operator'].includes(user.user_metadata.role))"
@@ -45,10 +45,10 @@
                         <span class='text-xs ml-0.5 line-clamp-1'>{{ song.note ? song.note : '-' }}</span>
                     </div>
                     <hr class="border-t border-neutral-600  my-4">
-                    <div class="flex justify-between items-center text-neutral-400">
+                    <div class="flex gap-1 justify-between items-center text-neutral-400">
                         <div class="flex gap-2 items-center">
                             <i class="fal fa-user-circle text-sm"></i>
-                            <small>{{ song.created_name }}</small>
+                            <small class="line-clamp-1">{{ song.created_name }}</small>
                         </div>
                         <div class="flex gap-2 items-center">
                             <div class="flex gap-2 items-center">

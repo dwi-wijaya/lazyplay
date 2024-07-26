@@ -7,7 +7,7 @@
                 <Alert :message="error" :icon="'triangle-exclamation'" :type="'danger'" :closable="true" />
                 <div v-if="songs.length == 0" class="text-subtext flex items-center gap-2"><i
                         class="fad fa-list-music"></i>The Queue are currently empty, add some songs!</div>
-                <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     <SongCard :user="user" :songs="songs" @delete-song="deleteSong" />
                 </div>
             </div>

@@ -1,9 +1,9 @@
 <template>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-        <div class="group relative flex flex-col min-h-56 w-full" v-for="(video, index) in videos" :key="index">
+        <div class="group relative flex flex-col aspect-square h-full w-full" v-for="(video, index) in videos" :key="index">
             <div class="duration-500 relative h-full rounded-xl overflow-hidden">
                 <img :src="video.snippet.thumbnails.high.url" :alt="video.snippet.title"
-                    class="object-none w-full h-full transform transition-transform duration-300 group-hover:scale-[1.275] group-hover:blur-sm scale-[1.4]" />
+                    class="object-cover w-full h-full transform transition-transform duration-300 group-hover:scale-[1.5] group-hover:blur-sm scale-[1.35]" />
                 <div class="absolute z-10 top-0 left-0 flex flex-col gap-2 justify-center items-center w-full h-full">
                     <button @click="AddToQueue(video)" :disabled="isCooldown || isDisable"
                         class="!w-52 justify-center btn z-10 opacity-0 group-hover:opacity-100 disabled:cursor-not-allowed">
