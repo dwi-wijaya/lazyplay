@@ -4,7 +4,7 @@
         </h3>
         <p class="text-subtext mb-4 text-sm">The most requested song track by users</p>
 
-        <section class="flex flex-col bg-container border border-stroke rounded-lg p-3">
+        <section v-if="songs.length > 0" class="flex flex-col bg-container border border-stroke rounded-lg p-3">
             <ul class=" rounded-md">
                 <li v-for="(song, index) in songs" :key="song.id"
                     class="justify-between flex gap-2 p-3 !m-0 group items-center hover:bg-background  border-b border-stroke last:border-b-0 group/song">

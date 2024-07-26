@@ -1,10 +1,10 @@
 <template>
     <div class="">
-        <h3 class="text-text text-lg mt-6 flex gap-2 font-semibold items-center"><i
+        <h3 class="text-text text-lg flex gap-2 font-semibold items-center"><i
                 class="text-primary fad fa-list-music"></i>Recently Played</h3>
         <p class="text-subtext mb-4 text-sm">Songs that have been played recently</p>
 
-        <section class="flex flex-col bg-container border border-stroke rounded-lg p-3">
+        <section v-if="songs.length > 0" class="flex flex-col bg-container border border-stroke rounded-lg p-3">
             <ul class=" rounded-md">
                 <li v-for="(song, index) in songs" :key="song.id"
                     class="group justify-between flex p-3 gap-2 !m-0 group items-center hover:bg-background  border-b border-stroke last:border-b-0">
