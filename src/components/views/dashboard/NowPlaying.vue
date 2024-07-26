@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full sm:max-w-64 md:max-w-72 xl:max-w-80 h-[calc(100vh-5rem)] pb-6">
+    <div class="w-full sm:max-w-64 md:max-w-72 xl:max-w-80 h-full sm:h-[calc(100vh-5rem)] pb-6">
         <div class="bg-container rounded-2xl p-4 lg:p-5 border border-stroke h-full">
             <div class="group">
                 <p class="mb-2 text-text">
@@ -7,8 +7,10 @@
                     {{ parseState(currentSong.status) }}
                 </p>
 
-                <img v-if="currentSong.thumbnail" :src="currentSong.thumbnail" alt="" srcset=""
-                    class="rounded-xl object-none h-48 w-full">
+                <div class="rounded-xl h-full w-full aspect-square relative overflow-hidden">
+                    <img v-if="currentSong.thumbnail" :src="currentSong.thumbnail" alt="" srcset=""
+                        class="w-full h-full scale-[1.35] object-cover">
+                </div>
                 <div v-if="!currentSong.thumbnail" class=" h-48 w-full animate-pulse">
                     <div class="bg-background h-full border border-stroke rounded-xl flex justify-center items-center">
                         <i class="text-2xl fal fa-music-magnifying-glass"></i>
@@ -16,7 +18,8 @@
                 </div>
                 <div class="flex justify-between items-end">
                     <div class="">
-                        <p class="text-text line-clamp-1 mt-2 font-semibold" :title="currentSong.title">{{ currentSong ? currentSong.title : '-' }}</p>
+                        <p class="text-text line-clamp-1 mt-2 font-semibold" :title="currentSong.title">{{ currentSong ?
+                            currentSong.title : '-' }}</p>
                         <p class="text-subtext text-sm text-neutral-400 line-clamp-1 flex items-center">
                             <i class="fad fa-user-music mr-2"></i>
                             <span class="line-clamp-1 group-hover:hidden">{{ currentSong ? currentSong.artist : '-'
@@ -32,7 +35,8 @@
                 </p>
                 <hr class="flex-1 border border-stroke">
             </div>
-            <ul class="flex flex-col gap-3 h-[calc(100vh-29.25rem)] lg:h-[calc(100vh-29.75rem)] overflow-auto scrollbar-hide">
+            <ul
+                class="flex flex-col gap-3 h-[calc(100vh-37.75rem)] sm:h-[calc(100vh-31rem)] md:h-[calc(100vh-33.25rem)] lg:h-[calc(100vh-32.95rem)] xl:h-[calc(100vh-35.25rem)] overflow-auto scrollbar-hide">
                 <p v-if="upcomingSongs.length == 0" class="text-subtext text-sm">The Queue are currently empty !</p>
                 <li class="group flex gap-2 px-0" v-for="(song, index) in upcomingSongs" :key="song.id" :title="song.title">
                     <div class=" !w-12 !h-12 relative ">

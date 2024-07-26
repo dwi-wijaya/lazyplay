@@ -9,7 +9,7 @@
                 <li v-for="(song, index) in songs" :key="song.id"
                     class="group justify-between flex p-3 gap-2 !m-0 group items-center hover:bg-background  border-b border-stroke last:border-b-0">
                     <div class="flex gap-2 items-center">
-                        <p class="mr-3 text-neutral-300 font-semibold">{{ index + 1 }}</p>
+                        <p class="ml-1 mr-3 text-neutral-300 dark:text-neutral-500 font-medium group-hover:text-neutral-500 dark:group-hover:text-neutral-300">{{ index + 1 }}</p>
                         <img :src="song.thumbnail" width="80" height="45" alt="" class="w-20 h-11 rounded-lg object-cover"
                             srcset="">
                         <div class="flex flex-col">
