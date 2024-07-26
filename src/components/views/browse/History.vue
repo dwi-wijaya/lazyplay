@@ -110,7 +110,7 @@ export default {
     },
     computed: {
         isFirstSlide() {
-            return this.currentSlide === 1;
+            return this.currentSlide === this.minSlide || this.currentSlide === 0;
         },
         isLastSlide() {
             return this.currentSlide >= (this.userHistory.length - 1);
@@ -149,17 +149,19 @@ export default {
                     snapAlign: 'end',
                 },
             },
-            currentSlide: 1,
-            totalSlides: 0
+            currentSlide: 0,
+            minSlide: 0
         };
     },
     methods: {
         prev() {
             this.$refs.carousel.prev();
+            this.minSlide = this.$refs.carousel.data.minSlide.value;
             this.currentSlide = this.$refs.carousel.data.currentSlide.value;
         },
         next() {
             this.$refs.carousel.next();
+            this.minSlide = this.$refs.carousel.data.minSlide.value;
             this.currentSlide = this.$refs.carousel.data.currentSlide.value;
         },
         updateSlide(slide) {
