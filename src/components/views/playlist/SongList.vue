@@ -13,18 +13,19 @@
                         </p>
                     </div>
                 </div>
-                <div class="flex gap-2">
-                    <p
-                        class="px-3 py-2 border border-stroke bg-background rounded-md group-hover:hidden flex gap-2 items-center">
-                        <i class="fad fa-timer"></i>{{ parseDuration(song.duration) }}
-                    </p>
+                <p
+                    class="px-3 leading-4 py-2 border border-stroke bg-background rounded-md group-hover:hidden flex gap-2 items-center">
+                    <i class="fad fa-timer"></i>{{ parseDuration(song.duration) }}
+                </p>
+                <div class="hidden group-hover:flex gap-2">
                     <button @click="$emit('delete-song', song.id)" title="Delete"
-                        class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden  group-hover:flex gap-2 items-center"><i
-                            class="fad fa-trash"></i><span class="hidden sm:block">Delete</span>
+                        class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden  group-hover:flex gap-2 items-center whitespace-nowrap">
+                        <i class="fad fa-trash"></i><span class="hidden sm:block">Delete</span>
                     </button>
                     <div class="relative group/btn">
-                        <button @click="$emit('add-to-queue', song)" :disabled="isCooldown || disableBtn" title="Add to queue"
-                            class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden group-hover:flex gap-2 items-center disabled:cursor-not-allowed">
+                        <button @click="$emit('add-to-queue', song)" :disabled="isCooldown || disableBtn"
+                            title="Add to queue"
+                            class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden group-hover:flex gap-2 items-center disabled:cursor-not-allowed whitespace-nowrap">
                             <i v-if="!isCooldown" class="fad fa-signal-stream"></i>
                             <i v-else class="fad fa-hourglass"></i>
                             <span v-if="isCooldown">{{ cooldownTime + 's' }}</span>
