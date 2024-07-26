@@ -1,22 +1,22 @@
 <template>
-    <div class="card !pb-4">
-        <div class="flex items-center justify-between mb-4">
+    <div class="">
+        <div class="flex items-end justify-between mb-4">
             <div class="flex gap-2">
-                <img :src="user?.user_metadata.avatar_url" alt="" class="w-12 h-12 rounded-full">
-                <div class="flex flex-col">
-                    <h2 class="leading-5 text-sm font-medium">Hii, {{ user?.user_metadata.full_name }}</h2>
-                    <h3 class="leading-5 text-xl font-bold">Listen again</h3>
+                <img :src="user?.user_metadata.avatar_url" alt="" class="w-12 h-12 sm:w-14 sm:h-14 rounded-md">
+                <div class="flex flex-col justify-between">
+                    <h2 class="leading-5 text-base text-subtext font-medium">Hii, {{ user?.user_metadata.full_name }}</h2>
+                    <h3 class="text-2xl sm:text-4xl font-bold">Request again</h3>
                 </div>
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 mb-1">
                 <router-link to="listen-again" class="btn !text-sm !px-3 !py-1">
                     Others
                 </router-link>
                 <div class="hidden gap-1 sm:flex">
-                    <button @click="prev" :disabled="isFirstSlide" class="btn disabled:!bg-red-400 !text-sm !px-3 !py-1">
+                    <button @click="prev" :disabled="isFirstSlide" class="btn disabled:!bg-red-400 dark:disabled:!bg-red-300 !text-sm !px-3 !py-1">
                         <i class="fad fa-chevron-left"></i>
                     </button>
-                    <button @click="next" :disabled="isLastSlide" class="btn disabled:!bg-red-400 !text-sm !px-3 !py-1">
+                    <button @click="next" :disabled="isLastSlide" class="btn disabled:!bg-red-400 dark:disabled:!bg-red-300 !text-sm !px-3 !py-1">
                         <i class="fad fa-chevron-right"></i>
                     </button>
                 </div>
@@ -140,6 +140,10 @@ export default {
                 },
                 1280: {
                     itemsToShow: 4,
+                    snapAlign: 'end',
+                },
+                1536: {
+                    itemsToShow: 5,
                     snapAlign: 'end',
                 },
             },
