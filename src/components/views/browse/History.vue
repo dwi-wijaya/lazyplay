@@ -25,7 +25,7 @@
             </div>
         </div>
         <Carousel ref="carousel" :breakpoints="breakpoints" :itemsToScroll="1">
-            <Slide v-for="(video, index) in userHistory" :key="index" class="pr-4">
+            <Slide v-for="(video, index) in userHistory" :key="index" class="">
                 <div class="group !relative !flex !flex-col !aspect-square">
                     <div class="duration-500 relative h-full rounded-xl overflow-hidden">
                         <img :src="video.thumbnail" :alt="video.title"
@@ -196,7 +196,18 @@ export default {
 };
 </script>
   
-<style>
-/* Add your custom styles if needed */
+<style scoped>
+.carousel {
+    /* Make the width 100% plus the width of the gap between slides */
+    width: calc(100% + 1.25rem);
+
+    /* replace 0.625rem with half of the gap between slides */
+    transform: translateX(-0.5rem)
+}
+
+.carousel__slide {
+    /* Once again, replace 0.625rem with half of the width you want the gap to be */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
 </style>
-  
