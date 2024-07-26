@@ -1,16 +1,16 @@
 <template>
-    <form @submit.prevent="toggleInput" :class="['flex justify-between gap-4 flex-col mb-4']">
+    <form @submit.prevent="toggleInput" :class="['flex justify-between gap-4 flex-col mb-4 w-full']">
         <h1 class="text-2xl font-bold">Song Playlist ({{ playlist.length }})</h1>
 
         <div class="flex mt-4">
-            <button type="button"
-                class="w-10 bg-container rounded-l-lg border-r-0 py-2 px-3 border border-stroke flex items-center hover:text-primary base-transition"
+            <button type="button" :title="buttonTitle"
+                class="w-fit bg-container rounded-l-lg border-r-0 py-2 pl-3 pr-2 border border-stroke items-center hover:text-primary base-transition"
                 @click="handleButtonClick">
                 <i :class="buttonIcon"></i>
             </button>
-            <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL"
-                class="form-input flex-1 !rounded-none" required />
-            <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed !rounded-l-none"
+            <input ref="urlInput" v-model="url" type="url" placeholder="YouTube song URL"
+                class="form-input flex-1 !w-fit !rounded-none !px-0 !border-x-0" required />
+            <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed !rounded-l-none !text-sm"
                 :disabled="isPlaylistFull">
                 <i class="fad fa-list-music"></i>
                 Add
@@ -50,6 +50,9 @@ export default {
     computed: {
         buttonIcon() {
             return this.url != '' ? 'fad fa-trash' : 'fad fa-paste';
+        },
+        buttonTitle() {
+            return this.url != '' ? 'Clear' : 'Paste';
         },
         disableAddPlaylist() {
             return this.playlist.length >= 50
