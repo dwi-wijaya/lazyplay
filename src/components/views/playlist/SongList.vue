@@ -18,16 +18,17 @@
                         class="px-3 py-2 border border-stroke bg-background rounded-md group-hover:hidden flex gap-2 items-center">
                         <i class="fad fa-timer"></i>{{ parseDuration(song.duration) }}
                     </p>
-                    <button @click="$emit('delete-song', song.id)"
+                    <button @click="$emit('delete-song', song.id)" title="Delete"
                         class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden  group-hover:flex gap-2 items-center"><i
-                            class="fad fa-trash"></i>Delete
+                            class="fad fa-trash"></i><span class="hidden sm:block">Delete</span>
                     </button>
                     <div class="relative group/btn">
-                        <button @click="$emit('add-to-queue', song)" :disabled="isCooldown || disableBtn"
+                        <button @click="$emit('add-to-queue', song)" :disabled="isCooldown || disableBtn" title="Add to queue"
                             class="text-primary border px-3 py-2 border-stroke bg-container rounded-md hidden group-hover:flex gap-2 items-center disabled:cursor-not-allowed">
                             <i v-if="!isCooldown" class="fad fa-signal-stream"></i>
                             <i v-else class="fad fa-hourglass"></i>
-                            {{ isCooldown ? cooldownTime + 's' : 'Add to queue' }}
+                            <span v-if="isCooldown">{{ cooldownTime + 's' }}</span>
+                            <span class="hidden sm:block" v-else>Add to queue</span>
                         </button>
                     </div>
 
