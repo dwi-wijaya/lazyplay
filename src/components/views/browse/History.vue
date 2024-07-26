@@ -13,10 +13,12 @@
                     Others
                 </router-link>
                 <div class="hidden gap-1 sm:flex">
-                    <button @click="prev" :disabled="isFirstSlide" class="btn disabled:!bg-red-400 dark:disabled:!bg-red-300 !text-sm !px-3 !py-1">
+                    <button @click="prev" :disabled="isFirstSlide"
+                        class="btn disabled:!bg-red-400 dark:disabled:!bg-red-300 !text-sm !px-3 !py-1">
                         <i class="fad fa-chevron-left"></i>
                     </button>
-                    <button @click="next" :disabled="isLastSlide" class="btn disabled:!bg-red-400 dark:disabled:!bg-red-300 !text-sm !px-3 !py-1">
+                    <button @click="next" :disabled="isLastSlide"
+                        class="btn disabled:!bg-red-400 dark:disabled:!bg-red-300 !text-sm !px-3 !py-1">
                         <i class="fad fa-chevron-right"></i>
                     </button>
                 </div>
@@ -111,7 +113,7 @@ export default {
             return this.currentSlide === 1;
         },
         isLastSlide() {
-            return this.currentSlide >= this.userHistory.length
+            return this.currentSlide >= (this.userHistory.length - 1);
         }
     },
     data() {
@@ -148,17 +150,17 @@ export default {
                 },
             },
             currentSlide: 1,
-            totalSlides: this.userHistory.length
+            totalSlides: 0
         };
     },
     methods: {
         prev() {
             this.$refs.carousel.prev();
-            this.currentSlide--;
+            this.currentSlide = this.$refs.carousel.data.currentSlide.value;
         },
         next() {
             this.$refs.carousel.next();
-            this.currentSlide++;
+            this.currentSlide = this.$refs.carousel.data.currentSlide.value;
         },
         updateSlide(slide) {
             this.currentSlide = slide;
