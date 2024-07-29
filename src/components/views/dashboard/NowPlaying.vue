@@ -7,11 +7,11 @@
                     {{ parseState(currentSong.status) }}
                 </p>
 
-                <div class="rounded-xl h-full w-full aspect-square relative overflow-hidden">
-                    <img v-if="currentSong.thumbnail" :src="currentSong.thumbnail" alt="" srcset=""
+                <div v-if="currentSong.thumbnail" class="rounded-xl h-full w-full aspect-square relative overflow-hidden">
+                    <img :src="currentSong.thumbnail" alt="" srcset=""
                         class="w-full h-full scale-[1.35] object-cover">
                 </div>
-                <div v-if="!currentSong.thumbnail" class=" h-48 w-full animate-pulse">
+                <div v-if="!currentSong.thumbnail" class=" h-full w-full aspect-square animate-pulse">
                     <div class="bg-background h-full border border-stroke rounded-xl flex justify-center items-center">
                         <i class="text-2xl fal fa-music-magnifying-glass"></i>
                     </div>
