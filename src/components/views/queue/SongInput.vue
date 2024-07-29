@@ -4,13 +4,14 @@
             <div class="flex justify-between flex-1">
                 <h1 class="text-2xl font-bold">Song Queue ({{ queue.length }})</h1>
                 <div class="flex gap-1 justify-end">
-                    <button v-if="showInput" @click="showInput = false" type="button" class="btn !py-2 !px-2">
+                    <button v-if="showInput" @click="showInput = false" type="button" class="btn !py-2 !px-2"
+                        :disabled="isSubmitting">
                         <i class="fas fa-xmark"></i>
                     </button>
                     <div class="relative group">
                         <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed"
-                            :disabled="disableRequest">
-                            <i class="fad fa-music"></i>Add Songs
+                            :disabled="disableRequest || isSubmitting">
+                            <i :class="['fad', isSubmitting ? 'animate-spin fa-spinner-third' : 'fa-music']"></i> Add Songs
                         </button>
                     </div>
                 </div>
@@ -18,15 +19,16 @@
             <div v-if="showInput" class="grid col-2 gap-2">
                 <div class="flex">
                     <input ref="urlInput" v-model="url" type="url" placeholder="YouTube or Youtube Music URL"
-                        class="form-input flex-1 !rounded-r-none" required />
+                        class="form-input flex-1 !rounded-r-none" required :disabled="isSubmitting" />
                     <button type="button"
                         class="w-10 bg-container py-2 px-3 rounded-r-md border border-stroke flex items-center hover:text-primary base-transition"
-                        @click="handleButtonClick">
+                        @click="handleButtonClick" :disabled="isSubmitting">
                         <i :class="buttonIcon"></i>
                     </button>
                 </div>
                 <div class="flex">
-                    <input v-model="note" type="text" placeholder="Note" class="form-input flex-1 !rounded-r-none" />
+                    <input v-model="note" type="text" placeholder="Note" class="form-input flex-1 !rounded-r-none"
+                        :disabled="isSubmitting" />
                     <div class="w-10 bg-container py-2 px-3 rounded-r-md border border-stroke flex items-center">
                         <i class="fad fa-note"></i>
                     </div>
@@ -35,6 +37,7 @@
         </form>
     </div>
 </template>
+
 
 <script>
 import { supabase } from '@services/supabase'
@@ -71,6 +74,7 @@ export default {
             note: '',
             error: '',
             showInput: false,
+            isSubmitting: false, // New property to track form submission state
         }
     },
     computed: {
@@ -113,7 +117,6 @@ export default {
             }
         },
         async addSong() {
-
             if (this.currentTime <= '08:20') {
                 return
             } else if (this.queue.filter(song => song.created_by === this.user.id).length >= 4) {
@@ -126,6 +129,8 @@ export default {
                 return
             }
             const ytID = extractVideoID(this.url)
+
+            this.isSubmitting = true; // Set isSubmitting to true when form submission starts
 
             try {
                 const videoDetails = await getVideoDetails(ytID)
@@ -170,6 +175,8 @@ export default {
             } catch (error) {
                 console.error('Error adding song:', error.message)
                 this.$emit('handle-error', error.message)
+            } finally {
+                this.isSubmitting = false; // Reset isSubmitting to false when form submission completes
             }
         },
         processYouTubeUrl(url) {
@@ -183,10 +190,3 @@ export default {
     },
 }
 </script>
-  
-<style>
-.group:hover .group-hover\:block {
-    display: block;
-}
-</style>
-  
