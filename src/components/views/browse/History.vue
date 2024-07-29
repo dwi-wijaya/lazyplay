@@ -13,13 +13,11 @@
                     Others
                 </router-link>
                 <div class="hidden gap-1 sm:flex">
-                    <button @click="prev" :disabled="isFirstSlide"
-                        class="btn disabled:!bg-red-400 dark:disabled:!bg-red-300 !text-sm !px-3 !py-1">
-                        <i class="fad fa-chevron-left"></i>
+                    <button @click="prev" :disabled="isFirstSlide" class="btn !text-sm !px-3 !py-1">
+                        <i :class="[isFirstSlide ? 'fad' : 'fa', 'fa-chevron-left']"></i>
                     </button>
-                    <button @click="next" :disabled="isLastSlide"
-                        class="btn disabled:!bg-red-400 dark:disabled:!bg-red-300 !text-sm !px-3 !py-1">
-                        <i class="fad fa-chevron-right"></i>
+                    <button @click="next" :disabled="isLastSlide" class="btn !text-sm !px-3 !py-1">
+                        <i :class="[isLastSlide ? 'fad' : 'fa', 'fa-chevron-right']"></i>
                     </button>
                 </div>
             </div>
