@@ -11,10 +11,10 @@
                 <div class="card !p-3">
                     <div class="flex mb-2">
                         <input ref="urlInput" v-model="query" @input="onInput" type="url"
-                            placeholder="Search your favourite song or artist" class="form-input flex-1 !rounded-r-none"
+                            placeholder="Search your favourite song or artist" class="form-input flex-1 !bg-background !rounded-r-none !border-r-0"
                             required />
                         <button type="button" @click="search"
-                            class="w-10 bg-container py-2 px-3 rounded-r-md border !border-neutral-300 dark:!border-stroke flex items-center hover:text-primary base-transition">
+                            class="w-10 py-2 px-3 !bg-background rounded-r-md border border-stroke !border-l-0 flex items-center hover:text-primary base-transition">
                             <i class="fad fa-music-magnifying-glass"></i>
                         </button>
                     </div>
