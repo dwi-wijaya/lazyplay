@@ -2,8 +2,9 @@
     <div class="w-full sm:max-w-64 md:max-w-72 xl:max-w-80 h-full sm:h-[calc(100vh-5rem)] pb-6">
         <div class="bg-container rounded-2xl p-4 lg:p-5 border border-stroke h-full">
             <div class="group">
-                <p class="mb-2 text-text">
-                    <i :class="['text-sm mr-2', stateIcon(currentSong.status)]"></i>
+                <p class="mb-2 text-text flex items-center gap-2">
+                    <Wave v-if="currentSong.status = 1"/>
+                    <i v-else :class="['text-sm', stateIcon(currentSong.status)]"></i>
                     {{ parseState(currentSong.status) }}
                 </p>
 
@@ -65,9 +66,10 @@
 
 <script>
 import { parseState, stateIcon } from '@helpers/stateHelper';
-
+import Wave from '@components/partial/Wave.vue';
 
 export default {
+    components: { Wave },
     props: {
         currentSong: {
             type: Object,
