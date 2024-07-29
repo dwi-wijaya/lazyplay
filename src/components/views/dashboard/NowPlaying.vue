@@ -3,7 +3,7 @@
         <div class="bg-container rounded-2xl p-4 lg:p-5 border border-stroke h-full">
             <div class="group">
                 <p class="mb-2 text-text flex items-center gap-2">
-                    <Wave v-if="currentSong.status = 1"/>
+                    <Wave v-if="currentSong.status === 1"/>
                     <i v-else :class="['text-sm', stateIcon(currentSong.status)]"></i>
                     {{ parseState(currentSong.status) }}
                 </p>
