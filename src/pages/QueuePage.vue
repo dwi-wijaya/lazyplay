@@ -63,7 +63,7 @@ export default {
         },
         async fetchSongs() {
             let { data: songs, error } = await supabase
-                .from('songs')
+                .from('requests')
                 .select('*')
                 .neq('status', 0)
                 .order('created_at', { ascending: true })

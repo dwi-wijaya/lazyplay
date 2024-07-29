@@ -47,8 +47,8 @@
                     <hr class="border-t border-neutral-600  my-4">
                     <div class="flex gap-1 justify-between items-center text-neutral-400">
                         <div class="flex gap-2 items-center">
-                            <i class="fal fa-user-circle text-sm"></i>
-                            <small class="line-clamp-1">{{ song.created_name }}</small>
+                            <i :class="[song.is_pro == 'true' ? 'fa-duotone fa-solid fa-circle-star text-red-300 fa-spin group-hover:animate-none' : 'fal fa-user-circle text-sm']"></i> 
+                            <small class="line-clamp-1">{{ song.created_name }} </small>
                         </div>
                         <div class="flex gap-2 items-center">
                             <div class="flex gap-2 items-center">
@@ -67,8 +67,8 @@
 </template>
   
 <script>
-import { parseState, stateIcon } from '../../../helpers/stateHelper';
-import { parseDuration } from '../../../helpers/durationHelper';
+import { parseState, stateIcon } from '@helpers/stateHelper';
+import { parseDuration } from '@helpers/durationHelper';
 import { useDateFormat, useNow } from '@vueuse/core'
 
 export default {

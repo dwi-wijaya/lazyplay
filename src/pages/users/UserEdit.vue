@@ -24,6 +24,16 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="" class="font-medium text-text">Mode: </label>
+                <div class="flex gap-4">
+                    <div class="flex gap-2 items-center">
+                        <input id="isPro" name="role" v-model="userMetadata.is_pro" type="checkbox" value="1">
+                        <label for="isPro">PRO</label>
+                    </div>
+
+                </div>
+            </div>
             <div class="flex justify-end">
                 <button type="submit" class="btn mt-4"><i class="fad fa-pen"></i>Update</button>
             </div>
@@ -41,7 +51,7 @@ import { useTitle } from '@vueuse/core'
 const route = useRoute();
 const router = useRouter();
 const user = ref({});
-const userMetadata = ref({ full_name: '', role: '' });
+const userMetadata = ref({ full_name: '', role: '',is_pro: 0 });
 
 const fetchUser = async () => {
     const userId = route.params.id;
@@ -53,6 +63,7 @@ const fetchUser = async () => {
         user.value = data.user;
         userMetadata.value.full_name = data.user.user_metadata.full_name || data.user.name;
         userMetadata.value.role = data.user.user_metadata.role || 'public';
+        userMetadata.value.is_pro = data.user.user_metadata.is_pro || 0;
     }
 };
 
@@ -61,7 +72,8 @@ const updateUser = async () => {
         email: user.value.email,
         user_metadata: {
             full_name: userMetadata.value.full_name,
-            role: userMetadata.value.role
+            role: userMetadata.value.role,
+            is_pro: userMetadata.value.is_pro || 0
         }
     });
 
