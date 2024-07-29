@@ -4,24 +4,10 @@
             <div class="h-[calc(100vh-5rem)] overflow-x-auto scrollbar-hide pb-6 flex-1">
                 <Jumbotron />
 
-                <div class="flex justify-between">
-                    <!-- <h1 class="text-2xl font-bold mb-4">Popular Played Songs</h1>
-
-                    <div class="mb-4">
-                        <select id="timeRange" class="p-2 border rounded-md focus:outline-none" v-model="selectedTimeRange"
-                            @change="fetchDasboardSongs">
-                            <option value="1day">1 Day</option>
-                            <option value="1week">1 Week</option>
-                            <option value="1month">1 Month</option>
-                            <option value="3months">3 Months</option>
-                            <option value="1year">1 Year</option>
-                        </select>
-                    </div> -->
-                </div>
-                <div class="flex flex-col gap-6 mt-6">
-                    <Statistics :totalRequest="totalRequest" :myRequest="myRequest" :uniqueSong="uniqueSong"
+                <div class="flex flex-col gap-6 mt-8">
+                    <Statistics :class="'mt-6'" :totalRequest="totalRequest" :myRequest="myRequest" :uniqueSong="uniqueSong"
                         :uniqueArtist="uniqueArtist" />
-                    <BreakInfo/>
+                    <BreakInfo />
                     <topUser :users="topUser" />
                     <ArtisCard :artists="topArtist" />
                     <TopSong :songs="topSong" />
