@@ -48,7 +48,7 @@
                     <div class="flex gap-1 justify-between items-center text-neutral-400">
                         <div class="flex gap-2 items-center">
                             <i :class="[song.is_pro == 'true' ? 'fa-duotone fa-solid fa-circle-star text-red-300 fa-spin group-hover:animate-none' : 'fal fa-user-circle text-sm']"></i> 
-                            <small class="line-clamp-1">{{ song.created_name }} </small>
+                            <small class="line-clamp-1" :class="{'!text-red-300' : song.is_pro == 'true'}">{{ song.created_name }} </small>
                         </div>
                         <div class="flex gap-2 items-center">
                             <div class="flex gap-2 items-center">
