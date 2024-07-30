@@ -3,16 +3,16 @@
         <h1 class="text-2xl font-bold">Song Playlist ({{ playlist.length }})</h1>
 
         <div class="flex mt-4">
-            <button type="button" :title="buttonTitle"
-                class="w-fit bg-container rounded-l-lg border-r-0 py-2 pl-3 pr-2 border border-stroke items-center hover:text-primary base-transition"
+            <button type="button" :title="buttonTitle" :disabled="isSubmitting"
+                class="w-fit !bg-container rounded-l-lg border-r-0 py-2 pl-3 pr-3 border border-stroke items-center hover:text-primary base-transition"
                 @click="handleButtonClick">
                 <i :class="buttonIcon"></i>
             </button>
             <input ref="urlInput" v-model="url" type="url" placeholder="YouTube song URL"
                 class="form-input flex-1 !w-fit !rounded-none !px-0 !border-x-0" required />
             <button type="submit" class="btn !py-2 !px-3 disabled:cursor-not-allowed !rounded-l-none !text-sm"
-                :disabled="isPlaylistFull">
-                <i class="fad fa-list-music"></i>
+                :disabled="isPlaylistFull || isSubmitting">
+                <i :class="['fad', isSubmitting ? 'animate-spin fa fa-spinner-third' : 'fad fa-list-music']"></i> 
                 Add
             </button>
         </div>
@@ -45,6 +45,7 @@ export default {
             url: '',
             error: '',
             showInput: false,
+            isSubmitting: false, // New property to track form submission state
         }
     },
     computed: {
@@ -81,16 +82,7 @@ export default {
             this.url = '';
         },
         async toggleInput() {
-            if (this.showInput) {
-                await this.addSong()
-            } else {
-                this.showInput = true
-                this.$nextTick(() => {
-                    if (this.showInput) {
-                        this.$refs.urlInput.focus();
-                    }
-                });
-            }
+            await this.addSong()
         },
         async addSong() {
             this.error = ''
@@ -101,6 +93,7 @@ export default {
                 return
             }
             const ytID = extractVideoID(this.url)
+            this.isSubmitting = true; 
 
             try {
                 const videoDetails = await getVideoDetails(ytID)
@@ -145,6 +138,8 @@ export default {
             } catch (error) {
                 console.error('Error adding song:', error.message)
                 this.$emit('handle-error', error.message)
+            } finally {
+                this.isSubmitting = false; // Reset isSubmitting to false when form submission completes
             }
         },
         processYouTubeUrl(url) {
