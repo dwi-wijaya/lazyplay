@@ -12,7 +12,7 @@
   --title-color: rgb(53, 50, 82);
   --text-color: rgb(94, 92, 127);
   --text-secondary: rgb(133, 131, 165);
-  --stroke-color: #d9e1fc;
+  --stroke-color: #e4eaff;
 }
 
 .dark {
@@ -40,8 +40,17 @@ html {
   letter-spacing: .3px;
   font-family: "Onest", sans-serif;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px var(--background-color) inset !important;
+}
+input:-webkit-autofill{
+  -webkit-text-fill-color: var(--text-color) !important;
+}
 
-@layer utilities {
+@layer components {
 
   .base-transition {
     @apply transition-all duration-300 ease-in-out
@@ -64,7 +73,7 @@ html {
   }
 
   .form-input {
-    @apply border border-stroke bg-container border-neutral-300 dark:border-stroke dark:bg-[#323946] text-text rounded-md py-2 px-3 z-[1] focus-visible:!outline-none;
+    @apply border border-stroke bg-container  text-text rounded-md py-2 px-3 z-[1] focus-visible:!outline-none;
   }
 
   .form-control {
