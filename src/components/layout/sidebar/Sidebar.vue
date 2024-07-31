@@ -52,8 +52,8 @@
             <a href="https://saweria.co/dwiwijaya"
                 target="_blank"
                 class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
-                <i class="fad text-rose-500 text-lg fa-circle-heart group-hover:-rotate-[12deg] transition-300 duration-300 transition-all relative">
-                    <i class="animate-ping animate-ping bg-rose-500 opacity-30 rounded-full absolute inline-flex h-full w-full"></i>
+                <i class="fad text-primary text-lg fa-circle-heart group-hover:-rotate-[12deg] transition-300 duration-300 transition-all relative">
+                    <i class="animate-ping bg-primary opacity-30 rounded-full absolute inline-flex h-full w-full"></i>
                 </i>
                 Sponsor
             </a>
