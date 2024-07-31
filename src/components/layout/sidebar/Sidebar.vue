@@ -56,7 +56,7 @@
                     class="fad text-primary text-lg fa-circle-heart group-hover:-rotate-[12deg] transition-300 duration-300 transition-all relative">
                     <i class="animate-ping bg-primary opacity-30 rounded-full absolute inline-flex h-full w-full"></i>
                 </i>
-                Sponsor
+                Become a Sponsor
             </a>
             <hr class="my-2 border-stroke">
             <ThemeToggle />
