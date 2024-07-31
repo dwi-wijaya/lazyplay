@@ -39,20 +39,23 @@
                 class="group flex flex-col gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl base-transition text-base hover:text-primary">
                 <div class="flex items-center gap-2 font-semibold">
                     Upgrade to PRO
-                <i class="fad fa-fire text-primary group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
+                    <i
+                        class="fad fa-fire text-primary group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
                 </div>
                 <div class="text-subtext text-sm"> Unlock and Get Premium Features and More. </div>
-                <a href="https://wa.me/6287700304010" target="_blank" class="btn mt-3 mb-1 text-sm !rounded-xl !px-4 !py-3 !w-full justify-center !font-medium"> Upgrade <i class="group-hover:ml-1 base-transition fad fa-arrow-right"></i></a>
+                <button @click="showModal" target="_blank"
+                    class="btn mt-3 mb-1 text-sm !rounded-xl !px-4 !py-3 !w-full justify-center !font-medium"> Upgrade <i
+                        class="group-hover:ml-1 base-transition fad fa-arrow-right"></i></button>
             </div>
             <!-- <div
                 class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
                 <i class="fad fa-glass-cheers group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
                 Cheers, Bobababa
             </div> -->
-            <a href="https://saweria.co/dwiwijaya"
-                target="_blank"
+            <a href="https://saweria.co/dwiwijaya" target="_blank"
                 class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
-                <i class="fad text-primary text-lg fa-circle-heart group-hover:-rotate-[12deg] transition-300 duration-300 transition-all relative">
+                <i
+                    class="fad text-primary text-lg fa-circle-heart group-hover:-rotate-[12deg] transition-300 duration-300 transition-all relative">
                     <i class="animate-ping bg-primary opacity-30 rounded-full absolute inline-flex h-full w-full"></i>
                 </i>
                 Sponsor
@@ -67,6 +70,38 @@
             <i class="fa-duotone fa-bars text-primary"></i>
         </div>
     </aside>
+    <Modal v-show="isModalVisible" @close="closeModal">
+        <template v-slot:header>
+            <div class="px-4">
+                <h1 class="text-center font-semibold text-xl text-text mb-1">
+                <i class=" fad fa-circle-star text-primary"></i>
+                Upgrade to PRO
+                <i class=" fad fa-circle-star text-primary"></i>
+            </h1>
+            <p class="text-center text-sm text-subtext">Unlock premium features for an enhanced experience.</p>
+            </div>
+        </template>
+        <template v-slot:body>
+            <div>
+                <h3 class="font-medium">What you get</h3>
+                <ul>
+                    <li class="text-sm"><i class="fad fa-circle-check text-primary"></i> Early access to request song tracks</li>
+                    <li class="text-sm"><i class="fad fa-circle-check text-primary"></i> Increase song queue limit by 4</li>
+                    <li class="text-sm"><i class="fad fa-circle-check text-primary"></i> Exclusive Premium Badges</li>
+                    <li class="text-sm"><i class="fad fa-circle-check text-primary"></i> Unlimited playlists</li>
+                </ul>
+            </div>
+        </template>
+        <template v-slot:footer>
+            <div class="flex justify-between items-center">
+                <div class="flex items-end">
+                    <p class="text-2xl font-semibold leading-5 text-primary"><li class="fa fa-dollar-sign fa-xs"></li>1</p>
+                    <p class="text-subtext text-xs">/month</p>
+                </div>
+                <a href="https://saweria.co/dwiwijaya" target="_blank" class="btn text-sm !py-2 !px-3">Upgrade to PRO <i class="fad fa-circle-star fa-spin"></i></a>
+            </div>
+        </template>
+    </Modal>
 </template>
   
 <script>
@@ -78,6 +113,7 @@ import ThemeToggle from './ThemeToggle.vue';
 import Signout from './Signout.vue';
 import ProfileLink from './ProfileLink.vue';
 import { useUserStore } from '@stores/user';
+import Modal from '@components/partial/Modal.vue'
 
 export default {
     // components: { ThemeToggle },
@@ -90,6 +126,7 @@ export default {
             firstName: '',
             userRole: '',
             user: {},
+            isModalVisible: false,
             menuItems: [
                 { label: 'Dashboard', href: '/', iconClass: 'fad fa-home', accessSible: ['admin', 'public', 'operator'] },
                 { label: 'Browse', href: '/browse', iconClass: 'fad fa-music-magnifying-glass', accessSible: ['admin', 'public', 'operator'] },
@@ -134,6 +171,12 @@ export default {
     },
 
     methods: {
+        showModal() {
+            this.isModalVisible = true;
+        },
+        closeModal() {
+            this.isModalVisible = false;
+        },
         async userStore() {
             const userStore = useUserStore();
             await userStore.fetchUser();
@@ -186,6 +229,6 @@ export default {
             this.toggle = !this.toggle;
         },
     },
-    components: { ThemeToggle, Signout, ProfileLink }
+    components: { ThemeToggle, Signout, ProfileLink, Modal }
 };
 </script>
