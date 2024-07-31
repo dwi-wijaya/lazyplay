@@ -57,12 +57,14 @@ export default {
             initialCurrentSong: {
                 title: 'No song selected',
                 artist: 'Unknown artist',
-                status: -3
+                status: -3,
+                created_name: '-'
             },
             currentSong: {
                 title: 'No song selected',
                 artist: 'Unknown artist',
-                status: -3
+                status: -3,
+                created_name: '-'
             },
             upcomingSongs: [],
             selectedTimeRange: '1day',
