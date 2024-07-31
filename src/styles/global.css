@@ -49,7 +49,11 @@ input:-webkit-autofill:active{
 input:-webkit-autofill{
   -webkit-text-fill-color: var(--text-color) !important;
 }
-
+@layer utilities {
+  .webkit-box{
+    display: -webkit-box;
+  }
+}
 @layer components {
 
   .base-transition {

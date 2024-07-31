@@ -54,7 +54,7 @@
                         <p class="text-subtext text-sm text-neutral-400  flex items-center base-transition line-clamp-1">
                             <i class="fad fa-user-music mr-2"></i>
                             <span class="line-clamp-1 group-hover:hidden">{{ song.artist }}</span>
-                            <span class="line-clamp-1 hidden group-hover:block"> {{ song.created_name }}</span>
+                            <span class="line-clamp-1 hidden group-hover:webkit-box"> {{ song.created_name }}</span>
                         </p>
                     </div>
                 </li>
