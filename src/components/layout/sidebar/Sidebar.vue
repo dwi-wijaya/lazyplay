@@ -39,8 +39,6 @@
                 class="group flex flex-col gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl base-transition text-base hover:text-primary">
                 <div class="flex items-center gap-2 font-semibold">
                     Upgrade to PRO
-                    <i
-                        class="fad fa-fire text-primary group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
                 </div>
                 <div class="text-subtext text-sm"> Unlock and Get Premium Features and More. </div>
                 <button @click="showModal" target="_blank"
@@ -53,7 +51,7 @@
                 Cheers, Bobababa
             </div> -->
             <a href="https://saweria.co/dwiwijaya" target="_blank"
-                class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
+                class="group flex gap-2 items-center justify-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
                 <i
                     class="fad text-primary text-lg fa-circle-heart group-hover:-rotate-[12deg] transition-300 duration-300 transition-all relative">
                     <i class="animate-ping bg-primary opacity-30 rounded-full absolute inline-flex h-full w-full"></i>
@@ -74,9 +72,7 @@
         <template v-slot:header>
             <div class="px-4">
                 <h1 class="text-center font-semibold text-xl text-text mb-1">
-                <i class=" fad fa-circle-star text-primary"></i>
                 Upgrade to PRO
-                <i class=" fad fa-circle-star text-primary"></i>
             </h1>
             <p class="text-center text-sm text-subtext">Unlock premium features for an enhanced experience.</p>
             </div>
