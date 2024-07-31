@@ -35,7 +35,7 @@
         </div>
 
         <div class="flex gap-3 flex-col ml-6">
-            <div
+            <div v-if="user.user_metadata?.is_pro != true" 
                 class="group flex flex-col gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl base-transition text-base hover:text-primary">
                 <div class="flex items-center gap-2 font-semibold">
                     Upgrade to PRO
@@ -52,8 +52,10 @@
             <a href="https://saweria.co/dwiwijaya"
                 target="_blank"
                 class="group flex gap-2 items-center bg-background border border-stroke px-4 py-3 rounded-2xl text-base hover:text-primary">
-                <i class="fad fa-gift group-hover:-rotate-[8deg] transition-300 duration-300 transition-all"></i>
-                Support Developer
+                <i class="fad text-rose-500 text-lg fa-circle-heart group-hover:-rotate-[12deg] transition-300 duration-300 transition-all relative">
+                    <i class="animate-ping animate-ping bg-rose-500 opacity-30 rounded-full absolute inline-flex h-full w-full"></i>
+                </i>
+                Sponsor
             </a>
             <hr class="my-2 border-stroke">
             <ThemeToggle />
@@ -87,6 +89,7 @@ export default {
             greetingMessage: '',
             firstName: '',
             userRole: '',
+            user: {},
             menuItems: [
                 { label: 'Dashboard', href: '/', iconClass: 'fad fa-home', accessSible: ['admin', 'public', 'operator'] },
                 { label: 'Browse', href: '/browse', iconClass: 'fad fa-music-magnifying-glass', accessSible: ['admin', 'public', 'operator'] },
@@ -109,7 +112,7 @@ export default {
             return this.menuItems.filter(item => item.accessSible.includes(this.userRole));
         }
     },
-    mounted() {
+    async mounted() {
         this.userStore()
         this.sidebarElement = document.querySelector('.sidebar');
         document.addEventListener('mousedown', this.handleClickOutside);
@@ -136,6 +139,7 @@ export default {
             await userStore.fetchUser();
             this.firstName = userStore.user?.user_metadata.full_name;
             this.userRole = userStore.user?.user_metadata.role || 'public';
+            this.user = userStore.user
         },
         updateTime() {
             const now = new Date();
