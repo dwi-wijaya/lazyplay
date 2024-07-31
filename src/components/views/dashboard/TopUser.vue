@@ -22,7 +22,7 @@
                         <i class="fad fa-fire  text-xl xl:text-3xl"></i> {{ user.top_user }}
                     </div>
                 </div>
-                <p class="leading-5 text-center line-clamp-2 text-sm mx-1">{{ user.created_name }}</p>
+                <p class="leading-5 text-center line-clamp-2 text-sm mx-1"><i class="fad fa-award text-primary" v-if="index == 0"></i>  {{ user.created_name }} </p>
             </div>
         </div>
     </div>
