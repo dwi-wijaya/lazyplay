@@ -78,17 +78,17 @@ export default {
     computed: {
         disableRequest() {
             if (this.currentTime <= '08:20') {
-                this.message = REQUEST_AVAILABLE_TIME
+                this.message = (this.user.user_metadata?.is_pro ?? false)  ? REQUEST_AVAILABLE_TIME.replace('or upgrade to <strong>PRO</strong>', '') : REQUEST_AVAILABLE_TIME
                 return true
             } else if (this.userQueue.length >= 4) {
-                this.message = MAX_REQUESTS_REACHED
+                this.message = (this.user.user_metadata?.is_pro ?? false)  ? MAX_REQUESTS_REACHED.replace('or upgrade to <strong>PRO</strong>', '') : MAX_REQUESTS_REACHED
                 return true
             } else {
                 this.message = ''
             }
         },
         isPlaylistFull() {
-            return this.playlist.length >= 50
+            return (this.user?.user_metadata?.is_pro ?? false) ? this.playlist.length >= 100 : this.playlist.length >= 50
         },
         maxPlaylistMsg() {
             return MAX_PLAYLIST_REACHED

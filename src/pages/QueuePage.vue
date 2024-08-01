@@ -47,10 +47,10 @@ export default {
             const userQueueCount = this.songs.filter(song => song.created_by === this.user.id).length;
 
             if (this.currentTime <= '08:20') {
-                this.message = REQUEST_AVAILABLE_TIME
+                this.message = (this.user?.user_metadata?.is_pro ?? false)  ? REQUEST_AVAILABLE_TIME.replace('or upgrade to <strong>PRO</strong>', '') : REQUEST_AVAILABLE_TIME
                 return true
             } else if (userQueueCount >= 4) {
-                this.message = MAX_REQUESTS_REACHED
+                this.message = (this.user?.user_metadata?.is_pro ?? false)  ? MAX_REQUESTS_REACHED.replace('or upgrade to <strong>PRO</strong>', '') : MAX_REQUESTS_REACHED
                 return true
             } else {
                 this.message = ''

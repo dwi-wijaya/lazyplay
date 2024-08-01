@@ -59,10 +59,10 @@ export default {
     computed: {
         disableRequest() {
             if (this.currentTime <= '08:20') {
-                this.message = REQUEST_AVAILABLE_TIME
+                this.message = (this.user.user_metadata?.is_pro ?? false)  ? REQUEST_AVAILABLE_TIME.replace('or upgrade to <strong>PRO</strong>', '') : REQUEST_AVAILABLE_TIME
                 return true
             } else if (this.userQueue.length >= 4) {
-                this.message = MAX_REQUESTS_REACHED
+                this.message = (this.user.user_metadata?.is_pro ?? false)  ? MAX_REQUESTS_REACHED.replace('or upgrade to <strong>PRO</strong>', '') : MAX_REQUESTS_REACHED
                 return true
             } else {
                 this.message = ''
